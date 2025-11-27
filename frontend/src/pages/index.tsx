@@ -268,38 +268,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Role-Based Access */}
-      <section className="py-20 md:py-32 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Built for Everyone
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Different roles with tailored experiences to meet every need
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {roadmapItems.map((item, index) => (
-              <div key={index} className="p-6 rounded-xl border bg-background">
-                <h3 className="font-semibold text-xl mb-4">{item.title}</h3>
-                <ul className="space-y-3">
-                  {item.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex gap-2 items-start">
-                      <span className="text-primary font-semibold">•</span>
-                      <span className="text-sm text-muted-foreground">
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-20 md:py-32">
         <div className="container mx-auto px-4">

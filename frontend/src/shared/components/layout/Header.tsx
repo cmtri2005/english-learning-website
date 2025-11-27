@@ -38,11 +38,13 @@ export default function Header() {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 font-bold text-2xl">
-          <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white">
-            E
-          </div>
+          <img 
+            src="/logo_monolingo.png" 
+            alt="Monolingo Logo" 
+            className="h-16 w-auto"
+          />
           <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            LinguaFlow
+            Monolingo
           </span>
         </Link>
 

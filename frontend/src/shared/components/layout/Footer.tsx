@@ -13,7 +13,7 @@ export default function Footer() {
                 E
               </div>
               <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                LinguaFlow
+                Monolingo
               </span>
             </div>
             <p className="text-sm text-muted-foreground">
@@ -145,7 +145,7 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2024 LinguaFlow. All rights reserved.
+            © 2024 Monolingo. All rights reserved.
           </p>
           <div className="flex gap-4">
             <a

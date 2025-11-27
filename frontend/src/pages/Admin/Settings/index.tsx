@@ -5,9 +5,9 @@ import { useState } from "react";
 
 export default function AdminSettings() {
   const [settings, setSettings] = useState({
-    siteName: "LinguaFlow",
+    siteName: "Monolingo",
     siteDescription: "Master English with AI-Powered Learning",
-    contactEmail: "admin@linguaflow.com",
+    contactEmail: "admin@monolingo.com",
     maintenanceMode: false,
     emailNotifications: true,
     smsNotifications: false,
