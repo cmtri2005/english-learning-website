@@ -1,15 +1,15 @@
-version: '3.9'
+version: "3.9"
 
 services:
   mysql:
     image: mysql:8.0
     container_name: mysql_db
-    restart: always
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root123
-      MYSQL_DATABASE: app_db
-      MYSQL_USER: app_user
-      MYSQL_PASSWORD: app_password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
@@ -19,9 +19,9 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: pma
-    restart: always
+    restart: unless-stopped
     ports:
-      - "8080:80"
+      - "8081:80"
     environment:
       PMA_HOST: mysql
       PMA_USER: root
@@ -32,13 +32,13 @@ services:
   php-api:
     build: ./backend/api
     container_name: php_api
-    restart: always
+    restart: unless-stopped
     environment:
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_USER: app_user
-      DB_PASSWORD: app_password
-      DB_NAME: app_db
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
     ports:
       - "8000:80"
     depends_on:
