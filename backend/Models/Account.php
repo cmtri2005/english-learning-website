@@ -56,6 +56,10 @@ class Account extends Model
         return $admin;
     }
 
+    public static function findByEmail($email) {
+        return self::findOneBy('email', $email);
+    }
+
     public static function findByResetToken($token)
     {
         return self::findOneBy('reset_password_token', $token);

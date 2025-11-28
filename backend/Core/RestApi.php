@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Core;
 class RestApi
 {
     static function setHeaders($isUpload = false)
