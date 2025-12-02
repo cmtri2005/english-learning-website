@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS `db_monolingo_app` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS `app_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-USE `db_monolingo_app`;
+USE `app_db`;
 
 -- Accounts table
 CREATE TABLE IF NOT EXISTS `accounts` (
