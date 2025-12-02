@@ -11,29 +11,23 @@ class Cookies
 
     public function setAuth($payload)
     {
-        $jwt = new JwtHandler($_ENV['JWT_SECRET']);
+        $jwt = new JwtHandler($_ENV['JWT_SECRET'] ?? '');
         $expired = time() + self::COOKIE_EXPIRE;
 
         $jwt->setExpirationTime($expired);
         $encryptPayload = $jwt->generateToken($payload);
-        $cookieOptions = [
-            'expires' => $expired,
-            'path' => '/',
-            'domain' => '',
-            'secure' => false, // Set to true in production with HTTPS
-            'httponly' => true, // Prevent XSS
-            'samesite' => 'Lax' // CRSF protection
-        ];
-
-        // create cookie
+        // Use array format for setcookie to support SameSite attribute (PHP 7.3+)
         setcookie(
             $this->cookie_name,
             $encryptPayload,
-            $cookieOptions['expires'],
-            $cookieOptions['path'],
-            $cookieOptions['domain'],
-            $cookieOptions['secure'],
-            $cookieOptions['httponly'],
+            [
+                'expires' => $expired,
+                'path' => '/',
+                'domain' => '', // Empty domain works for localhost
+                'secure' => false, // Set to true in production with HTTPS
+                'httponly' => true, // Prevent XSS
+                'samesite' => 'Lax' // Works for same-site requests (localhost:5173 -> localhost:8000)
+            ]
         );
     }
 
@@ -62,11 +56,20 @@ class Cookies
                 return null;
             }
 
-            $jwt = new JwtHandler($_ENV['JWT_SECRET']);
-            $decryptPayload = $jwt->decodeToken($token);
+            $jwt = new JwtHandler($_ENV['JWT_SECRET'] ?? '');
+            // Use validateToken to ensure token is valid (signature and expiration)
+            $payload = $jwt->validateToken($token);
 
-            return $decryptPayload['payload']['data'];
+            // Handle both cases: data wrapped in 'data' key or merged directly
+            if (isset($payload['data'])) {
+                return $payload['data'];
+            }
+
+            // If data is merged directly, remove JWT standard fields and return the rest
+            unset($payload['iat'], $payload['exp'], $payload['nbf']);
+            return $payload;
         } catch (\Throwable $th) {
+            error_log('decodeAuth error: ' . $th->getMessage());
             $this->removeAuth();
             return null;
         }

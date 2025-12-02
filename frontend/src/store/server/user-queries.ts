@@ -9,7 +9,7 @@
  */
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { api, type User } from '@/services/http/api';
+import { api, type User } from '@/services/api';
 import { queryKeys } from '../config/query-client';
 
 /**

@@ -2,12 +2,17 @@
 
 namespace App\Core;
 
-use Database;
-
 use PDO;
+use App\Helper\Database;
 
 abstract class Model implements Model_Interface
 {
+    // Helper method để truy cập PDO
+    protected static function db(): PDO
+    {
+        return Database::getInstance();
+    }
+
     protected static $table;
     protected static $primaryKey = 'id';
 
@@ -39,7 +44,7 @@ abstract class Model implements Model_Interface
             $setClause = implode(',', $setClause);
 
             $query = "UPDATE " . static::$table . " SET {$setClause} WHERE " . $primaryKey . " = :id";
-            $stmt = PDO()->prepare($query);
+            $stmt = self::db()->prepare($query);
 
             $stmt->bindParam(':id', $id);
             foreach ($data as $key => $value) {
@@ -63,14 +68,14 @@ abstract class Model implements Model_Interface
             $placeholders = ':' . implode(', :', array_keys($data));
 
             $query = "INSERT INTO " . static::$table . " ({$columns}) VALUES ({$placeholders})";
-            $stmt = PDO()->prepare($query);
+            $stmt = self::db()->prepare($query);
 
             foreach ($data as $key => $value) {
                 $stmt->bindValue(":{$key}", $value);
             }
             if ($stmt->execute()) {
                 // Set the primary key value for the current instance
-                $insertId = PDO()->lastInsertId();
+                $insertId = self::db()->lastInsertId();
                 if ($insertId) {
                     $this->$primaryKey = $insertId;
                 }
@@ -95,7 +100,7 @@ abstract class Model implements Model_Interface
             $query .= " ORDER BY {$orderBy} {$direction}";
         }
 
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, static::class);
     }
@@ -109,7 +114,7 @@ abstract class Model implements Model_Interface
     public static function find($id)
     {
         $query = "SELECT * FROM " . static::$table . " WHERE " . static::$primaryKey . " = :id LIMIT 1";
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, static::class);
@@ -127,7 +132,7 @@ abstract class Model implements Model_Interface
     public static function findBy($field, $value)
     {
         $query = "SELECT * FROM " . static::$table . " WHERE {$field} = :value";
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         $stmt->bindParam(':value', $value);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, static::class);
@@ -143,7 +148,7 @@ abstract class Model implements Model_Interface
     public static function findOneBy($field, $value)
     {
         $query = "SELECT * FROM " . static::$table . " WHERE {$field} = :value LIMIT 1";
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         $stmt->bindParam(':value', $value);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, static::class);
@@ -170,7 +175,7 @@ abstract class Model implements Model_Interface
         $whereSql = implode(' AND ', $whereClause);
         $query = "SELECT * FROM $table WHERE $whereSql LIMIT 1";
 
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         foreach ($params as $key => $value) {
             $stmt->bindValue($key, $value);
         }
@@ -196,14 +201,14 @@ abstract class Model implements Model_Interface
         $placeholders = ':' . implode(', :', array_keys($data));
 
         $query = "INSERT INTO " . static::$table . " ({$columns}) VALUES ({$placeholders})";
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
 
         foreach ($data as $key => $value) {
             $stmt->bindValue(":{$key}", $value);
         }
 
         if ($stmt->execute()) {
-            $id = PDO()->lastInsertId();
+            $id = self::db()->lastInsertId();
             return static::find($id);
         }
 
@@ -227,7 +232,7 @@ abstract class Model implements Model_Interface
 
         
         $query = "UPDATE " . static::$table . " SET {$setClause} WHERE " . static::$primaryKey . " = :id";
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
 
         $stmt->bindParam(':id', $id);
         foreach ($data as $key => $value) {
@@ -246,7 +251,7 @@ abstract class Model implements Model_Interface
     public static function delete($id)
     {
         $query = "DELETE FROM " . static::$table . " WHERE " . static::$primaryKey . " = :id";
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
@@ -262,7 +267,7 @@ abstract class Model implements Model_Interface
     {
         try {
 
-            $stmt = PDO()->prepare($query);
+            $stmt = self::db()->prepare($query);
 
             foreach ($params as $key => $value) {
                 $stmt->bindValue(is_numeric($key) ? $key + 1 : ":{$key}", $value);
@@ -309,7 +314,7 @@ abstract class Model implements Model_Interface
 
         $query .= implode(" {$operator} ", $whereConditions);
 
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         foreach ($params as $key => $value) {
             $stmt->bindValue(":{$key}", $value);
         }
@@ -354,7 +359,7 @@ abstract class Model implements Model_Interface
 
         $query .= implode(" {$operator} ", $whereConditions);
 
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         foreach ($params as $key => $value) {
             $stmt->bindValue(":{$key}", $value);
         }
@@ -380,7 +385,7 @@ abstract class Model implements Model_Interface
 
         // Đếm tổng số bản ghi
         $countQuery = "SELECT COUNT(*) FROM " . static::$table;
-        $countStmt = PDO()->prepare($countQuery);
+        $countStmt = self::db()->prepare($countQuery);
         $countStmt->execute();
         $total = (int) $countStmt->fetchColumn();
 
@@ -397,7 +402,7 @@ abstract class Model implements Model_Interface
 
         $query .= " LIMIT :limit OFFSET :offset";
 
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
@@ -458,7 +463,7 @@ abstract class Model implements Model_Interface
 
         // Đếm tổng số bản ghi thỏa mãn điều kiện
         $countQuery = "SELECT COUNT(*) FROM " . static::$table . $whereClause;
-        $countStmt = PDO()->prepare($countQuery);
+        $countStmt = self::db()->prepare($countQuery);
 
         foreach ($params as $key => $value) {
             $countStmt->bindValue(":{$key}", $value);
@@ -480,7 +485,7 @@ abstract class Model implements Model_Interface
 
         $query .= " LIMIT :limit OFFSET :offset";
 
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
 
         foreach ($params as $key => $value) {
             $stmt->bindValue(":{$key}", $value);

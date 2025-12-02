@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `password` VARCHAR(255) NOT NULL,
   `phone` VARCHAR(15),
   `address` TEXT,
-  `role` ENUM('user', 'admin', 'instructor') DEFAULT 'user',
+  `role` ENUM('user', 'admin') DEFAULT 'user',
   `points` SMALLINT DEFAULT 0,
   `ranking` ENUM('bronze', 'silver', 'gold', 'diamond') DEFAULT 'bronze',
   `verify_email_token` VARCHAR(255),

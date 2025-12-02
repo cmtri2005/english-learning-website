@@ -5,30 +5,30 @@ import ProtectedRoute from '@/routers/ProtectedRoute';
 
 // Public pages
 import Index from '@/pages/index';
-import Login from '@/pages/Login';
-import Register from '@/pages/Register';
+import Login from '@/pages/Auth/components/Login';
+import Register from '@/pages/Auth/components/Register';
+import ForgotPassword from '@/pages/Auth/components/ForgotPassword';
+import ResetPassword from '@/pages/Auth/components/ResetPassword';
+import Logout from '@/pages/Auth/components/Logout';
 import Courses from '@/pages/Courses';
 import Blog from '@/pages/Blog';
 import BlogPostDetail from '@/pages/Blog/PostDetail';
 import BlogCreatePost from '@/pages/Blog/CreatePost';
-import Unauthorized from '@/pages/Unauthorized';
-import NotFound from '@/pages/NotFound';
+import Unauthorized from '@/pages/Auth/components/Unauthorized';
 
 // Protected pages (require authentication)
-import HomeLoggedIn from '@/pages/Dashboard/HomeLoggedIn';
 import Dashboard from '@/pages/Dashboard';
 import Profile from '@/pages/Profile';
-import Purchases from '@/pages/Dashboard/Purchases';
 import Settings from '@/pages/Profile/Settings';
 import Forum from '@/pages/Forum';
 
 // Admin pages (require admin/teacher role)
-import AdminDashboard from '@/pages/Admin';
-import AdminUsers from '@/pages/Admin/Users';
-import AdminCourses from '@/pages/Admin/Courses';
-import AdminModeration from '@/pages/Admin/Moderation';
-import AdminAnalytics from '@/pages/Admin/Analytics';
-import AdminSettings from '@/pages/Admin/Settings';
+import AdminDashboard from '@/pages/AdminConsole';
+import AdminUsers from '@/pages/AdminConsole/Users';
+import AdminCourses from '@/pages/AdminConsole/Courses';
+import AdminModeration from '@/pages/AdminConsole/Moderation';
+import AdminAnalytics from '@/pages/AdminConsole/Analytics';
+import AdminSettings from '@/pages/AdminConsole/Settings';
 
 // ==================== Route Configuration ====================
 
@@ -38,14 +38,8 @@ export const routes: RouteObject[] = [
     path: '/',
     element: <Index />,
   },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/register',
-    element: <Register />,
-  },
+  { path: '/login', element: <Login /> },
+  { path: '/register', element: <Register /> },
   {
     path: '/courses',
     element: <Courses />,
@@ -58,20 +52,11 @@ export const routes: RouteObject[] = [
     path: '/blog/:slug',
     element: <BlogPostDetail />,
   },
-  {
-    path: '/unauthorized',
-    element: <Unauthorized />,
-  },
+  { path: '/unauthorized', element: <Unauthorized /> },
+  { path: '/forgot-password', element: <ForgotPassword /> },
+  { path: '/reset-password', element: <ResetPassword /> },
 
   // ===== Protected Routes (Authentication Required) =====
-  {
-    path: '/home',
-    element: (
-      <ProtectedRoute>
-        <HomeLoggedIn />
-      </ProtectedRoute>
-    ),
-  },
   {
     path: '/dashboard',
     element: (
@@ -89,18 +74,18 @@ export const routes: RouteObject[] = [
     ),
   },
   {
-    path: '/purchases',
-    element: (
-      <ProtectedRoute>
-        <Purchases />
-      </ProtectedRoute>
-    ),
-  },
-  {
     path: '/settings',
     element: (
       <ProtectedRoute>
         <Settings />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/logout',
+    element: (
+      <ProtectedRoute>
+        <Logout />
       </ProtectedRoute>
     ),
   },
@@ -129,11 +114,11 @@ export const routes: RouteObject[] = [
     ),
   },
 
-  // ===== Admin Routes (Admin/Teacher Only) =====
+  // ===== Admin Routes (Admin Only) =====
   {
     path: '/admin',
     element: (
-      <ProtectedRoute requireRoles={['admin', 'teacher']}>
+      <ProtectedRoute requireRoles={['admin']}>
         <AdminDashboard />
       </ProtectedRoute>
     ),
@@ -149,7 +134,7 @@ export const routes: RouteObject[] = [
   {
     path: '/admin/courses',
     element: (
-      <ProtectedRoute requireRoles={['admin', 'teacher']}>
+      <ProtectedRoute requireRoles={['admin']}>
         <AdminCourses />
       </ProtectedRoute>
     ),
@@ -157,7 +142,7 @@ export const routes: RouteObject[] = [
   {
     path: '/admin/moderation',
     element: (
-      <ProtectedRoute requireRoles={['admin', 'teacher']}>
+      <ProtectedRoute requireRoles={['admin']}>
         <AdminModeration />
       </ProtectedRoute>
     ),
@@ -180,8 +165,8 @@ export const routes: RouteObject[] = [
   },
 
   // ===== 404 Catch-All =====
-  {
-    path: '*',
-    element: <NotFound />,
-  },
+  // {
+  //   path: '*',
+  //   element: <NotFound />,
+  // },
 ];
