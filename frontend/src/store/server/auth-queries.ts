@@ -12,7 +12,7 @@
  */
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { api, type User, type LoginRequest, type RegisterRequest } from '@/services/http/api';
+import { api, type User, type LoginRequest, type RegisterRequest } from '@/services/api';
 import { queryKeys } from '../config/query-client';
 import { useAuthStore } from '../client/auth-store';
 

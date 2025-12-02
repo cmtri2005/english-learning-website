@@ -27,6 +27,22 @@ export default function Header() {
 
   const isActive = (href: string) => location.pathname === href;
 
+  // Helper function to get user initial safely
+  const getUserInitial = () => {
+    if (user?.name && user.name.length > 0) {
+      return user.name.charAt(0).toUpperCase();
+    }
+    if (user?.email && user.email.length > 0) {
+      return user.email.charAt(0).toUpperCase();
+    }
+    return 'U';
+  };
+
+  // Helper function to get user display name safely
+  const getUserDisplayName = () => {
+    return user?.name || user?.email || 'User';
+  };
+
   const handleLogout = async () => {
     await logout();
     navigate("/");
@@ -82,20 +98,20 @@ export default function Header() {
                   className="flex items-center gap-2"
                 >
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-sm font-semibold">
-                    {user.name.charAt(0).toUpperCase()}
+                    {getUserInitial()}
                   </div>
                   <span className="text-sm font-medium hidden sm:inline">
-                    {user.name}
+                    {getUserDisplayName()}
                   </span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
                 <div className="flex items-center gap-2 px-2 py-1.5">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-semibold">
-                    {user.name.charAt(0).toUpperCase()}
+                    {getUserInitial()}
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-sm">{user.name}</span>
+                    <span className="font-semibold text-sm">{getUserDisplayName()}</span>
                     <span className="text-xs text-muted-foreground">
                       {user.email}
                     </span>
@@ -120,12 +136,12 @@ export default function Header() {
                     Settings
                   </Link>
                 </DropdownMenuItem>
-                {(user.role === 'admin' || user.role === 'teacher') && (
+                {user.role === 'admin' && (
                   <>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
                       <Link to="/admin" className="cursor-pointer text-primary">
-                        {user.role === 'admin' ? 'Admin Dashboard' : 'Teacher Dashboard'}
+                        Admin Dashboard
                       </Link>
                     </DropdownMenuItem>
                   </>
@@ -189,10 +205,10 @@ export default function Header() {
                 <>
                   <div className="flex items-center gap-2 px-2 py-2 bg-muted rounded-md">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-semibold">
-                      {user.name.charAt(0).toUpperCase()}
+                      {getUserInitial()}
                     </div>
                     <div className="flex flex-col">
-                      <span className="font-semibold text-sm">{user.name}</span>
+                      <span className="font-semibold text-sm">{getUserDisplayName()}</span>
                       <span className="text-xs text-muted-foreground">
                         {user.email}
                       </span>
@@ -228,7 +244,7 @@ export default function Header() {
                       Settings
                     </Button>
                   </Link>
-                  {(user.role === 'admin' || user.role === 'teacher') && (
+                  {user.role === 'admin' && (
                     <div className="mt-2 pt-2 border-t">
                       <Link to="/admin">
                         <Button
@@ -236,7 +252,7 @@ export default function Header() {
                           className="w-full justify-start text-sm text-primary"
                           onClick={() => setIsOpen(false)}
                         >
-                          {user.role === 'admin' ? 'Admin Dashboard' : 'Teacher Dashboard'}
+                          Admin Dashboard
                         </Button>
                       </Link>
                     </div>

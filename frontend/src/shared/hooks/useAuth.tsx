@@ -21,7 +21,7 @@ import {
   useLogout as useLogoutMutation,
   useRefreshUser as useRefreshUserMutation,
 } from '@/store/server/auth-queries';
-import type { LoginRequest, RegisterRequest } from '@/services/http/api';
+import type { LoginRequest, RegisterRequest } from '@/services/api';
 
 /**
  * Unified Auth Hook

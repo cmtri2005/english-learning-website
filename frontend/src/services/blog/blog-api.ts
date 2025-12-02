@@ -4,7 +4,7 @@
  * Service layer for blog-related API calls.
  */
 
-import { api, type ApiResponse } from '../http/api';
+import { api, type ApiResponse } from '../api';
 
 // ==================== Types ====================
 
