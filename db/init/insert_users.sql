@@ -4,7 +4,7 @@
 -- IMPORTANT: All password hashes below are valid bcrypt hashes for 'password123'
 -- Generated using: App\Core\Hash::make('password123')
 
-USE `db_monolingo_app`;
+USE `app_db`;
 
 -- Insert Admin user
 -- Email: admin@monolingo.com
