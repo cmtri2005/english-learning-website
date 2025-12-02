@@ -3,7 +3,7 @@
  * Entry point cho tất cả requests
  * Xử lý CORS preflight requests trước khi routing
  */
-
+use \App\Core\RestApi;
 // Tắt display errors để tránh HTML output
 ini_set('display_errors', '0');
 ini_set('display_startup_errors', '0');
@@ -12,43 +12,6 @@ ini_set('log_errors', '1');
 
 // Bật output buffering để tránh output trước JSON
 ob_start();
-
-// Lấy origin từ request header
-$origin = $_SERVER['HTTP_ORIGIN'] ?? null;
-$allowedOrigins = [
-    'http://localhost:5173',
-    'http://localhost:3000',
-    'http://127.0.0.1:5173',
-    'http://127.0.0.1:3000',
-];
-
-// Nếu origin được phép, dùng nó; nếu không, dùng origin từ request hoặc mặc định
-$corsOrigin = '*';
-if ($origin && in_array($origin, $allowedOrigins)) {
-    $corsOrigin = $origin;
-} elseif ($origin) {
-    // Cho phép origin từ request nếu trong development
-    $corsOrigin = $origin;
-}
-
-// Xử lý CORS preflight request (OPTIONS) ngay từ đầu
-// Phải xử lý trước bất kỳ output nào
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    // Set CORS headers
-    header("Access-Control-Allow-Origin: " . $corsOrigin);
-    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, OPTIONS");
-    header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
-    header("Access-Control-Allow-Credentials: true");
-    header("Access-Control-Max-Age: 3600");
-    http_response_code(200);
-    exit(0);
-}
-
-// Set CORS headers cho tất cả requests (không chỉ OPTIONS)
-header("Access-Control-Allow-Origin: " . $corsOrigin);
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
-header("Access-Control-Allow-Credentials: true");
 
 // Load environment variables
 if (file_exists(__DIR__ . '/.env')) {
@@ -92,8 +55,8 @@ set_error_handler(function ($severity, $message, $file, $line) {
         }
         
         if (class_exists('\App\Core\RestApi')) {
-            \App\Core\RestApi::setHeaders();
-            \App\Core\RestApi::apiError('Đã xảy ra lỗi server', 500);
+            RestApi::setHeaders();
+            RestApi::apiError('Đã xảy ra lỗi server', 500);
         } else {
             header("Content-Type: application/json");
             http_response_code(500);
@@ -111,8 +74,8 @@ set_error_handler(function ($severity, $message, $file, $line) {
 set_exception_handler(function ($exception) {
     error_log("Uncaught Exception: " . $exception->getMessage());
     if (class_exists('\App\Core\RestApi')) {
-        \App\Core\RestApi::setHeaders();
-        \App\Core\RestApi::apiError('Đã xảy ra lỗi không mong muốn', 500);
+        RestApi::setHeaders();
+        RestApi::apiError('Đã xảy ra lỗi không mong muốn', 500);
     } else {
         header("Content-Type: application/json");
         http_response_code(500);
@@ -122,6 +85,11 @@ set_exception_handler(function ($exception) {
 });
 
 try {
+    // Set CORS headers & xử lý preflight request (OPTIONS) tập trung tại RestApi
+    if (class_exists('\App\Core\RestApi')) {
+        RestApi::setHeaders();
+    }
+
     // Initialize router
     $router = new \App\Routes\Router();
 
@@ -156,7 +124,7 @@ try {
     }
     // Đảm bảo headers đã được set
     if (!headers_sent()) {
-        \App\Core\RestApi::setHeaders();
+        RestApi::setHeaders();
     }
-    \App\Core\RestApi::apiError('Đã xảy ra lỗi server', 500);
+    RestApi::apiError('Đã xảy ra lỗi server', 500);
 }
