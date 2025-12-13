@@ -23,7 +23,13 @@ if (file_exists(__DIR__ . '/.env')) {
     }
 }
 
-// Autoload classes (phải load trước error handlers)
+// Composer autoload (cho thư viện bên thứ 3 như PHPMailer)
+$composerAutoload = __DIR__ . '/vendor/autoload.php';
+if (file_exists($composerAutoload)) {
+    require $composerAutoload;
+}
+
+// Autoload classes trong project (phải load trước error handlers)
 spl_autoload_register(function ($class) {
     $prefix = 'App\\';
     $base_dir = __DIR__ . '/';

@@ -10,14 +10,8 @@ import { queryClient } from "@/store/config/query-client";
 import { useCurrentUser } from "@/store/server/auth-queries";
 import { routes } from "@/routers/routes";
 
-/**
- * Auth Initializer Component
- * 
- * Initializes authentication state on app mount.
- * This ensures the current user is loaded when the app starts.
- */
+
 function AuthInitializer({ children }: { children: React.ReactNode }) {
-  // Fetch current user on mount if token exists
   useCurrentUser();
   
   return <>{children}</>;

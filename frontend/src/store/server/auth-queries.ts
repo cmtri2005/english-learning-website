@@ -46,7 +46,7 @@ export function useCurrentUser() {
 export function useLogin() {
   const queryClient = useQueryClient();
   const { setUser } = useAuthStore();
-  
+
   return useMutation({
     mutationFn: async (credentials: LoginRequest) => {
       const response = await api.login(credentials);
@@ -56,18 +56,17 @@ export function useLogin() {
       return response.data;
     },
     onSuccess: (data) => {
-      const { user, token, refreshToken } = data;
-      
+      const { user, token } = data;
+
       // Store tokens
       api.setToken(token);
-      localStorage.setItem('refreshToken', refreshToken);
-      
+
       // Update client store
       setUser(user);
-      
+
       // Invalidate and refetch current user query
       queryClient.setQueryData(queryKeys.auth.currentUser(), user);
-      
+
       // Optionally: Invalidate other queries that depend on auth
       queryClient.invalidateQueries({ queryKey: queryKeys.auth.all });
     },
@@ -85,7 +84,7 @@ export function useLogin() {
 export function useRegister() {
   const queryClient = useQueryClient();
   const { setUser } = useAuthStore();
-  
+
   return useMutation({
     mutationFn: async (data: RegisterRequest) => {
       const response = await api.register(data);
@@ -95,18 +94,17 @@ export function useRegister() {
       return response.data;
     },
     onSuccess: (data) => {
-      const { user, token, refreshToken } = data;
-      
+      const { user, token } = data;
+
       // Store tokens
       api.setToken(token);
-      localStorage.setItem('refreshToken', refreshToken);
-      
+
       // Update client store
       setUser(user);
-      
+
       // Set query data for current user
       queryClient.setQueryData(queryKeys.auth.currentUser(), user);
-      
+
       // Invalidate auth queries
       queryClient.invalidateQueries({ queryKey: queryKeys.auth.all });
     },
@@ -123,7 +121,7 @@ export function useRegister() {
 export function useLogout() {
   const queryClient = useQueryClient();
   const { clearAuth } = useAuthStore();
-  
+
   return useMutation({
     mutationFn: async () => {
       try {
@@ -133,18 +131,17 @@ export function useLogout() {
         console.error('Logout API error:', error);
       }
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       // Clear tokens
       api.setToken(null);
       localStorage.removeItem('token');
-      localStorage.removeItem('refreshToken');
-      
+
       // Clear client store
       clearAuth();
-      
+
       // Remove all auth query data
       queryClient.removeQueries({ queryKey: queryKeys.auth.all });
-      
+
       // Optionally: Clear all queries or specific ones
       // queryClient.clear();
     },
@@ -154,7 +151,6 @@ export function useLogout() {
       clearAuth();
       api.setToken(null);
       localStorage.removeItem('token');
-      localStorage.removeItem('refreshToken');
       queryClient.removeQueries({ queryKey: queryKeys.auth.all });
     },
   });
@@ -167,7 +163,7 @@ export function useLogout() {
 export function useRefreshUser() {
   const queryClient = useQueryClient();
   const { setUser } = useAuthStore();
-  
+
   return useMutation({
     mutationFn: async () => {
       const response = await api.getCurrentUser();
@@ -179,7 +175,7 @@ export function useRefreshUser() {
     onSuccess: (user) => {
       // Update client store
       setUser(user);
-      
+
       // Update query cache
       queryClient.setQueryData(queryKeys.auth.currentUser(), user);
     },

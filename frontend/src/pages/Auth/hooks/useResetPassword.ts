@@ -13,15 +13,12 @@ interface ResetPasswordResponse {
 
 /**
  * Hook đặt lại mật khẩu với token.
- * Gọi POST /reset-password trên backend.
+ * Gọi POST /api/auth/reset-password trên backend.
  */
 export function useResetPassword() {
   return useMutation<ResetPasswordResponse, Error, ResetPasswordRequest>({
     mutationFn: async (payload: ResetPasswordRequest) => {
-      const res = await api.request<ResetPasswordResponse>("/reset-password", {
-        method: "POST",
-        body: JSON.stringify(payload),
-      });
+      const res = await api.resetPassword(payload);
 
       if (!res.success) {
         throw new Error(res.message || "Không thể đặt lại mật khẩu");

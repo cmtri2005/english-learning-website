@@ -57,7 +57,8 @@ class Account extends Model
         return $admin;
     }
 
-    public static function findByEmail($email) {
+    public static function findByEmail($email)
+    {
         return self::findOneBy('email', $email);
     }
 
@@ -104,6 +105,30 @@ class Account extends Model
         return $stmt->execute();
     }
 
+    public function updateVerifyEmailToken($token, $expiry)
+    {
+        $sql = "UPDATE " . static::$table . "
+                SET verify_email_token = :token, verify_token_expires_at = :expiry
+                WHERE " . static::$primaryKey . " = :user_id";
+        $DB = Helper::PDO();
+        $stmt = $DB->prepare($sql);
+        $stmt->bindParam(':token', $token);
+        $stmt->bindParam(':expiry', $expiry);
+        $stmt->bindParam(':user_id', $this->{static::$primaryKey});
+        return $stmt->execute();
+    }
+
+    public function clearVerifyEmailToken()
+    {
+        $sql = "UPDATE " . static::$table . "
+                SET verify_email_token = NULL, verify_token_expires_at = NULL
+                WHERE " . static::$primaryKey . " = :user_id";
+        $DB = Helper::PDO();
+        $stmt = $DB->prepare($sql);
+        $stmt->bindParam(':user_id', $this->{static::$primaryKey});
+        return $stmt->execute();
+    }
+
     public function getRank($rank)
     {
         $ranks = [
@@ -114,7 +139,5 @@ class Account extends Model
         ];
         return $ranks[$rank];
     }
-
-
 }
 

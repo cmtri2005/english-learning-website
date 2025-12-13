@@ -6,9 +6,7 @@ use PDO;
 use PDOException;
 use Exception;
 
-/**
- * Database singleton class (moved từ App\Core\Database)
- */
+
 class Database
 {
     private static ?Database $instance = null;
