@@ -7,6 +7,7 @@ import ProtectedRoute from '@/routers/ProtectedRoute';
 import Index from '@/pages/index';
 import Login from '@/pages/Auth/components/Login';
 import Register from '@/pages/Auth/components/Register';
+import VerifyOtp from '@/pages/Auth/components/VerifyOtp';
 import ForgotPassword from '@/pages/Auth/components/ForgotPassword';
 import ResetPassword from '@/pages/Auth/components/ResetPassword';
 import Logout from '@/pages/Auth/components/Logout';
@@ -40,6 +41,7 @@ export const routes: RouteObject[] = [
   },
   { path: '/login', element: <Login /> },
   { path: '/register', element: <Register /> },
+  { path: '/verify-otp', element: <VerifyOtp /> },
   {
     path: '/courses',
     element: <Courses />,

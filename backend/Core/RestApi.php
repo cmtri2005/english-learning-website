@@ -3,22 +3,19 @@
 namespace App\Core;
 class RestApi
 {
-    /**
-     * Set CORS headers và xử lý preflight request (OPTIONS)
-     */
     static function setHeaders($isUpload = false)
     {
-        // Lấy origin từ request header
+        // Lấy origin từ request
         $origin = $_SERVER['HTTP_ORIGIN'] ?? null;
         $allowedOrigins = [
-            'http://localhost:5173',
-            'http://localhost:3000',
+            'http://localhost:5173', // Vite dev server
+            'http://localhost:3000', // React dev server
             'http://127.0.0.1:5173',
             'http://127.0.0.1:3000',
         ];
 
-        // Nếu origin được phép, dùng nó; nếu không, dùng origin từ request hoặc mặc định
-        $corsOrigin = '*';
+        $corsOrigin = '*'; // Mặc định cho phép tất cả
+        // 1. Nếu origin nằm trong whitelist -> dùng origin đó.
         if ($origin && in_array($origin, $allowedOrigins)) {
             $corsOrigin = $origin;
         } elseif ($origin) {
@@ -37,7 +34,7 @@ class RestApi
             exit();
         }
 
-        // Set CORS headers cho tất cả requests
+        // CORS headers cho mọi requests
         header("Access-Control-Allow-Origin: " . $corsOrigin);
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, OPTIONS");
         header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
@@ -90,10 +87,6 @@ class RestApi
         self::response($data, $status);
     }
 
-    /**
-     * Response format cho frontend API
-     * Format: { success: boolean, message: string, data?: T }
-     */
     static function apiResponse($data = null, $message = 'Success', $success = true, $status = 200)
     {
         $response = [

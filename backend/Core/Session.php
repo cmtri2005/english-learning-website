@@ -2,10 +2,7 @@
 
 namespace App\Core;
 
-/**
- * Session management class
- * Gộp cả flash message functions
- */
+
 class Session
 {
     public static function set(string $key, $value): void
@@ -28,17 +25,12 @@ class Session
         session_destroy();
     }
 
-    /**
-     * Set flash message (lưu message để hiển thị 1 lần)
-     */
+
     public static function setFlash(string $key, $value): void
     {
         $_SESSION[$key] = $value;
     }
 
-    /**
-     * Get flash message (lấy và xóa sau khi lấy)
-     */
     public static function getFlash(string $key, $default = null)
     {
         $message = $_SESSION[$key] ?? $default;

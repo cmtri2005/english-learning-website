@@ -96,7 +96,7 @@ class JwtHandler
         $now = time();
 
         $payload = [
-            'iat' => $now, //issued at
+            'iat' => $now,
             'exp' => $now + $this->expirationTime,
             'nbf' => $now
         ];

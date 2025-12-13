@@ -7,10 +7,9 @@ use App\Helper\Database;
 
 abstract class Model implements Model_Interface
 {
-    // Helper method để truy cập PDO
     protected static function db(): PDO
     {
-        return Database::getInstance();
+        return Database::getInstance(); //Singleton database connection
     }
 
     protected static $table;
@@ -18,23 +17,25 @@ abstract class Model implements Model_Interface
 
     public function save()
     {
+        // 1. Get primary key và convert object -> array.
         $primaryKey = static::$primaryKey;
         $data = $this->toArray();
 
+        // 2. Loại bỏ null value
         $data = array_filter($data, function ($value) {
             return $value !== null;
         });
 
+        // 3. Xác định INSERT hay UPDATE
         $isUpdate = isset($this->$primaryKey) && !empty($this->$primaryKey);
 
         if ($isUpdate) {
-            // Update exist record
+            // Update
             $id = $this->$primaryKey;
-            // Remove primary key from update data
-            unset($data[$primaryKey]);
 
+            unset($data[$primaryKey]);
             if (empty($data)) {
-                return true; // No data to update
+                return true; 
             }
 
             $setClause = [];
@@ -53,9 +54,7 @@ abstract class Model implements Model_Interface
 
             return $stmt->execute();
         } else {
-            // Insert new record
-
-            // Remove primary key if it's empty/null for auto-increment
+            // Insert 
             if (isset($data[$primaryKey]) && empty($data[$primaryKey])) {
                 unset($data[$primaryKey]);
             }
@@ -85,13 +84,8 @@ abstract class Model implements Model_Interface
             return false;
         }
     }
-    /**
-     * Find all records
-     * 
-     * @param string $orderBy Column to order by
-     * @param string $direction Order direction (ASC or DESC)
-     * @return array Array of model instances
-     */
+
+    // Get all records
     public static function all($orderBy = null, $direction = 'ASC')
     {
         $query = "SELECT * FROM " . static::$table;
@@ -105,12 +99,7 @@ abstract class Model implements Model_Interface
         return $stmt->fetchAll(PDO::FETCH_CLASS, static::class);
     }
 
-    /**
-     * Find a record by its primary key
-     * 
-     * @param mixed $id The primary key value
-     * @return static|null The model instance or null if not found
-     */
+    // Find record by primary key
     public static function find($id)
     {
         $query = "SELECT * FROM " . static::$table . " WHERE " . static::$primaryKey . " = :id LIMIT 1";
@@ -122,13 +111,7 @@ abstract class Model implements Model_Interface
         return $result ?: null;
     }
 
-    /**
-     * Find records by a specific field value
-     * 
-     * @param string $field The field name
-     * @param mixed $value The field value
-     * @return array Array of model instances
-     */
+    // Find records by field
     public static function findBy($field, $value)
     {
         $query = "SELECT * FROM " . static::$table . " WHERE {$field} = :value";
@@ -138,13 +121,7 @@ abstract class Model implements Model_Interface
         return $stmt->fetchAll(PDO::FETCH_CLASS, static::class);
     }
 
-    /**
-     * Find first record by a specific field value
-     * 
-     * @param string $field The field name
-     * @param mixed $value The field value
-     * @return static|null The model instance or null if not found
-     */
+    // Find record by field
     public static function findOneBy($field, $value)
     {
         $query = "SELECT * FROM " . static::$table . " WHERE {$field} = :value LIMIT 1";
@@ -155,12 +132,7 @@ abstract class Model implements Model_Interface
         $result = $stmt->fetch();
         return $result ?: null;
     }
-    /**
-     * Find records by multiple field values
-     *
-     * @param array $conditions Array of conditions in the format ['field' => 'value', 'field2' => 'value2']
-     * @return static|null The model instance or null if not found
-     */
+
     public static function findOneWhere(array $conditions)
     {
         $table = static::$table;
@@ -189,12 +161,6 @@ abstract class Model implements Model_Interface
     }
 
 
-    /**
-     * Create a new record
-     * 
-     * @param array $data The data to insert
-     * @return static|false The created model instance or false on failure
-     */
     public static function create(array $data)
     {
         $columns = implode(', ', array_keys($data));
@@ -215,13 +181,7 @@ abstract class Model implements Model_Interface
         return false;
     }
 
-    /**
-     * Update a record
-     * 
-     * @param mixed $id The primary key value
-     * @param array $data The data to update
-     * @return bool True on success, false on failure
-     */
+
     public static function update($id, array $data)
     {
         $setClause = [];
@@ -230,7 +190,7 @@ abstract class Model implements Model_Interface
         }
         $setClause = implode(', ', $setClause);
 
-        
+
         $query = "UPDATE " . static::$table . " SET {$setClause} WHERE " . static::$primaryKey . " = :id";
         $stmt = self::db()->prepare($query);
 
@@ -242,12 +202,7 @@ abstract class Model implements Model_Interface
         return $stmt->execute();
     }
 
-    /**
-     * Delete a record
-     * 
-     * @param mixed $id The primary key value
-     * @return bool True on success, false on failure
-     */
+
     public static function delete($id)
     {
         $query = "DELETE FROM " . static::$table . " WHERE " . static::$primaryKey . " = :id";
@@ -256,13 +211,6 @@ abstract class Model implements Model_Interface
         return $stmt->execute();
     }
 
-    /**
-     * Execute a custom query
-     * 
-     * @param string $query The SQL query
-     * @param array $params The query parameters
-     * @return array The query results
-     */
     public static function query($query, $params = [], $fetchMode = PDO::FETCH_CLASS)
     {
         try {
@@ -286,13 +234,6 @@ abstract class Model implements Model_Interface
         }
     }
 
-    /**
-     * Tìm kiếm theo nhiều điều kiện
-     * 
-     * @param array $conditions Mảng điều kiện dạng ['field' => 'value', 'field2' => 'value2']
-     * @param string $operator Toán tử logic giữa các điều kiện (AND/OR)
-     * @return array Mảng các đối tượng model
-     */
     public static function findWhere(array $conditions, $operator = 'AND')
     {
         if (empty($conditions)) {
@@ -323,13 +264,7 @@ abstract class Model implements Model_Interface
         return $stmt->fetchAll(PDO::FETCH_CLASS, static::class);
     }
 
-    /**
-     * Tìm kiếm nâng cao với các toán tử so sánh
-     * 
-     * @param array $conditions Mảng điều kiện dạng [['field', 'operator', 'value'], ['field2', 'operator2', 'value2']]
-     * @param string $operator Toán tử logic giữa các điều kiện (AND/OR)
-     * @return array Mảng các đối tượng model
-     */
+
     public static function findWhereAdvanced(array $conditions, $operator = 'AND')
     {
         if (empty($conditions)) {
@@ -368,15 +303,7 @@ abstract class Model implements Model_Interface
         return $stmt->fetchAll(PDO::FETCH_CLASS, static::class);
     }
 
-    /**
-     * Phân trang dữ liệu
-     * 
-     * @param int $page Số trang hiện tại (bắt đầu từ 1)
-     * @param int $perPage Số bản ghi mỗi trang
-     * @param string $orderBy Cột để sắp xếp
-     * @param string $direction Hướng sắp xếp (ASC/DESC)
-     * @return array Mảng chứa 'data' (dữ liệu trang hiện tại), 'total' (tổng số bản ghi), 'last_page' (trang cuối cùng)
-     */
+
     public static function paginate($page = 1, $perPage = 10, $orderBy = null, $direction = 'ASC')
     {
         // Đảm bảo page và perPage là số nguyên dương
@@ -420,17 +347,6 @@ abstract class Model implements Model_Interface
         ];
     }
 
-    /**
-     * Phân trang với điều kiện tìm kiếm
-     * 
-     * @param array $conditions Mảng điều kiện dạng ['field' => 'value', 'field2' => 'value2']
-     * @param int $page Số trang hiện tại (bắt đầu từ 1)
-     * @param int $perPage Số bản ghi mỗi trang
-     * @param string $operator Toán tử logic giữa các điều kiện (AND/OR)
-     * @param string $orderBy Cột để sắp xếp
-     * @param string $direction Hướng sắp xếp (ASC/DESC)
-     * @return array Mảng chứa 'data', 'total', 'last_page', etc.
-     */
     public static function paginateWhere(array $conditions, $page = 1, $perPage = 10, $operator = 'AND', $orderBy = null, $direction = 'ASC')
     {
         // Đảm bảo page và perPage là số nguyên dương

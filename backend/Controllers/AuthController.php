@@ -7,7 +7,7 @@ use App\Core\Hash;
 use App\Core\RestApi;
 use App\Core\UserRole;
 use App\Core\JwtHandler;
-use App\Middleware\AuthMiddleware;
+use App\Middleware\RateLimitMiddleware;
 use App\Models\Account;
 use App\Helper\MailHelper;
 use App\Services\AuthService;
@@ -15,7 +15,8 @@ use Exception;
 
 class AuthController
 {
-    public function login() {
+    public function login()
+    {
         try {
             RestApi::setHeaders();
             $body = RestApi::getBody();
@@ -34,52 +35,70 @@ class AuthController
                 return;
             }
 
+            // Rate limiting: 5 attempts per minute per email
+            if (RateLimitMiddleware::checkLogin($email)) {
+                return;
+            }
+
             // Tìm user
             $user = Account::findByEmail($email);
 
             // Security: Không tiết lộ email có tồn tại hay không
             // Luôn trả về cùng message để tránh user enumeration
+            // Note: Không kiểm tra MX record ở login vì email đã tồn tại trong DB
             if (!isset($user) || !Hash::check($password, $user->password)) {
                 RestApi::apiError('Email hoặc mật khẩu không chính xác', 401);
+                return;
+            }
+
+            // Chặn đăng nhập nếu email chưa xác minh
+            if (!empty($user->verify_email_token)) {
+                RestApi::apiError('Email chưa được xác minh. Vui lòng kiểm tra hộp thư để kích hoạt tài khoản.', 403);
                 return;
             }
 
             // Tạo tokens và response
             $tokens = AuthService::generateTokens($user);
             $userData = AuthService::formatUserData($user);
-            
+
             $cookies = new Cookies();
             $cookies->setAuth([
                 'user_id' => $user->user_id,
                 'email' => $user->email,
                 'role' => $user->role
             ]);
+            $cookies->setRefreshToken($tokens['refresh']);
 
             RestApi::apiResponse([
                 'user' => $userData,
-                'token' => $tokens['access'],
-                'refreshToken' => $tokens['refresh']
+                'token' => $tokens['access']
             ], 'Đăng nhập thành công', true, 200);
 
         } catch (Exception $e) {
             error_log('Login error: ' . $e->getMessage());
             error_log('Stack trace: ' . $e->getTraceAsString());
             error_log('File: ' . $e->getFile() . ':' . $e->getLine());
-            
+
             // Clean output buffer
             if (ob_get_level() > 0) {
                 ob_clean();
             }
-            
+
             RestApi::apiError('Đã xảy ra lỗi khi đăng nhập. Vui lòng thử lại sau.', 500);
         }
     }
 
 
-    public function register() {
+    public function register()
+    {
         try {
             RestApi::setHeaders();
             $body = RestApi::getBody();
+
+            // Rate limiting: 3 attempts per minute per IP
+            if (RateLimitMiddleware::checkRegister()) {
+                return;
+            }
 
             // Validation
             $email = isset($body['email']) ? trim($body['email']) : '';
@@ -134,12 +153,20 @@ class AuthController
                 return;
             }
 
+            // Sinh OTP xác minh
+            $otp = self::generateOtp();
+            $expiresTime = time() + 10 * 60; // 10 phút
+            $otpExpiresDB = date('Y-m-d H:i:s', $expiresTime);
+            $otpExpiresISO = date(DATE_ATOM, $expiresTime);
+
             // Tạo user
             $user = Account::create([
                 'email' => $email,
                 'password' => Hash::make($password),
                 'name' => $name,
-                'role' => UserRole::STUDENT
+                'role' => UserRole::STUDENT,
+                'verify_email_token' => $otp,
+                'verify_token_expires_at' => $otpExpiresDB
             ]);
 
             if (!$user) {
@@ -147,26 +174,166 @@ class AuthController
                 return;
             }
 
+            // Gửi OTP xác minh email
+            MailHelper::sendRegisterOtpEmail($email, $otp, $name);
+
+            RestApi::apiResponse([
+                'requiresVerification' => true,
+                'email' => $email,
+                'otpExpiresAt' => $otpExpiresISO
+            ], 'Đăng ký thành công. Vui lòng kiểm tra email để nhập mã OTP.', true, 200);
+
+        } catch (Exception $e) {
+            error_log('Register error: ' . $e->getMessage());
+            RestApi::apiError('Đã xảy ra lỗi khi đăng ký. Vui lòng thử lại sau.', 500);
+        }
+    }
+
+    /**
+     * Thông tin endpoint OTP đăng ký
+     */
+    public function showRegisterOtp()
+    {
+        RestApi::setHeaders();
+        RestApi::apiResponse(null, 'Gửi POST /register/otp/verify với email và otp để xác minh.', true, 200);
+    }
+
+    /**
+     * Xác minh OTP đăng ký
+     */
+    public function verifyOtp()
+    {
+        try {
+            RestApi::setHeaders();
+            $body = RestApi::getBody();
+
+            $email = isset($body['email']) ? trim($body['email']) : '';
+            $otp = isset($body['otp']) ? trim($body['otp']) : '';
+
+            if (empty($email) || empty($otp)) {
+                RestApi::apiError('Email và mã OTP không được để trống', 400);
+                return;
+            }
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                RestApi::apiError('Email không hợp lệ', 400);
+                return;
+            }
+
+            // Rate limiting: 5 attempts per minute per email
+            if (RateLimitMiddleware::checkOtpVerify($email)) {
+                return;
+            }
+
+            if (!preg_match('/^[0-9]{6}$/', $otp)) {
+                RestApi::apiError('Mã OTP phải gồm 6 chữ số', 400);
+                return;
+            }
+
+            $user = Account::findByEmail($email);
+            if (!isset($user)) {
+                RestApi::apiError('Tài khoản không tồn tại', 404);
+                return;
+            }
+
+            if (empty($user->verify_email_token)) {
+                RestApi::apiError('Tài khoản đã được xác minh trước đó', 400);
+                return;
+            }
+
+            if ($user->verify_email_token !== $otp) {
+                RestApi::apiError('Mã OTP không chính xác', 400);
+                return;
+            }
+
+            if (!empty($user->verify_token_expires_at)) {
+                $now = time();
+                $expiresAt = strtotime($user->verify_token_expires_at);
+                if ($expiresAt < $now) {
+                    RestApi::apiError('Mã OTP đã hết hạn. Vui lòng yêu cầu gửi lại.', 400);
+                    return;
+                }
+            }
+
+            // Xóa OTP, đánh dấu đã xác minh
+            $user->clearVerifyEmailToken();
+
             // Tạo tokens và response
             $tokens = AuthService::generateTokens($user);
             $userData = AuthService::formatUserData($user);
-            
+
             $cookies = new Cookies();
             $cookies->setAuth([
                 'user_id' => $user->user_id,
                 'email' => $user->email,
                 'role' => $user->role
             ]);
+            $cookies->setRefreshToken($tokens['refresh']);
 
             RestApi::apiResponse([
                 'user' => $userData,
-                'token' => $tokens['access'],
-                'refreshToken' => $tokens['refresh']
-            ], 'Đăng ký thành công', true, 200);
-
+                'token' => $tokens['access']
+            ], 'Xác minh email thành công', true, 200);
         } catch (Exception $e) {
-            error_log('Register error: ' . $e->getMessage());
-            RestApi::apiError('Đã xảy ra lỗi khi đăng ký. Vui lòng thử lại sau.', 500);
+            error_log('Verify OTP error: ' . $e->getMessage());
+            RestApi::apiError('Đã xảy ra lỗi khi xác minh OTP.', 500);
+        }
+    }
+
+    /**
+     * Gửi lại OTP đăng ký
+     */
+    public function resendOtp()
+    {
+        try {
+            RestApi::setHeaders();
+            $body = RestApi::getBody();
+
+            $email = isset($body['email']) ? trim($body['email']) : '';
+
+            if (empty($email)) {
+                RestApi::apiError('Email không được để trống', 400);
+                return;
+            }
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                RestApi::apiError('Email không hợp lệ', 400);
+                return;
+            }
+
+            // Rate limiting: 2 attempts per minute per email
+            if (RateLimitMiddleware::checkOtpResend($email)) {
+                return;
+            }
+
+            $user = Account::findByEmail($email);
+            if (!isset($user)) {
+                RestApi::apiError('Tài khoản không tồn tại', 404);
+                return;
+            }
+
+            if (empty($user->verify_email_token)) {
+                RestApi::apiError('Tài khoản đã được xác minh, không cần gửi OTP.', 400);
+                return;
+            }
+
+            $otp = self::generateOtp();
+            $expiresTime = time() + 10 * 60;
+            $otpExpiresDB = date('Y-m-d H:i:s', $expiresTime);
+            $otpExpiresISO = date(DATE_ATOM, $expiresTime);
+
+            $user->updateVerifyEmailToken($otp, $otpExpiresDB);
+
+            MailHelper::sendRegisterOtpEmail($email, $otp, $user->name ?? '');
+
+            RestApi::apiResponse([
+                'requiresVerification' => true,
+                'email' => $email,
+                'otpExpiresAt' => $otpExpiresISO
+            ], 'Đã gửi lại mã OTP. Vui lòng kiểm tra email.', true, 200);
+        } catch (Exception $e) {
+            error_log('Resend OTP error: ' . $e->getMessage());
+            RestApi::apiError('Đã xảy ra lỗi khi gửi lại OTP.', 500);
         }
     }
 
@@ -215,55 +382,37 @@ class AuthController
                 return;
             }
 
-            // Tìm user theo email (có thể null)
-            $user = Account::findByEmail($email);
-            if (!isset($user)) {
-                RestApi::apiError('Email không tồn tại trong hệ thống', 404);
+            // Rate limiting: 3 attempts per minute per email
+            if (RateLimitMiddleware::checkForgotPassword($email)) {
                 return;
             }
-            $newPassword = self::generateRandomPassword(12);
-            $hashedPassword = Hash::make($newPassword);
-            $user->updatePassword($hashedPassword);
-            
-            // Xóa token reset cũ (nếu có)
-            $user->clearResetPasswordToken();
 
-            $emailSent = MailHelper::sendPasswordResetEmail($email, $newPassword, $user->name ?? '');
+            // Tìm user theo email (có thể null)
+            $user = Account::findByEmail($email);
 
-            if (!$emailSent) {
-                error_log("WARNING: Failed to send password reset email to {$email}");
-                error_log("New password (for dev/testing): {$newPassword}");
-                error_log("Password has been updated in database for user: {$email}");
-                
-                // Kiểm tra xem có phải môi trường production không
-                $isProduction = ($_ENV['APP_ENV'] ?? 'development') === 'production';
-                
-                if ($isProduction) {
-                    RestApi::apiError('Đã tạo mật khẩu mới nhưng không thể gửi email. Vui lòng liên hệ admin.', 500);
-                    return;
-                } else {
-                    RestApi::apiResponse(
-                        [
-                            'newPassword' => $newPassword
-                        ],
-                        'Mật khẩu mới đã được tạo và cập nhật vào database. Vui lòng kiểm tra logs để lấy mật khẩu (môi trường dev).',
-                        true,
-                        200
-                    );
-                    return;
-                }
+            // Luôn trả message chung, không tiết lộ email tồn tại hay không
+            $responseMessage = 'Nếu email tồn tại trong hệ thống, chúng tôi đã gửi hướng dẫn đặt lại mật khẩu. Vui lòng kiểm tra hộp thư.';
+
+            if (!isset($user)) {
+                RestApi::apiResponse(null, $responseMessage, true, 200);
+                return;
             }
 
-            error_log("New password email sent successfully to {$email}");
-            error_log("Password has been updated in database for user: {$email}");
+            // Tạo reset token và hạn sử dụng 60 phút
+            $resetToken = bin2hex(random_bytes(32));
+            $expiresTime = time() + 60 * 60;
+            $expiryDB = date('Y-m-d H:i:s', $expiresTime);
+            // Frontend hiện tại không dùng expiry của reset token, nhưng nếu cần thì dùng DATE_ATOM
 
-            // Trả về success khi email đã được gửi
-            RestApi::apiResponse(
-                null,
-                'Chúng tôi đã gửi mật khẩu mới vào hộp thư của bạn. Vui lòng kiểm tra email và đăng nhập với mật khẩu mới.',
-                true,
-                200
-            );
+            $user->updateResetPasswordToken($resetToken, $expiryDB);
+
+            $emailSent = MailHelper::sendResetLinkEmail($email, $resetToken, $user->name ?? '');
+
+            if (!$emailSent) {
+                error_log("WARNING: Failed to send reset password email to {$email}");
+            }
+
+            RestApi::apiResponse(null, $responseMessage, true, 200);
         } catch (Exception $e) {
             error_log('Forgot password error: ' . $e->getMessage());
             RestApi::apiError('Đã xảy ra lỗi khi xử lý request', 500);
@@ -365,12 +514,14 @@ class AuthController
         }
     }
 
-    public function logout() {
+    public function logout()
+    {
         try {
             RestApi::setHeaders();
-            
+
             $cookies = new Cookies();
             $cookies->removeAuth();
+            $cookies->removeRefreshToken();
 
             RestApi::apiResponse(null, 'Đăng xuất thành công', true, 200);
         } catch (Exception $e) {
@@ -382,24 +533,25 @@ class AuthController
     /**
      * Refresh access token bằng refresh token
      */
-    public function refresh() {
+    public function refresh()
+    {
         try {
             RestApi::setHeaders();
-            $body = RestApi::getBody();
 
-            $refreshToken = $body['refreshToken'] ?? null;
+            $cookies = new Cookies();
+            $refreshToken = $cookies->getRefreshToken();
 
             if (empty($refreshToken)) {
-                RestApi::apiError('Refresh token không được để trống', 400);
+                RestApi::apiError('Refresh token không tồn tại', 400);
                 return;
             }
 
             $jwt = new JwtHandler($_ENV['JWT_SECRET'] ?? '');
-            
+
             try {
                 // Validate refresh token
                 $payload = $jwt->validateToken($refreshToken);
-                
+
                 // Kiểm tra đây có phải refresh token không
                 if (!isset($payload['type']) || $payload['type'] !== 'refresh') {
                     RestApi::apiError('Token không hợp lệ', 401);
@@ -424,17 +576,16 @@ class AuthController
                 $userData = AuthService::formatUserData($user);
 
                 // Cập nhật cookie
-                $cookies = new Cookies();
                 $cookies->setAuth([
                     'user_id' => $user->user_id,
                     'email' => $user->email,
                     'role' => $user->role
                 ]);
+                $cookies->setRefreshToken($tokens['refresh']);
 
                 RestApi::apiResponse([
                     'user' => $userData,
-                    'token' => $tokens['access'],
-                    'refreshToken' => $tokens['refresh']
+                    'token' => $tokens['access']
                 ], 'Làm mới token thành công', true, 200);
 
             } catch (Exception $e) {
@@ -446,12 +597,12 @@ class AuthController
             error_log('Refresh token error: ' . $e->getMessage());
             error_log('Stack trace: ' . $e->getTraceAsString());
             error_log('File: ' . $e->getFile() . ':' . $e->getLine());
-            
+
             // Clean output buffer
             if (ob_get_level() > 0) {
                 ob_clean();
             }
-            
+
             RestApi::apiError('Đã xảy ra lỗi khi làm mới token. Vui lòng thử lại sau.', 500);
         }
     }
@@ -459,19 +610,39 @@ class AuthController
     /**
      * Lấy thông tin user hiện tại
      */
-    public function me() {
+    public function me()
+    {
         try {
             RestApi::setHeaders();
-            
-            $cookies = new Cookies();
-            $userData = $cookies->decodeAuth();
 
-            if (!isset($userData) || !isset($userData['user_id'])) {
+            // Ưu tiên bearer token (frontend đang lưu token trong localStorage)
+            $jwt = new JwtHandler($_ENV['JWT_SECRET'] ?? '');
+            $userId = null;
+
+            $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+            if (stripos($authHeader, 'Bearer ') === 0) {
+                $token = trim(substr($authHeader, 7));
+                try {
+                    $payload = $jwt->validateToken($token);
+                    $userId = $payload['user_id'] ?? null;
+                } catch (\Throwable $th) {
+                    // fallback sang cookie nếu bearer không hợp lệ
+                }
+            }
+
+            // Fallback cookie
+            if (!$userId) {
+                $cookies = new Cookies();
+                $userData = $cookies->decodeAuth();
+                $userId = $userData['user_id'] ?? null;
+            }
+
+            if (!$userId) {
                 RestApi::apiError('Chưa đăng nhập', 401);
                 return;
             }
 
-            $user = Account::find($userData['user_id']);
+            $user = Account::find($userId);
             if (!isset($user)) {
                 RestApi::apiError('Người dùng không tồn tại', 404);
                 return;
@@ -485,12 +656,12 @@ class AuthController
             error_log('Get current user error: ' . $e->getMessage());
             error_log('Stack trace: ' . $e->getTraceAsString());
             error_log('File: ' . $e->getFile() . ':' . $e->getLine());
-            
+
             // Clean output buffer
             if (ob_get_level() > 0) {
                 ob_clean();
             }
-            
+
             RestApi::apiError('Đã xảy ra lỗi khi lấy thông tin người dùng.', 500);
         }
     }
@@ -508,20 +679,52 @@ class AuthController
         $lowercase = 'abcdefghijklmnopqrstuvwxyz';
         $numbers = '0123456789';
         $allChars = $uppercase . $lowercase . $numbers;
-        
+
         $password = '';
-        
+
         // Đảm bảo có ít nhất 1 chữ hoa, 1 chữ thường, 1 số
         $password .= $uppercase[random_int(0, strlen($uppercase) - 1)];
         $password .= $lowercase[random_int(0, strlen($lowercase) - 1)];
         $password .= $numbers[random_int(0, strlen($numbers) - 1)];
-        
+
         // Thêm các ký tự ngẫu nhiên còn lại
         for ($i = strlen($password); $i < $length; $i++) {
             $password .= $allChars[random_int(0, strlen($allChars) - 1)];
         }
-        
+
         // Xáo trộn mật khẩu để không dự đoán được vị trí
         return str_shuffle($password);
+    }
+
+    private static function generateOtp(): string
+    {
+        return (string) random_int(100000, 999999);
+    }
+
+    private static function hasValidEmailDomain(string $email): bool
+    {
+        $parts = explode('@', $email);
+        if (count($parts) !== 2) {
+            return false;
+        }
+        $domain = $parts[1];
+
+        // Ưu tiên kiểm tra MX record; nếu không có, fallback A record
+        if (function_exists('checkdnsrr') && checkdnsrr($domain, 'MX')) {
+            return true;
+        }
+
+        if (function_exists('dns_get_record')) {
+            $mx = dns_get_record($domain, DNS_MX);
+            if (!empty($mx)) {
+                return true;
+            }
+            $a = dns_get_record($domain, DNS_A);
+            if (!empty($a)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

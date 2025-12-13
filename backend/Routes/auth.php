@@ -2,21 +2,31 @@
 
 use App\Controllers\AuthController;
 
-$router->post('/login', [AuthController::class, '@login']);
+
+// Login
 $router->post('/api/auth/login', [AuthController::class, '@login']);
 
+// Register
 $router->post('/api/auth/register', [AuthController::class, '@register']);
 
-$router->get('/register/otp', AuthController::class . '@showRegisterOtp');
-$router->post('/register/otp/verify', AuthController::class . '@verifyOtp');
-$router->post('/register/otp/resend', AuthController::class . '@resendOtp');
+// OTP Verification (after registration)
+$router->get('/api/auth/register/otp', AuthController::class . '@showRegisterOtp');
+$router->post('/api/auth/register/otp/verify', AuthController::class . '@verifyOtp');
+$router->post('/api/auth/register/otp/resend', AuthController::class . '@resendOtp');
 
-$router->get('/forgot-password', AuthController::class . '@showForgotPassword');
-$router->post('/forgot-password', AuthController::class . '@forgotPassword');
+// Forgot Password
+$router->get('/api/auth/forgot-password', AuthController::class . '@showForgotPassword');
+$router->post('/api/auth/forgot-password', AuthController::class . '@forgotPassword');
 
-$router->get('/reset-password', AuthController::class . '@showResetPassword');
-$router->post('/reset-password', AuthController::class . '@resetPassword');
+// Reset Password
+$router->get('/api/auth/reset-password', AuthController::class . '@showResetPassword');
+$router->post('/api/auth/reset-password', AuthController::class . '@resetPassword');
 
+// Logout
 $router->post('/api/auth/logout', AuthController::class . '@logout');
+
+// Token Refresh
 $router->post('/api/auth/refresh', AuthController::class . '@refresh');
+
+// Current User
 $router->get('/api/auth/me', AuthController::class . '@me');
