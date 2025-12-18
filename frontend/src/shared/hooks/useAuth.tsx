@@ -22,6 +22,7 @@ import {
   useRefreshUser as useRefreshUserMutation,
 } from '@/store/server/auth-queries';
 import type { LoginRequest, RegisterRequest } from '@/services/api';
+import { api } from '@/services/api';
 
 /**
  * Unified Auth Hook
@@ -55,6 +56,17 @@ export function useAuth() {
   const logoutMutation = useLogoutMutation();
   const refreshUserMutation = useRefreshUserMutation();
   
+  // Check token validity on mount (before React Query runs)
+  useEffect(() => {
+    const token = api.getToken();
+    if (token && !api.isTokenValid()) {
+      // Token exists but expired - clear auth immediately
+      console.log('Token expired, clearing auth...');
+      clearAuth();
+      api.setToken(null);
+    }
+  }, []); // Only run on mount
+
   // Sync React Query user data to Zustand store
   useEffect(() => {
     if (currentUser) {
