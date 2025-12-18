@@ -1,169 +1,122 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "@/shared/components/ui/button";
-import { AppLayout } from "@/shared/components/layout";
-import { MessageCircle, Heart, Share2, Search, Plus, Eye } from "lucide-react";
-import { useBlogPosts, useBlogCategories } from "@/store/server/blog-queries";
-import { useToggleBlogLike } from "@/store/server/blog-queries";
-import { useAuth } from "@/shared/hooks/useAuth";
-import BlogPostCard from "./components/BlogPostCard";
-import FeaturedPost from "./components/FeaturedPost";
-import BlogSearch from "./components/BlogSearch";
-import BlogCategories from "./components/BlogCategories";
+import { useSearchParams } from 'react-router-dom';
+import { AppLayout } from '@/shared/components/layout';
+import { Button } from '@/shared/components/ui/button';
+import { PenSquare } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { BlogList } from './components/BlogList';
+import { FilterSidebar } from './components/FilterSidebar';
+import { useBlogs } from './hooks/useBlogs';
+import { useBlogFilters } from './hooks/useFilters';
+import { useAuth } from '@/shared/hooks/useAuth';
 
 export default function Blog() {
-  const { isLoggedIn } = useAuth();
-  const [page, setPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { isAuthenticated } = useAuth();
 
-  const { data, isLoading, error } = useBlogPosts({
-    page,
-    limit: 10,
-    search: searchQuery || undefined,
-    category: selectedCategory || undefined,
-  });
+    // Get filters from URL
+    const category = searchParams.get('category') || undefined;
+    const tag = searchParams.get('tag') || undefined;
+    const search = searchParams.get('search') || undefined;
+    const page = parseInt(searchParams.get('page') || '1', 10);
 
-  const { data: categories } = useBlogCategories();
+    // Fetch blogs with filters
+    const { blogs, pagination, isLoading, error, setPage, setSearch, setCategory, setTag } = useBlogs({
+        page,
+        category,
+        tag,
+        search,
+        per_page: 9,
+    });
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-    setPage(1); // Reset to first page on new search
-  };
+    // Fetch categories and tags
+    const { categories, tags, isLoading: filtersLoading } = useBlogFilters();
 
-  const handleCategoryChange = (category: string | null) => {
-    setSelectedCategory(category);
-    setPage(1);
-  };
+    // Update URL when filters change
+    const updateFilters = (key: string, value: string | undefined) => {
+        const newParams = new URLSearchParams(searchParams);
+        if (value) {
+            newParams.set(key, value);
+        } else {
+            newParams.delete(key);
+        }
+        // Reset page when filters change
+        if (key !== 'page') {
+            newParams.delete('page');
+        }
+        setSearchParams(newParams);
+    };
 
-  const featuredPost = data?.posts.find((post) => post.is_featured);
+    const handlePageChange = (newPage: number) => {
+        updateFilters('page', newPage.toString());
+        setPage(newPage);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
-  return (
-    <AppLayout>
-      {/* Hero Section */}
-      <section className="py-12 md:py-20 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Learning Blog & Community
-            </h1>
-            <p className="text-lg text-muted-foreground mb-6">
-              Share your English learning journey, discover tips from other
-              learners, and contribute to our vibrant community.
-            </p>
-            {isLoggedIn && (
-              <Link to="/blog/create">
-                <Button className="bg-primary hover:bg-primary/90 gap-2">
-                  <Plus size={18} />
-                  Write a Post
-                </Button>
-              </Link>
-            )}
-          </div>
-        </div>
-      </section>
+    const handleSearchChange = (query: string) => {
+        updateFilters('search', query || undefined);
+        setSearch(query);
+    };
 
-      {/* Search & Filter */}
-      <section className="py-8 border-b bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto space-y-4">
-            <BlogSearch onSearch={handleSearch} />
-            <BlogCategories
-              categories={categories || []}
-              selectedCategory={selectedCategory}
-              onCategoryChange={handleCategoryChange}
-            />
-          </div>
-        </div>
-      </section>
+    const handleCategoryChange = (slug: string | undefined) => {
+        updateFilters('category', slug);
+        setCategory(slug);
+    };
 
-      {/* Featured Post */}
-      {featuredPost && (
-        <section className="py-12 md:py-16">
-          <div className="container mx-auto px-4">
-            <FeaturedPost post={featuredPost} />
-          </div>
-        </section>
-      )}
+    const handleTagChange = (slug: string | undefined) => {
+        updateFilters('tag', slug);
+        setTag(slug);
+    };
 
-      {/* Blog Posts Grid */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          {isLoading ? (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">Loading posts...</p>
-            </div>
-          ) : error ? (
-            <div className="text-center py-12">
-              <p className="text-destructive">Error loading posts. Please try again.</p>
-            </div>
-          ) : data && data.posts.length > 0 ? (
-            <>
-              <div className="grid md:grid-cols-2 gap-6 mb-12">
-                {data.posts
-                  .filter((post) => !post.is_featured)
-                  .map((post) => (
-                    <BlogPostCard key={post.id} post={post} />
-                  ))}
-              </div>
-
-              {/* Pagination */}
-              {data.pagination.pages > 1 && (
-                <div className="flex justify-center items-center gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setPage((p) => Math.max(1, p - 1))}
-                    disabled={page === 1}
-                  >
-                    Previous
-                  </Button>
-                  <span className="text-sm text-muted-foreground">
-                    Page {data.pagination.page} of {data.pagination.pages}
-                  </span>
-                  <Button
-                    size="sm"
-                    onClick={() => setPage((p) => Math.min(data.pagination.pages, p + 1))}
-                    disabled={page === data.pagination.pages}
-                  >
-                    Next
-                  </Button>
+    return (
+        <AppLayout>
+            <div className="container mx-auto px-4 py-8 min-h-screen">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-8">
+                    <div>
+                        <h1 className="text-3xl font-bold">Blog</h1>
+                        <p className="text-muted-foreground mt-1">
+                            Khám phá các bài viết về học tiếng Anh
+                        </p>
+                    </div>
+                    {isAuthenticated && (
+                        <Link to="/blog/create">
+                            <Button>
+                                <PenSquare className="h-4 w-4 mr-2" />
+                                Viết bài mới
+                            </Button>
+                        </Link>
+                    )}
                 </div>
-              )}
-            </>
-          ) : (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">
-                {searchQuery
-                  ? `No posts found matching "${searchQuery}"`
-                  : "No blog posts yet. Be the first to write one!"}
-              </p>
+
+                {/* Main Content */}
+                <div className="flex flex-col lg:flex-row gap-8">
+                    {/* Sidebar */}
+                    <aside className="lg:w-80 flex-shrink-0">
+                        <FilterSidebar
+                            categories={categories}
+                            tags={tags}
+                            selectedCategory={category}
+                            selectedTag={tag}
+                            searchQuery={search}
+                            onCategoryChange={handleCategoryChange}
+                            onTagChange={handleTagChange}
+                            onSearchChange={handleSearchChange}
+                            isLoading={filtersLoading}
+                        />
+                    </aside>
+
+                    {/* Blog List */}
+                    <main className="flex-1">
+                        <BlogList
+                            blogs={blogs}
+                            pagination={pagination}
+                            isLoading={isLoading}
+                            error={error}
+                            onPageChange={handlePageChange}
+                        />
+                    </main>
+                </div>
             </div>
-          )}
-        </div>
-      </section>
-
-      {/* CTA */}
-      {isLoggedIn && (
-        <section className="py-12 md:py-16 bg-muted/30">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              Share Your Learning Journey
-            </h2>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Have tips to share? Accomplished a learning milestone? Write a blog
-              post and inspire other learners.
-            </p>
-            <Link to="/blog/create">
-              <Button className="bg-primary hover:bg-primary/90 gap-2">
-                <Plus size={18} />
-                Create Your Post
-              </Button>
-            </Link>
-          </div>
-        </section>
-      )}
-    </AppLayout>
-  );
+        </AppLayout>
+    );
 }
-
