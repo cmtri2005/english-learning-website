@@ -23,16 +23,24 @@ import { useAuthStore } from '../client/auth-store';
  * Note: Side effects (syncing to store) are handled in useAuth hook.
  */
 export function useCurrentUser() {
+  const { clearAuth } = useAuthStore();
+
   return useQuery<User>({
     queryKey: queryKeys.auth.currentUser(),
     queryFn: async () => {
+      // Validate token before making request
+      if (!api.isTokenValid()) {
+        clearAuth();
+        throw new Error('Token expired or invalid');
+      }
+
       const response = await api.getCurrentUser();
       if (!response.success || !response.data) {
         throw new Error(response.message || 'Failed to get current user');
       }
       return response.data;
     },
-    enabled: !!api.getToken(), // Only fetch if token exists
+    enabled: !!api.getToken() && api.isTokenValid(), // Only fetch if token exists AND is valid
     retry: false, // Don't retry auth failures
     staleTime: 5 * 60 * 1000, // Consider fresh for 5 minutes
     gcTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
