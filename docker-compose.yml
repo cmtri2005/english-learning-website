@@ -11,9 +11,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
-      # Mount SQL init scripts - sẽ chạy tự động theo thứ tự alphabetical
-      # init.sql (tạo database và tables) → insert_users.sql (insert sample users)
+      - mysql_data:/var/lib/mysql_data
       - ./db/init:/docker-entrypoint-initdb.d
 
   phpmyadmin:
@@ -51,6 +49,12 @@ services:
       MAIL_FROM_NAME: ${MAIL_FROM_NAME}
       MAIL_REPLY_TO: ${MAIL_REPLY_TO}
       APP_URL: ${APP_URL}
+      # MinIO Configuration
+      MINIO_ENDPOINT: http://minioalt:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin123
+      MINIO_BUCKET: my-bucket
+      MINIO_PUBLIC_URL: http://localhost:9100
     ports:
       - "8000:80"
     depends_on:
@@ -59,12 +63,46 @@ services:
       - ./backend:/var/www/html
     working_dir: /var/www/html
     command: >
-      bash -c "
+      sh -c "
       docker-php-ext-install pdo pdo_mysql &&
       a2enmod rewrite &&
+      sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf &&
       echo 'ServerName localhost' >> /etc/apache2/apache2.conf &&
       apache2-foreground
       "
 
+  minioalt:
+    image: minio/minio:latest
+    container_name: minioalt
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+      MINIO_BROWSER_REDIRECT_URL: http://localhost:9101
+      # Enable CORS for frontend access
+      MINIO_API_CORS_ALLOW_ORIGIN: "*"
+    ports:
+      - "9100:9000"
+      - "9101:9001"
+    volumes:
+      - minio_alt_data:/data
+    command: server /data --console-address ":9001"
+
+  minio_seed:
+    build:
+      context: ./db/minio
+    depends_on:
+      - minioalt
+    environment:
+      MINIO_ENDPOINT: http://minioalt:9000
+      MINIO_USER: minioadmin
+      MINIO_PASSWORD: minioadmin123
+      BUCKET: my-bucket
+      PUBLIC_DOWNLOAD: "true"
+      SEED_DIR: /seed
+    volumes:
+      - ./db/minio/seed-data:/seed:ro
+    restart: "no"
 volumes:
   mysql_data:
+  minio_alt_data:

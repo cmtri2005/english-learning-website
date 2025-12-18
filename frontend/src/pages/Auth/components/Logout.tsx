@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { AppLayout } from "@/shared/components/layout";
 import { Button } from "@/shared/components/ui/button";
 import { Loader2, LogOut } from "lucide-react";
 import { useLogoutHandler } from "../hooks/useLogoutHandler";
 
 export default function Logout() {
+  const navigate = useNavigate();
   useLogoutHandler();
 
   return (

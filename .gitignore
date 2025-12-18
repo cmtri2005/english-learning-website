@@ -25,3 +25,8 @@ dist-ssr
 
 .config/
 !.env
+
+# PHP dependencies
+vendor/
+composer.lock
+composer.json

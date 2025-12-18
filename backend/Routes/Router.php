@@ -34,6 +34,16 @@ class Router
         $this->routes[] = ['method' => 'POST', 'path' => $path, 'handler' => $handler];
     }
 
+    public function put($path, $handler)
+    {
+        $this->routes[] = ['method' => 'PUT', 'path' => $path, 'handler' => $handler];
+    }
+
+    public function delete($path, $handler)
+    {
+        $this->routes[] = ['method' => 'DELETE', 'path' => $path, 'handler' => $handler];
+    }
+
     public function dispatch()
     {
         foreach ($this->routes as $route) {

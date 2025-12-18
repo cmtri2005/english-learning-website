@@ -105,4 +105,69 @@ class RestApi
     {
         self::apiResponse(null, $message, false, $status);
     }
+
+    /**
+     * Get current authenticated user ID from JWT token
+     * @return int|null User ID or null if not authenticated
+     */
+    static function getCurrentUserId(): ?int
+    {
+        // Try multiple sources for Authorization header (Apache compatibility)
+        $authHeader = null;
+        
+        // Method 1: Standard HTTP_AUTHORIZATION
+        if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
+            $authHeader = $_SERVER['HTTP_AUTHORIZATION'];
+        }
+        // Method 2: REDIRECT_HTTP_AUTHORIZATION (Apache mod_rewrite)
+        elseif (isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
+            $authHeader = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+        }
+        // Method 3: getallheaders() function
+        elseif (function_exists('getallheaders')) {
+            $headers = getallheaders();
+            if (isset($headers['Authorization'])) {
+                $authHeader = $headers['Authorization'];
+            } elseif (isset($headers['authorization'])) {
+                $authHeader = $headers['authorization'];
+            }
+        }
+        // Method 4: apache_request_headers()
+        elseif (function_exists('apache_request_headers')) {
+            $headers = apache_request_headers();
+            if (isset($headers['Authorization'])) {
+                $authHeader = $headers['Authorization'];
+            } elseif (isset($headers['authorization'])) {
+                $authHeader = $headers['authorization'];
+            }
+        }
+
+        if ($authHeader && stripos($authHeader, 'Bearer ') === 0) {
+            $token = trim(substr($authHeader, 7));
+            try {
+                $jwt = new JwtHandler($_ENV['JWT_SECRET'] ?? '');
+                $payload = $jwt->validateToken($token);
+                return $payload['user_id'] ?? null;
+            } catch (\Throwable $th) {
+                error_log('JWT validation error: ' . $th->getMessage());
+                return null;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Require authentication - returns user ID or sends 401 error
+     * @param string $message Custom error message
+     * @return int User ID
+     */
+    static function requireAuth(string $message = 'Vui lòng đăng nhập'): int
+    {
+        $userId = self::getCurrentUserId();
+        if (!$userId) {
+            self::apiError($message, 401);
+            exit;
+        }
+        return $userId;
+    }
 }
