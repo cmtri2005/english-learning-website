@@ -5,7 +5,7 @@
  */
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { blogApi, type BlogPost, type CreateBlogPostRequest, type UpdateBlogPostRequest, type CreateCommentRequest, type BlogListParams } from '@/services/blog/blog-api';
+import { blogApi, type BlogPost, type CreateBlogRequest, type UpdateBlogRequest, type CreateCommentRequest, type BlogListParams } from '@/services/blog';
 import { queryKeys } from '../config/query-client';
 
 /**
@@ -36,7 +36,9 @@ export function useBlogPost(
   return useQuery<BlogPost>({
     queryKey: ['blog', 'post', identifier],
     queryFn: async () => {
-      const response = await blogApi.getPost(identifier);
+      const response = typeof identifier === 'string'
+        ? await blogApi.getPostBySlug(identifier)
+        : await blogApi.getPostById(identifier);
       if (!response.success || !response.data) {
         throw new Error(response.message || 'Failed to get blog post');
       }
@@ -73,7 +75,7 @@ export function useCreateBlogPost() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: CreateBlogPostRequest) => {
+    mutationFn: async (data: CreateBlogRequest) => {
       const response = await blogApi.createPost(data);
       if (!response.success || !response.data) {
         throw new Error(response.message || 'Failed to create blog post');
@@ -95,7 +97,7 @@ export function useUpdateBlogPost() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ id, data }: { id: number; data: UpdateBlogPostRequest }) => {
+    mutationFn: async ({ id, data }: { id: number; data: UpdateBlogRequest }) => {
       const response = await blogApi.updatePost(id, data);
       if (!response.success || !response.data) {
         throw new Error(response.message || 'Failed to update blog post');
@@ -144,29 +146,16 @@ export function useToggleBlogLike() {
 
   return useMutation({
     mutationFn: async (postId: number) => {
-      const response = await blogApi.toggleLike(postId);
+      const response = await blogApi.toggleReaction({ blog_id: postId, reaction_type: 'like' });
       if (!response.success || !response.data) {
         throw new Error(response.message || 'Failed to toggle like');
       }
       return { postId, ...response.data };
     },
-    onSuccess: ({ postId, liked, likes_count }) => {
-      // Update post cache
-      queryClient.setQueryData<BlogPost>(['blog', 'post', postId], (old) => {
-        if (!old) return old;
-        return { ...old, is_liked: liked, likes_count };
-      });
-
-      // Update in list cache
-      queryClient.setQueriesData<{ posts: BlogPost[] }>({ queryKey: ['blog', 'posts'] }, (old) => {
-        if (!old) return old;
-        return {
-          ...old,
-          posts: old.posts.map((post) =>
-            post.id === postId ? { ...post, is_liked: liked, likes_count } : post
-          ),
-        };
-      });
+    onSuccess: ({ postId }) => {
+      // Invalidate post to refresh reaction data
+      queryClient.invalidateQueries({ queryKey: ['blog', 'post', postId] });
+      queryClient.invalidateQueries({ queryKey: ['blog', 'posts'] });
     },
   });
 }
@@ -178,23 +167,17 @@ export function useAddBlogComment() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ postId, data }: { postId: number; data: CreateCommentRequest }) => {
-      const response = await blogApi.addComment(postId, data);
+    mutationFn: async ({ postId, content }: { postId: number; content: string }) => {
+      const response = await blogApi.addComment({ blog_id: postId, content });
       if (!response.success || !response.data) {
         throw new Error(response.message || 'Failed to add comment');
       }
       return { postId, comment: response.data };
     },
-    onSuccess: ({ postId, comment }) => {
-      // Update post cache with new comment
-      queryClient.setQueryData<BlogPost>(['blog', 'post', postId], (old) => {
-        if (!old) return old;
-        return {
-          ...old,
-          comments: [...(old.comments || []), comment],
-          comments_count: (old.comments_count || 0) + 1,
-        };
-      });
+    onSuccess: ({ postId }) => {
+      // Invalidate post and comments to refresh
+      queryClient.invalidateQueries({ queryKey: ['blog', 'post', postId] });
+      queryClient.invalidateQueries({ queryKey: ['blog', 'comments', postId] });
     },
   });
 }
