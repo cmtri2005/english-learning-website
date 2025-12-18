@@ -13,8 +13,8 @@ import ResetPassword from '@/pages/Auth/components/ResetPassword';
 import Logout from '@/pages/Auth/components/Logout';
 import Courses from '@/pages/Courses';
 import Blog from '@/pages/Blog';
-import BlogPostDetail from '@/pages/Blog/PostDetail';
-import BlogCreatePost from '@/pages/Blog/CreatePost';
+import { BlogDetail } from '@/pages/Blog/components/BlogDetail';
+import { BlogEditor } from '@/pages/Blog/components/BlogEditor';
 import Unauthorized from '@/pages/Auth/components/Unauthorized';
 
 // Protected pages (require authentication)
@@ -52,7 +52,7 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/blog/:slug',
-    element: <BlogPostDetail />,
+    element: <BlogDetail />,
   },
   { path: '/unauthorized', element: <Unauthorized /> },
   { path: '/forgot-password', element: <ForgotPassword /> },
@@ -103,7 +103,7 @@ export const routes: RouteObject[] = [
     path: '/blog/create',
     element: (
       <ProtectedRoute>
-        <BlogCreatePost />
+        <BlogEditor />
       </ProtectedRoute>
     ),
   },
@@ -111,7 +111,7 @@ export const routes: RouteObject[] = [
     path: '/blog/edit/:id',
     element: (
       <ProtectedRoute>
-        <BlogCreatePost />
+        <BlogEditor />
       </ProtectedRoute>
     ),
   },
