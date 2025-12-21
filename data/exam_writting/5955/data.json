@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 16 - STUDY4",
+  "testUrl": "https://study4.com/tests/5955/start/",
+  "parts": [
+    {
+      "partId": "14877",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14878",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14879",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224983",
+      "questionType": "Unknown",
+      "context": "climb/stairs",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image10.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224984",
+      "questionType": "Unknown",
+      "context": "near/water",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image153.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224985",
+      "questionType": "Unknown",
+      "context": "cook/many",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image196.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224986",
+      "questionType": "Unknown",
+      "context": "because/heavy",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image48.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224987",
+      "questionType": "Unknown",
+      "context": "try on/before",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image56.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224988",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.FROM: Liza AlukoTO: Library membersSUBJECT: Volunteers needed for book saleSENT: August 8, 2:01 P.M.Our library is looking for volunteers to help with the book sale coming up this weekend. We need individuals to help in all areas. If you’re interested, please tell us how you’d like to help with the book sale. Let me know if you have any questions.Directions: Respond to the e-mail. In your e-mail, give ONE piece of information and ask TWO questions.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Liza Aluko",
+        "to": "Library members",
+        "subject": "Volunteers needed for book sale",
+        "sent": "August 8, 2:01 P.M.",
+        "content": "Our library is looking for volunteers to help with the book sale coming up this weekend. We need individuals to help in all areas. If you're interested, please tell us how you'd like to help with the book sale. Let me know if you have any questions.Directions: Respond to the e-mail. In your e-mail, give ONE piece of information and ask TWO questions."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224989",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.FROM: John Dembo, TMR IndustriesTO: Susan Hoffman, TMR IndustriesSUBJECT: Employee awards dinnerSENT: April 5, 6:00 P.M.Hi Susan,I’m coordinating the employee awards dinner this year. I know you’ve done this in the past. Can you tell about your experience planning previous dinners? Also, I’d appreciate any suggestions that you may have.John DemboDirections: Respond to the e-mail. In your e-mail, give TWO pieces of information and make ONE suggestion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "John Dembo, TMR Industries",
+        "to": "Susan Hoffman, TMR Industries",
+        "subject": "Employee awards dinner",
+        "sent": "April 5, 6:00 P.M.",
+        "content": "Hi Susan,I’m coordinating the employee awards dinner this year. I know you’ve done this in the past. Can you tell about your experience planning previous dinners? Also, I’d appreciate any suggestions that you may have.John DemboDirections: Respond to the e-mail. In your e-mail, give TWO pieces of information and make ONE suggestion."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224990",
+      "questionType": "Unknown",
+      "context": "Do you think it is important for high school students to take a class on public speaking? Why or why not?Give reasons and examples to support your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

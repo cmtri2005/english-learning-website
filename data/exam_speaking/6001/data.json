@@ -1,0 +1,53 @@
+{
+  "testName": "TOEIC SW Speaking Test 15 - STUDY4",
+  "testUrl": "https://study4.com/tests/6001/start/",
+  "questions": [
+    {
+      "questionNumber": "1",
+      "questionId": "225949",
+      "questionType": "Read Aloud",
+      "context": "Read a text aloudWelcome, everyone! Before we begin, in this twentieth discussion meeting, we will talk about the output of the last quarter, introduce the next sales plan and go over current issues with VIP customers. Now, look at your meeting materials. Let’s get rolling.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "2",
+      "questionId": "225950",
+      "questionType": "Read Aloud",
+      "context": "Read a text aloudNail Lounge is celebrating summer with great deals in July. If you want to get services such as manicures, pedicures, and even neck and shoulder massage, you can get a fifty percent discount , this month only! Be sure to make an appointment, because afternoons can get a bit crowded.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "3",
+      "questionId": "225951",
+      "questionType": "Response to Questions",
+      "context": "Respond to questionsImagine that a British marketing firm is doing research in your country. You have agreed to participate in a telephone interview about leisure activities. Question 5: How much leisure time do you have every day, and what do you do during that time?Question 6: What new leisure activities would you like to try if you had enough time?Question 7: Do you prefer spending your leisure time with other people, or do you like doing things by yourself? Give specific reasons to support your opinion.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "4",
+      "questionId": "225952",
+      "questionType": "Response to Questions",
+      "context": "Respond to questions using the information providedQuestion 8: When is the Grand Opening event being held, and where? Question 9: What time do we look around the facilities and who is leading it? Question 10: What will Dr. Correl give a lecture about?",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/speaking/image2.png"
+      ]
+    },
+    {
+      "questionNumber": "5",
+      "questionId": "225953",
+      "questionType": "Express Opinion",
+      "context": "Express an opinionSome people feel that children watch too much television these days and that this is having a negative impact. Do you agree or disagree with this opinion? Use specific reasons and examples to support your opinion.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    }
+  ]
+}

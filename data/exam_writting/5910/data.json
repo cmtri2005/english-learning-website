@@ -1,0 +1,112 @@
+{
+  "testName": "TOEIC SW Writing Test 2 - STUDY4",
+  "testUrl": "https://study4.com/tests/5910/start/",
+  "parts": [
+    {
+      "partId": "14668",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14669",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14670",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224645",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image14.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224646",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image48.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224647",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image75.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224648",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image9.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224649",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image56.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224650",
+      "questionType": "Respond to Email",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+        "emailDetails": {
+          "from": "Daniel Olivares, Olivares Shipping Inc.",
+          "to": "Administrative Staff",
+          "subject": "Vacation",
+          "sent": "February 19, 20--",
+          "content": "Sheila Weston, the head administrative coordinator, will be out of the office from March 10-15. We will need to redistribute her various tasks among the rest of the administrative staff while she’s out. Also, please be advised that you must give at least two weeks’ notice of any plans to take vacation.\nSincerely,\nDaniel Olivares\nOwner, Olivares Shipping, Inc.\nDirections: Respond to the e-mail as if you are on the administrative staff at Olivares Shipping Inc. In your e-mail, give TWO administrative tasks that you can perform while Ms. Weston is gone and ONE range of dates during which you plan to be on vacation."
+        }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224651",
+      "questionType": "Respond to Email",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+        "emailDetails": {
+          "from": "Walter Terborg",
+          "to": "Rita Chen",
+          "subject": "Application for employment",
+          "sent": "October 10, 20--",
+          "content": "Dear Ms. Chen: Thank you for your interest in the accountant position at Garrison and Associates. I am writing because your online application is currently incomplete. To see which materials are missing, please log in to your online account. Please feel free to contact me if you have any questions about the position or the application process.\nThank you,\nWalter Terborg, Human Resources\nDirections: Respond to the e-mail as if you are Rita Chen. In your e-mail, describe TWO application materials you submitted and ask ONE question about the position."
+        }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224652",
+      "questionType": "Unknown",
+      "context": "Modern technology has made it possible for many people to work at home most of the time rather than going to an office every day. What are the advantages and disadvantages of working at home? Support your answer with specific reasons and examples.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

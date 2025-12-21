@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 17 - STUDY4",
+  "testUrl": "https://study4.com/tests/5956/start/",
+  "parts": [
+    {
+      "partId": "14880",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14881",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14882",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224991",
+      "questionType": "Unknown",
+      "context": "man/sweep",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image55.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224992",
+      "questionType": "Unknown",
+      "context": "beautiful/shop",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image162.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224993",
+      "questionType": "Unknown",
+      "context": "next to/water",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image39.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224994",
+      "questionType": "Unknown",
+      "context": "show/how",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image109.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224995",
+      "questionType": "Unknown",
+      "context": "open/in order to",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image59.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224996",
+      "questionType": "Respond to Email",
+      "context": "FROM: HR DepartmentTO: All EmployeesSUBJECT: Ideas for annual partySENT: October 10th, 2:07 P.M.Dear colleagues,The annual party will be held at the end of December this year. At this point, we need your ideas and suggestions for the party. Also, feel free to ask any questions you may have about the event.Thanks!MariaHR DepartmentDirections: Respond to the e-mail. In your e-mail, give ONE piece of information and ask TWO questions.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "HR Department",
+        "to": "All Employees",
+        "subject": "Ideas for annual party",
+        "sent": "October 10th, 2:07 P.M.",
+        "content": "Dear colleagues,The annual party will be held at the end of December this year. At this point, we need your ideas and suggestions for the party. Also, feel free to ask any questions you may have about the event.Thanks!MariaHR DepartmentDirections: Respond to the e-mail. In your e-mail, give ONE piece of information and ask TWO questions."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224997",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.FROM: Vishal ShahTO: Finance OfficeSUBJECT: Travel reimbursementSENT: December 10, 2:11 P.M.Hello,I know that I can be reimbursed for certain business trip costs but not others. I kept records of everything I spent while on business for our company in Tokyo. Could you give me the details on the company policy for getting refunds for the money I spent?Thank you,VishalDirections: Respond to the e-mail as if you work in the finance office. In your e-mail, give THREE details.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Vishal Shah",
+        "to": "Finance Office",
+        "subject": "Travel reimbursement",
+        "sent": "December 10, 2:11 P.M.",
+        "content": "Hello,I know that I can be reimbursed for certain business trip costs but not others. I kept records of everything I spent while on business for our company in Tokyo. Could you give me the details on the company policy for getting refunds for the money I spent?Thank you,VishalDirections: Respond to the e-mail as if you work in the finance office. In your e-mail, give THREE details."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224998",
+      "questionType": "Unknown",
+      "context": "Many governments fund programs that help protect the environment. In your opinion, is this a good use of government funds? Why or why not? Give reasons and examples to support your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}
