@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 5 - STUDY4",
+  "testUrl": "https://study4.com/tests/5913/start/",
+  "parts": [
+    {
+      "partId": "14677",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14678",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14679",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224669",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image60.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224670",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image22.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224671",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image13.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224672",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image65.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224673",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image6.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224674",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: Samuel GeorgeTo: Janet JonesSubject: Changing banks Sent: February 23, 20—Dear Ms. Jones, We understand that you have moved your accounts to another bank. We are very sorry to lose your business. To help us provide better service in the future, would you mind telling us why you made the decision to change banks? Thank you very much.Sincerely,Samuel GeorgeNational City Bank Customer Service Directions: Respond to the e-mail as if you are Janet Jones. In your e-mail, explain ONE problem and make TWO suggestions.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Samuel George",
+        "to": "Janet Jones",
+        "subject": "Changing banks",
+        "sent": "February 23, 20—",
+        "content": "Dear Ms. Jones, We understand that you have moved your accounts to another bank. We are very sorry to lose your business. To help us provide better service in the future, would you mind telling us why you made the decision to change banks? Thank you very much.Sincerely,Samuel GeorgeNational City Bank Customer Service Directions: Respond to the e-mail as if you are Janet Jones. In your e-mail, explain ONE problem and make TWO suggestions."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224675",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: John JerkinsTo: Shirley ParkSubject: Budget report Sent: February 23, 20—Shirley,I am working on the annual budget report as you requested. You asked me to have it finished by next Friday; however, it’s taking longer than I thought. Could I have one more week to complete the report? That way I would have time to do a thorough job.Thank you. John Directions: Respond to the e-mail as if you are Shirley Park. In your e-mail, ask ONE question and give TWO pieces of information.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "John Jerkins",
+        "to": "Shirley Park",
+        "subject": "Budget report",
+        "sent": "February 23, 20—",
+        "content": "Shirley,I am working on the annual budget report as you requested. You asked me to have it finished by next Friday; however, it’s taking longer than I thought. Could I have one more week to complete the report? That way I would have time to do a thorough job.Thank you. John Directions: Respond to the e-mail as if you are Shirley Park. In your e-mail, ask ONE question and give TWO pieces of information."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224676",
+      "questionType": "Unknown",
+      "context": "At some jobs, employees are allowed to listen to music while they work. What is your opinion of this? Give reasons or examples to support your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

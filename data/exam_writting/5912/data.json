@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 4 - STUDY4",
+  "testUrl": "https://study4.com/tests/5912/start/",
+  "parts": [
+    {
+      "partId": "14674",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14675",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14676",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224661",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image30.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224662",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image4.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224663",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image71.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224664",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image11.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224665",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image50.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224666",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: Mark HayesTo: Easton Office Supply Company Subject: OrderSent: November 30,20—I put in a large order for office supplies from your company several weeks ago. I received the order yesterday; however, it was not complete. It did not contain the two boxes of manila envelopes that I ordered. Can you please resolve this problem for me?Thank you. Mark Hayes Directions: Respond to the e-mail as if you are an employee of the Easton Office Supply Company. In your e-mail, explain TWO problems and make ONE request.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Mark Hayes",
+        "to": "Easton Office Supply Company",
+        "subject": "Order",
+        "sent": "November 30,20—",
+        "content": "I put in a large order for office supplies from your company several weeks ago. I received the order yesterday; however, it was not complete. It did not contain the two boxes of manila envelopes that I ordered. Can you please resolve this problem for me?Thank you. Mark Hayes Directions: Respond to the e-mail as if you are an employee of the Easton Office Supply Company. In your e-mail, explain TWO problems and make ONE request."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224667",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: Mary Wilson To: All staff Subject: Tokyo visit Sent: April 15, 20—Greetings to all,As you know, next week we will receive guests from our Tokyo office. I need some ideas for interesting activities and places of interest they should visit. Also, I would like to know if any of you are available to take our visitors out for a meal or to visit some special place.Thanks for your help. Mary Wilson Directions: Respond to the e-mail as if you are a staff member. In your e-mail, make TWO suggestions and offer to help with ONE task.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Mary Wilson",
+        "to": "All staff",
+        "subject": "Tokyo visit",
+        "sent": "April 15, 20—",
+        "content": "Greetings to all,As you know, next week we will receive guests from our Tokyo office. I need some ideas for interesting activities and places of interest they should visit. Also, I would like to know if any of you are available to take our visitors out for a meal or to visit some special place.Thanks for your help. Mary Wilson Directions: Respond to the e-mail as if you are a staff member. In your e-mail, make TWO suggestions and offer to help with ONE task."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224668",
+      "questionType": "Unknown",
+      "context": "Some people prefer to work for a large company, while others prefer to work in a small office. Which size company do you prefer to work in? Use specific examples to support your choice.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}
