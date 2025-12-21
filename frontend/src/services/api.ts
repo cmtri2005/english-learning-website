@@ -324,6 +324,14 @@ class ApiClient {
   ): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, options);
   }
+
+  // Exam endpoints
+  async examRequest<T>(
+    endpoint: string,
+    options: RequestInit = {}
+  ): Promise<ApiResponse<T>> {
+    return this.request<T>(endpoint, options);
+  }
 }
 
 export const api = new ApiClient(API_BASE_URL);
