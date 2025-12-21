@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 9 - STUDY4",
+  "testUrl": "https://study4.com/tests/5917/start/",
+  "parts": [
+    {
+      "partId": "14689",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14690",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14691",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224701",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image27.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224702",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image23.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224703",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image52.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224704",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/uploads/editor/study4/2025/12/15/image70.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224705",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/uploads/editor/study4/2025/12/15/image8.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224706",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: C, Davis, Customer Affairs Manager, Plus AirlinesTo: V. MillerSubject: Your complaintSent: September 4, 2:52 PM.Dear Ms. Miller:I understand you had a problem on the Plus Airlines flight from Moscow to L.A. last Wednesday. Please email me back with more information about the problem you encountered so that we can handle this issue effectively.Yours sincerely,C. Davis Directions: Respond to the email as if you are V. Miller. In your email, provide TWO pieces of information about the flight.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "C, Davis, Customer Affairs Manager, Plus Airlines",
+        "to": "V. Miller",
+        "subject": "Your complaint",
+        "sent": "September 4, 2:52 PM.",
+        "content": "Dear Ms. Miller:I understand you had a problem on the Plus Airlines flight from Moscow to L.A. last Wednesday. Please email me back with more information about the problem you encountered so that we can handle this issue effectively.Yours sincerely,C. Davis Directions: Respond to the email as if you are V. Miller. In your email, provide TWO pieces of information about the flight."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224707",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: M. Jackson, Customer Relations Manager, Hartford Importers To: G. Watkins, Purchasing Director, Liam RetailingSubject: Your shipmentSent: November 5, 4:26 P.M.Dear Mr. Watkins:I heard from our customer service team that there are some problems with the shipment of electronic goods we sent you last week. I’m sorry for any inconvenience this has caused. Please let me know more details about the nature of the problems.Warm regards, M. JacksonDirections: Respond to the email as if you are G. Watkins. In your email, explain TWO problems you have experienced with the shipment.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "M. Jackson, Customer Relations Manager, Hartford Importers",
+        "to": "G. Watkins, Purchasing Director, Liam Retailing",
+        "subject": "Your shipment",
+        "sent": "November 5, 4:26 P.M.",
+        "content": "Dear Mr. Watkins:I heard from our customer service team that there are some problems with the shipment of electronic goods we sent you last week. I’m sorry for any inconvenience this has caused. Please let me know more details about the nature of the problems.Warm regards, M. JacksonDirections: Respond to the email as if you are G. Watkins. In your email, explain TWO problems you have experienced with the shipment."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224708",
+      "questionType": "Unknown",
+      "context": "Writing essays“Most people would prefer to work for themselves rather than someone else.” Do you agree with this statement? Use specific reasons and details to explain your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

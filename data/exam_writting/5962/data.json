@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 23 - STUDY4",
+  "testUrl": "https://study4.com/tests/5962/start/",
+  "parts": [
+    {
+      "partId": "14898",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14899",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14900",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "225039",
+      "questionType": "Unknown",
+      "context": "and / hand",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image225.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "225040",
+      "questionType": "Unknown",
+      "context": "garden / care",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image167.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "225041",
+      "questionType": "Unknown",
+      "context": "hold / on",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image163.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "225042",
+      "questionType": "Unknown",
+      "context": "boat / in front of",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image177.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "225043",
+      "questionType": "Unknown",
+      "context": "consider / whether",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image145.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "225044",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.From: Michael Dunn, HR DirectorTo: Mariko YoshidaSubject: Application for tuition assistanceThank you for your interest in our company’s program that helps employees pay for educational expenses. Please provide information about the course you wish to take and how it relates to your job and professional development. Let me know if you have any further questions about the program.Directions: Respond to the e-mail. In your e-mail, give TWO pieces of information and ask ONE question.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Michael Dunn, HR Director",
+        "to": "Mariko Yoshida",
+        "subject": "Application for tuition assistance",
+        "sent": "",
+        "content": "Thank you for your interest in our company's program that helps employees pay for educational expenses. Please provide information about the course you wish to take and how it relates to your job and professional development. Let me know if you have any further questions about the program.Directions: Respond to the e-mail. In your e-mail, give TWO pieces of information and ask ONE question."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "225045",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.From: Alice CarterTo: Tour OperatorSubject: Request for Information About Group TourDear Tour Operator,I am interested in booking a group tour for my family to visit the Grand Canyon. Could you please provide some details about your tour packages, including duration, pricing, and any special offers?Thank you for your assistance.Best regards,Alice CarterDirections: Respond to the e-mail as if you are a representative from the Tour Operator. In your e-mail, provide TWO pieces of information and make ONE suggestion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Alice Carter",
+        "to": "Tour Operator",
+        "subject": "Request for Information About Group Tour",
+        "sent": "",
+        "content": "Dear Tour Operator,I am interested in booking a group tour for my family to visit the Grand Canyon. Could you please provide some details about your tour packages, including duration, pricing, and any special offers?Thank you for your assistance.Best regards,Alice CarterDirections: Respond to the e-mail as if you are a representative from the Tour Operator. In your e-mail, provide TWO pieces of information and make ONE suggestion."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "225046",
+      "questionType": "Unknown",
+      "context": "Do you agree or disagree with the following statement? Young people today find it more difficult to achieve early success in their fields. Give reasons and examples to support your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

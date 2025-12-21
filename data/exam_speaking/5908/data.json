@@ -1,0 +1,75 @@
+{
+  "testName": "TOEIC SW Speaking Test 14 - STUDY4",
+  "testUrl": "https://study4.com/tests/5908/start/",
+  "questions": [
+    {
+      "questionNumber": "1",
+      "questionId": "224630",
+      "questionType": "Read Aloud",
+      "context": "Read a text aloudDear Magic Kingdom Theme Park Guests! Due to the freezing weather, our amusement park will temporarily close for today. Our shopping malls, cafes, and gift shops will stay open for your convenience. We are offering complimentary tickets, so all of you can come back to our park again soon. Please visit our customer service center for your free tickets.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "2",
+      "questionId": "224631",
+      "questionType": "Read Aloud",
+      "context": "Read a text aloudIn local news, the mayor, Valeria Notton, announced the new fire prevention plan. At tonight’s annual conference, she said that the plan is designed to prevent future fires and protect Chicago residents, old architecture, and local businesses. Doyle Constructions will start the project at the end of April.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "3",
+      "questionId": "224632",
+      "questionType": "Describe Picture",
+      "context": "Describe a picture",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/speaking/image41.png"
+      ]
+    },
+    {
+      "questionNumber": "4",
+      "questionId": "224633",
+      "questionType": "Describe Picture",
+      "context": "Describe a picture",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/speaking/image30.png"
+      ]
+    },
+    {
+      "questionNumber": "5",
+      "questionId": "224634",
+      "questionType": "Response to Questions",
+      "context": "Respond to questionsImagine that an American marketing firm is doing research in your country. You have agreed to participate in a telephone interview about news coverage. Question 5: Where do you usually get the news, and how often do you check this news source?Question 6: What type of news is most interesting to you and why?Question 7: What is the most impressive news story that you have seen or heard recently? Describe this news story.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "6",
+      "questionId": "224635",
+      "questionType": "Response to Questions",
+      "context": "Respond to questions using the information providedQuestion 8: I heard that we should apply for sales positions after lunch. Is this correct? Question 9: I guess that since it’s a full day event, you’re going to provide lunch. Can you tell me about the menu? Question 10: There will only be one workshop after the lunch break?",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/speaking/image51.png"
+      ]
+    },
+    {
+      "questionNumber": "7",
+      "questionId": "224636",
+      "questionType": "Express Opinion",
+      "context": "Express an opinionDo you agree or disagree with this statement: “A good supervisor listens to all the employees on his or her team.”? State your opinion and give specific reasons to support it.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    }
+  ]
+}

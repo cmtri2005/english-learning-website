@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 21 - STUDY4",
+  "testUrl": "https://study4.com/tests/5960/start/",
+  "parts": [
+    {
+      "partId": "14892",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14893",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14894",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "225023",
+      "questionType": "Unknown",
+      "context": "tool/new",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image75.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "225024",
+      "questionType": "Unknown",
+      "context": "flower/table",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image138.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "225025",
+      "questionType": "Unknown",
+      "context": "under/pass",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image237.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "225026",
+      "questionType": "Unknown",
+      "context": "map/while",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image137.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "225027",
+      "questionType": "Unknown",
+      "context": "before/order",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image4.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "225028",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.From: Vishal ShahTo: Finance OfficeSubject: Travel reimbursementHello,I know that I can be reimbursed for certain business trip costs but not others. I kept records of everything I spent while on business for our company in Tokyo. Could you give me the details on the company policy for getting refunds for the money I spent?Thank you,VishalDirections: Respond to the e-mail as if you work in the finance office. In your e-mail, give THREE details.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Vishal Shah",
+        "to": "Finance Office",
+        "subject": "Travel reimbursement",
+        "sent": "",
+        "content": "Hello,I know that I can be reimbursed for certain business trip costs but not others. I kept records of everything I spent while on business for our company in Tokyo. Could you give me the details on the company policy for getting refunds for the money I spent?Thank you,VishalDirections: Respond to the e-mail as if you work in the finance office. In your e-mail, give THREE details."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "225029",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.From: Jason Vornas, Best Vacation RentalsTo: Pearl SeineSubject: Vacation rental inquiryThank you for expressing interest in our vacation rental houses. If you provide details about what you’re looking for, we can suggest rental houses that would fit your needs. We’re happy to answer any questions.Directions: Respond to the e-mail as if you are looking for a vacation rental house. In your e-mail, give ONE piece of information and ask TWO questions.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Jason Vornas, Best Vacation Rentals",
+        "to": "Pearl Seine",
+        "subject": "Vacation rental inquiry",
+        "sent": "",
+        "content": "Thank you for expressing interest in our vacation rental houses. If you provide details about what you're looking for, we can suggest rental houses that would fit your needs. We're happy to answer any questions.Directions: Respond to the e-mail as if you are looking for a vacation rental house. In your e-mail, give ONE piece of information and ask TWO questions."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "225030",
+      "questionType": "Unknown",
+      "context": "Which do you think is more important for a leader: speaking skills or problem-solving skills? Give reasons and examples to support your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}
