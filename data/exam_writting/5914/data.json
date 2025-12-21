@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 6 - STUDY4",
+  "testUrl": "https://study4.com/tests/5914/start/",
+  "parts": [
+    {
+      "partId": "14680",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14681",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14682",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224677",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image33.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224678",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image12.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224679",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picturehold/basket",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image2.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224680",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a pictureman/ meet",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image42.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224681",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a pictureon/ table",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image18.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224682",
+      "questionType": "Respond to Email",
+      "context": "Directions: Respond to an emailFrom: George PinkneyTo: Social Committee membersSubject: MeetingSent: April 2, 20—It is time for a meeting of the Social Committee. We need to start planning the annual year-end party. I would like all members of the committee to meet next Friday morning from 9 to 11 in Conference Room A. Please let me know as soon as possible if you are available to attend this meeting.Thank you.George PinkneySocial Committee ChairDirections: Respond to the e-mail as if you are a member of the Social Committee. In your e-mail, explain ONE problem and make TWO suggestions.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "George Pinkney",
+        "to": "Social Committee members",
+        "subject": "Meeting",
+        "sent": "April 2, 20—",
+        "content": "It is time for a meeting of the Social Committee. We need to start planning the annual year-end party. I would like all members of the committee to meet next Friday morning from 9 to 11 in Conference Room A. Please let me know as soon as possible if you are available to attend this meeting.Thank you.George PinkneySocial Committee ChairDirections: Respond to the e-mail as if you are a member of the Social Committee. In your e-mail, explain ONE problem and make TWO suggestions."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224683",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: Journal of Business NewsTo: Business professionalsSubject: SubscribeSent: December 2, 2 0 -Dear Business Professional,The Journal Of Business News brings you all the latest news about important developments in the international business world. It is read by thousands of business people just like you in over 40 countries around the world. Subscribe today and receive a 30% discount off the regular price.Directions: Respond to the e-mail as if you are a businessperson interested in subscribing to the Journal of Business News. In your e-mail, ask THREE questions.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Journal of Business News",
+        "to": "Business professionals",
+        "subject": "Subscribe",
+        "sent": "December 2, 2 0 -",
+        "content": "Dear Business Professional,The Journal Of Business News brings you all the latest news about important developments in the international business world. It is read by thousands of business people just like you in over 40 countries around the world. Subscribe today and receive a 30% discount off the regular price.Directions: Respond to the e-mail as if you are a businessperson interested in subscribing to the Journal of Business News. In your e-mail, ask THREE questions."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224684",
+      "questionType": "Unknown",
+      "context": "Do you agree or disagree with the following statement? It is more important to work at a job you enjoy than to make a lot of money. Support your answer with specific reasons and examples.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 14 - STUDY4",
+  "testUrl": "https://study4.com/tests/5922/start/",
+  "parts": [
+    {
+      "partId": "14704",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14705",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14706",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224741",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image49.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224742",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image54.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224743",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image38.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224744",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image40.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224745",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image43.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224746",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: Cameron Contos, Passageways Travel CompanyTo: Customer listSubject: A great vacation packageSent: December 22, 9:23 A.M.Dear Passageways customers,You are our valued clients and we want to share a great travel package with you. We are offering an unbelievable, once in a lifetime opportunity for you to explore the Galapagos Islands. The first 200 customers who respond to this advertisement will receive a 10% discount on their hotel fares.Directions: Respond to the e-mail as if you are a Passageways Travel customer. In your e-mail, ask TWO questions and make ONE request regarding the travel package.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Cameron Contos, Passageways Travel Company",
+        "to": "Customer list",
+        "subject": "A great vacation package",
+        "sent": "December 22, 9:23 A.M.",
+        "content": "Dear Passageways customers,You are our valued clients and we want to share a great travel package with you. We are offering an unbelievable, once in a lifetime opportunity for you to explore the Galapagos Islands. The first 200 customers who respond to this advertisement will receive a 10% discount on their hotel fares.Directions: Respond to the e-mail as if you are a Passageways Travel customer. In your e-mail, ask TWO questions and make ONE request regarding the travel package."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224747",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: A. Chae, General CompanyTo: Fine PrintsSubject: Printing accidentSent: May 2, 10:32 A.M.Dear Fine Prints,Your company recently prepared letterheads for us. However, I've just noticed that you printed our old address by mistake. I have to send out hundreds of letters to our customers for a new promotion. Please e-mail me about this as soon as possible.Thank you,A. ChaeDirections: Respond to the e-mail as if you are an employee at Fine Prints. In your e-mail, make TWO suggestions for how to handle the problem and provide ONE piece of information you think will be useful.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "A. Chae, General Company",
+        "to": "Fine Prints",
+        "subject": "Printing accident",
+        "sent": "May 2, 10:32 A.M.",
+        "content": "Dear Fine Prints,Your company recently prepared letterheads for us. However, I've just noticed that you printed our old address by mistake. I have to send out hundreds of letters to our customers for a new promotion. Please e-mail me about this as soon as possible.Thank you,A. ChaeDirections: Respond to the e-mail as if you are an employee at Fine Prints. In your e-mail, make TWO suggestions for how to handle the problem and provide ONE piece of information you think will be useful."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224748",
+      "questionType": "Unknown",
+      "context": "Writing essaysWhat do you think are the most important characteristics for a job you have had or you want to have? Use specific details and examples to support your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

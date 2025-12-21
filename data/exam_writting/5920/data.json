@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 12 - STUDY4",
+  "testUrl": "https://study4.com/tests/5920/start/",
+  "parts": [
+    {
+      "partId": "14698",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14699",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14700",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224725",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image53.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224726",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image15.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224727",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image29.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224728",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image61.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224729",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image1.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224730",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: Ken SmithTo: Aaron Devlin, President, First Insurance AgencySubject: Interview .Sent: March 29, 8:16 A.M.Dear Mr. Devlin,I have a job interview scheduled for next Monday at 3:00 P.M. However, I am afraid there have been some changes in my current schedule, so I have to work until late at night that day. Could you possibly reschedule my interview date? I look forward to meeting you soon.Best regards,Ken SmithDirections: Respond to the e-mail as if you are Aaron Devlin. In your e-mail, suggest TWO possible times for holding the interview and request ONE item that Ken Smith should bring with him.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Ken Smith",
+        "to": "Aaron Devlin, President, First Insurance Agency",
+        "subject": "Interview .",
+        "sent": "March 29, 8:16 A.M.",
+        "content": "Dear Mr. Devlin,I have a job interview scheduled for next Monday at 3:00 P.M. However, I am afraid there have been some changes in my current schedule, so I have to work until late at night that day. Could you possibly reschedule my interview date? I look forward to meeting you soon.Best regards,Ken SmithDirections: Respond to the e-mail as if you are Aaron Devlin. In your e-mail, suggest TWO possible times for holding the interview and request ONE item that Ken Smith should bring with him."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224731",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: Randy Emerick, Assistant to Vice-PresidentTo: All staffSubject: Vice-president's retirement partySent: January 27, 1:15 P.M.Vice-President Jerry Silveria’s retirement party will take place at the Grand Traverse Resort on February 9 at 7:00 P.M. We are asking that employees help with preparations for the party, such as decorations, setting up tables, and so on.Directions: Respond to the e-mail as if you are an employee at this company. In your e-mail, ask TWO questions and make ONE suggestion about organizing the party.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Randy Emerick, Assistant to Vice-President",
+        "to": "All staff",
+        "subject": "Vice-president's retirement party",
+        "sent": "January 27, 1:15 P.M.",
+        "content": "Vice-President Jerry Silveria's retirement party will take place at the Grand Traverse Resort on February 9 at 7:00 P.M. We are asking that employees help with preparations for the party, such as decorations, setting up tables, and so on.Directions: Respond to the e-mail as if you are an employee at this company. In your e-mail, ask TWO questions and make ONE suggestion about organizing the party."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224732",
+      "questionType": "Unknown",
+      "context": "Writing essaysSome people like taking one long vacation each year. Others enjoy taking several shorter vacations. Which do you prefer? Use specific reasons and examples to explain your choice.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

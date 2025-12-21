@@ -1,0 +1,73 @@
+{
+  "testName": "TOEIC SW Speaking Test 16 - STUDY4",
+  "testUrl": "https://study4.com/tests/5924/start/",
+  "questions": [
+    {
+      "questionNumber": "1",
+      "questionId": "224773",
+      "questionType": "Read Aloud",
+      "context": "Read a text aloudWhen I was approached about speaking at this Holden High School graduation ceremony, I thought about what advice I could share with you. As a diplomat for over 40 years, I worked on foreign policy, trade deals, and important negotiations. However, the advice I have to share has little to do with politics and everything to do with communication.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "2",
+      "questionId": "224774",
+      "questionType": "Read Aloud",
+      "context": "Read a text aloudWelcome to this year’s Construction Innovation Awards banquet. Later in the evening, we’ll present awards, introduce special guests, and look at the year’s most innovative projects. But first, I’d like to welcome our keynote speaker, Maria Evans. Maria will share with us the lessons she has learned over the course of her career.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "3",
+      "questionId": "224775",
+      "questionType": "Describe Picture",
+      "context": "Describe a picture",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image90.png"
+      ]
+    },
+    {
+      "questionNumber": "4",
+      "questionId": "224776",
+      "questionType": "Describe Picture",
+      "context": "Describe a picture",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image172.png"
+      ]
+    },
+    {
+      "questionNumber": "5",
+      "questionId": "224777",
+      "questionType": "Response to Questions",
+      "context": "Respond to questionsImagine that a marketing firm is doing research in your country. You have agreed to participate in a telephone interview about cleaning your home.Question 5: Do you cook more often now compared to five years ago? Why or why not?Question 6: Where do you usually look for recipes when you want to cook a dish you have never made before?Question 7: When cooking, do you prefer to cook alone or with someone else? Why?",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "6",
+      "questionId": "224778",
+      "questionType": "Unknown",
+      "context": "Sakura Restaurant Private Room Reservations: July Date Time Occasion Notes July 3July 7July 12 July 19 July 22 July 29July 31 5-7 P.M 3-5 P.M 7-10 P.M 7-9 P.M 2-5 P.M 5-8 P.M 6-10 P.M Soccer team partyRetirement Rond company dinner meeting High school graduation party Birthday party Mathis family get-together Greene anniversary party Provide vegetarian options Chocolate cake requested Question 8: What is the date of the first event, and what kind of event is it? Question 9: I remember that there’s a high school graduation on July 19th. The high school graduation party starts at 5:00 P.M., doesn’t it?Question 10: I need to make sure we have enough staff on days when there are afternoon events. Can you give me all the details of events that begin before 5:00?",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "7",
+      "questionId": "224779",
+      "questionType": "Express Opinion",
+      "context": "Express an opinion In the future, do you think shopping online will become more popular than visiting a store? Why or why not? Give reasons or examples to support your opinion.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "testName": "TOEIC SW Speaking Test 25 - STUDY4",
+  "testUrl": "https://study4.com/tests/5933/start/",
+  "questions": [
+    {
+      "questionNumber": "1",
+      "questionId": "224836",
+      "questionType": "Read Aloud",
+      "context": "Read a text aloudYou’ve reached the law office of Lewis Spencer. Our office is currently closed. If you have an urgent question, please hang up and call our answering service at 555-0913. To make, change, or cancel an appointment, please leave a message after the tone or call back during regular business hours. In addition, questions may be submitted through our Web site.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "2",
+      "questionId": "224837",
+      "questionType": "Read Aloud",
+      "context": "Read a text aloudOn today’s episode of New Business Travel, we’ll talk about the most efficient ways to check your baggage, move quickly through security, and locate your departure gate. Then, I’d like to discuss international travel. Although traveling abroad may seem difficult, it can actually be fairly easy. Let’s look at some simple tips that will help.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "3",
+      "questionId": "224838",
+      "questionType": "Describe Picture",
+      "context": "Describe a picture",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image166.png"
+      ]
+    },
+    {
+      "questionNumber": "4",
+      "questionId": "224839",
+      "questionType": "Describe Picture",
+      "context": "Describe a picture",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image157.png"
+      ]
+    },
+    {
+      "questionNumber": "5",
+      "questionId": "224840",
+      "questionType": "Unknown",
+      "context": "Imagine that an English newspaper company is doing research in your area. You have agreed to participate in a telephone interview about issues related to using computers.Question 5: Has anyone ever asked for your help to resolve any computer-related issues?Question 6: Have you considered hiring professional help to resolve technological issues with your computer?Question 7: Which of the following methods would you prefer when seeking technical support from a specialist? Interacting face-to-face Talking on the phone Chatting online",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "6",
+      "questionId": "224841",
+      "questionType": "Unknown",
+      "context": "Question 8: Where will the interviews be held, and who is the first interviewee?Question 9: As far as I remember, we have two applicants for the editorial department. Is that right?Question 10: I think we should hire experienced staff. Can you give me all the details about the interviews with applicants who have more than 5 years of experience?",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image6.png"
+      ]
+    },
+    {
+      "questionNumber": "7",
+      "questionId": "224842",
+      "questionType": "Unknown",
+      "context": "Express your opinion Do you agree or disagree with the following statement? It is necessary for leaders to have a good sense of humor.Use specific reasons and details to support your opinion.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    }
+  ]
+}

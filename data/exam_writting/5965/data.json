@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 26 - STUDY4",
+  "testUrl": "https://study4.com/tests/5965/start/",
+  "parts": [
+    {
+      "partId": "14907",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14908",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14909",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "225063",
+      "questionType": "Unknown",
+      "context": "watch / bus",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image117.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "225064",
+      "questionType": "Unknown",
+      "context": "near / fence",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image170.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "225065",
+      "questionType": "Unknown",
+      "context": "outside / chair",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image206.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "225066",
+      "questionType": "Unknown",
+      "context": "carefully / while",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image13.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "225067",
+      "questionType": "Unknown",
+      "context": "buy / whether",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image83.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "225068",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.From: Karen SmithTo: Art Club MembersSubject: Suggestions for Our Art ClubHello everyone,As we plan for the upcoming year, we would love to hear your suggestions on how we can make our art club even better. What activities or events would you like to see us organize? Please share your ideas.Best,KarenDirections: Respond to the e-mail as if you are a member of the art club. In your e-mail, give THREE suggestions.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Karen Smith",
+        "to": "Art Club Members",
+        "subject": "Suggestions for Our Art Club",
+        "sent": "",
+        "content": "Hello everyone,As we plan for the upcoming year, we would love to hear your suggestions on how we can make our art club even better. What activities or events would you like to see us organize? Please share your ideas.Best,KarenDirections: Respond to the e-mail as if you are a member of the art club. In your e-mail, give THREE suggestions."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "225069",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.From: Belinda ChoTo: Tomas CardenasSubject: Client dinner on FridayTomas,Can you please find and book a suitable restaurant for my meeting with the representatives from Tanaka Corporation? We will go directly to the restaurant after our afternoon meeting, which should finish by 4 P.M.Thanks,BelindaDirections: Respond to the e-mail as if you are Tomas Cardenas, Ms. Cho's personal assistant. In your e-mail, provide THREE pieces of information.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Belinda Cho",
+        "to": "Tomas Cardenas",
+        "subject": "Client dinner on Friday",
+        "sent": "",
+        "content": "Tomas,Can you please find and book a suitable restaurant for my meeting with the representatives from Tanaka Corporation? We will go directly to the restaurant after our afternoon meeting, which should finish by 4 P.M.Thanks,BelindaDirections: Respond to the e-mail as if you are Tomas Cardenas, Ms. Cho's personal assistant. In your e-mail, provide THREE pieces of information."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "225070",
+      "questionType": "Unknown",
+      "context": "What is the most important quality in customer service: problem-solving skills, friendliness, or effective communication? Give reasons and examples to support your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}
