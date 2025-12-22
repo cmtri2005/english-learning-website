@@ -6,6 +6,7 @@ export interface Exam {
     description: string;
     duration_minutes: number;
     total_questions: number;
+    type?: 'readlis' | 'speaking' | 'writing';
 }
 
 export interface ExamDetail extends Exam {

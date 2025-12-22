@@ -2,16 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { examService, ExamDetail, ExamQuestionGroup, ExamQuestion } from "@/services/exam.service";
 import { Button } from "@/shared/components/ui/button";
-import { Card, CardContent } from "@/shared/components/ui/card";
-import { RadioGroup, RadioGroupItem } from "@/shared/components/ui/radio-group";
 import { Label } from "@/shared/components/ui/label";
 import { cn } from "@/shared/lib/utils";
-import { LogOut, Settings, Volume2, Info, Maximize2, Minimize2 } from "lucide-react";
-import { Switch } from "@/shared/components/ui/switch";
+import { ChevronLeft, ChevronRight, Clock, Send, X, Maximize2, Minimize2 } from "lucide-react";
 import { Textarea } from "@/shared/components/ui/textarea";
 import { AppLayout } from "@/shared/components/layout";
 
-// Helper to format time
 const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
@@ -23,15 +19,22 @@ export function ExamTakingPage() {
     const navigate = useNavigate();
     const [examDetail, setExamDetail] = useState<ExamDetail | null>(null);
     const [loading, setLoading] = useState(true);
-
-    // State
     const [timeLeft, setTimeLeft] = useState(0);
-    const [answers, setAnswers] = useState<Record<number, string>>({}); // question_id -> option
+    const [answers, setAnswers] = useState<Record<number, string>>({});
     const [activePart, setActivePart] = useState(1);
     const [isFocusMode, setIsFocusMode] = useState(false);
-
-    // Processed Data
     const [parts, setParts] = useState<Record<number, (ExamQuestionGroup | ExamQuestion)[]>>({});
+
+    const isSinglePartExam = examDetail?.type === 'speaking' || examDetail?.type === 'writing';
+    const availableParts = Object.keys(parts).map(Number).sort((a, b) => a - b);
+
+    // Calculate progress
+    const totalQuestions = Object.values(parts).flat().reduce((acc, item) => {
+        if ('questions' in item) return acc + item.questions.length;
+        return acc + 1;
+    }, 0);
+    const answeredCount = Object.keys(answers).length;
+    const progressPercent = totalQuestions > 0 ? Math.round((answeredCount / totalQuestions) * 100) : 0;
 
     useEffect(() => {
         if (id) {
@@ -41,22 +44,15 @@ export function ExamTakingPage() {
                     setExamDetail(data);
                     setTimeLeft(data.duration_minutes * 60);
 
-                    // Organize data into parts
                     const partsMap: Record<number, (ExamQuestionGroup | ExamQuestion)[]> = {};
-
-                    // Add Groups
                     data.groups.forEach(g => {
                         if (!partsMap[g.part_number]) partsMap[g.part_number] = [];
                         partsMap[g.part_number].push(g);
                     });
-
-                    // Add Standalone Questions
                     data.standalone_questions.forEach(q => {
                         if (!partsMap[q.part_number]) partsMap[q.part_number] = [];
                         partsMap[q.part_number].push(q);
                     });
-
-                    // Sort each part by question number
                     Object.keys(partsMap).forEach(key => {
                         const k = parseInt(key);
                         partsMap[k].sort((a, b) => {
@@ -65,15 +61,17 @@ export function ExamTakingPage() {
                             return (qA || 0) - (qB || 0);
                         });
                     });
-
                     setParts(partsMap);
+
+                    // Set active part to first available
+                    const firstPart = Object.keys(partsMap).map(Number).sort((a, b) => a - b)[0];
+                    if (firstPart) setActivePart(firstPart);
                 }
                 setLoading(false);
             });
         }
     }, [id]);
 
-    // Timer
     useEffect(() => {
         if (timeLeft <= 0) return;
         const interval = setInterval(() => {
@@ -96,169 +94,231 @@ export function ExamTakingPage() {
     const submitExam = async () => {
         if (!id) return;
         if (!window.confirm('Bạn có chắc chắn muốn nộp bài?')) return;
-
         try {
             const res = await examService.submitExam(parseInt(id), answers);
             if (res.success && res.data) {
                 navigate(`/exams/result/${res.data.attempt_id}`);
-            } else {
-                alert('Submission failed');
             }
         } catch (e) {
             console.error(e);
-            alert('Error submitting');
         }
     };
 
-    if (loading) return <div className="p-8 flex justify-center text-lg">Đang tải đề thi...</div>;
-    if (!examDetail) return <div className="p-8 text-red-500">Không thể tải đề thi</div>;
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-slate-50">
+                <div className="text-center">
+                    <div className="w-8 h-8 border-2 border-slate-300 border-t-slate-600 rounded-full animate-spin mx-auto mb-3" />
+                    <p className="text-slate-500 text-sm">Đang tải đề thi...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (!examDetail) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-slate-50">
+                <p className="text-red-600">Không thể tải đề thi</p>
+            </div>
+        );
+    }
+
+    const isTimeWarning = timeLeft < 300; // < 5 minutes
 
     const Content = (
-        <div className="min-h-screen bg-gray-50 flex flex-col">
-            {/* 1. Header Row */}
-            <header className={cn(
-                "bg-white border-b px-6 py-3 flex justify-between items-center sticky z-40 shadow-sm h-16 transition-all",
-                isFocusMode ? "top-0" : "top-0" // Using sticky, so inside AppLayout it will just stick below AppLayout header? AppLayout header is fixed/sticky.
-            )}>
-                <div className="flex items-center gap-4">
-                    <h1 className="text-xl font-bold text-gray-800">{examDetail.title}</h1>
-                    <Button variant="outline" size="sm" onClick={() => navigate('/exams')}>
-                        <LogOut className="w-4 h-4 mr-2" />
-                        Thoát
-                    </Button>
+        <div className="min-h-screen bg-slate-50/50">
+            {/* Compact Header */}
+            <header className="bg-white border-b border-slate-200/80 sticky top-0 z-50">
+                <div className="max-w-screen-2xl mx-auto px-4 h-14 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <button
+                            onClick={() => navigate('/exams')}
+                            className="p-1.5 -ml-1.5 rounded-md hover:bg-slate-100 text-slate-500 transition-colors"
+                        >
+                            <X size={18} />
+                        </button>
+                        <div className="h-5 w-px bg-slate-200" />
+                        <h1 className="text-sm font-medium text-slate-800 truncate max-w-[300px]">
+                            {examDetail.title}
+                        </h1>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                        {/* Timer */}
+                        <div className={cn(
+                            "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-mono",
+                            isTimeWarning
+                                ? "bg-red-50 text-red-700"
+                                : "bg-slate-100 text-slate-700"
+                        )}>
+                            <Clock size={14} className={isTimeWarning ? "text-red-500" : "text-slate-500"} />
+                            {formatTime(timeLeft)}
+                        </div>
+
+                        <div className="h-5 w-px bg-slate-200 mx-1" />
+
+                        <button
+                            onClick={() => setIsFocusMode(!isFocusMode)}
+                            className="p-2 rounded-md hover:bg-slate-100 text-slate-500 transition-colors"
+                            title={isFocusMode ? "Thoát chế độ tập trung" : "Chế độ tập trung"}
+                        >
+                            {isFocusMode ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+                        </button>
+
+                        <Button
+                            size="sm"
+                            onClick={submitExam}
+                            className="ml-2 bg-emerald-600 hover:bg-emerald-700 text-white gap-1.5"
+                        >
+                            <Send size={14} />
+                            Nộp bài
+                        </Button>
+                    </div>
                 </div>
 
-                <div className="flex items-center gap-2">
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => setIsFocusMode(!isFocusMode)}
-                        className="text-gray-600 gap-2"
-                    >
-                        {isFocusMode ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
-                        {isFocusMode ? "Exit Focus" : "Focus Mode"}
-                    </Button>
-                </div>
+                {/* Audio bar - only if audio exists */}
+                {examDetail?.audio_url && (
+                    <div className="border-t border-slate-100 bg-slate-50/50 px-4 py-2">
+                        <div className="max-w-screen-2xl mx-auto">
+                            <audio
+                                controls
+                                src={examDetail.audio_url}
+                                className="w-full max-w-2xl h-8 mx-auto"
+                            />
+                        </div>
+                    </div>
+                )}
             </header>
 
-            {/* 2. Audio & Settings Bar (Sub-header) */}
-            <div className={cn(
-                "bg-white border-b px-6 py-2 flex items-center justify-between sticky z-30 shadow-sm h-14 transition-all",
-                isFocusMode ? "top-16" : "top-16"
-            )}>
-                <div className="flex items-center gap-3">
-                    <Switch id="highlight-mode" />
-                    <Label htmlFor="highlight-mode" className="text-sm font-medium text-gray-700 cursor-pointer flex items-center gap-1">
-                        Highlight nội dung <Info size={14} className="text-gray-400" />
-                    </Label>
-                </div>
+            <div className="max-w-screen-2xl mx-auto px-4 py-6">
+                <div className="flex gap-6">
+                    {/* Main Content */}
+                    <main className="flex-1 min-w-0">
+                        {/* Part Navigation - subtle pills */}
+                        {!isSinglePartExam && availableParts.length > 1 && (
+                            <nav className="mb-5 flex items-center gap-1 p-1 bg-white rounded-lg border border-slate-200/80 inline-flex">
+                                {availableParts.map(p => {
+                                    const questionsInPart = parts[p]?.flatMap(item => 'questions' in item ? item.questions : [item]) || [];
+                                    const answeredInPart = questionsInPart.filter(q => answers[q.question_id]).length;
+                                    const isComplete = answeredInPart === questionsInPart.length && questionsInPart.length > 0;
 
-                {/* Audio Player */}
-                <div className="flex-1 mx-8 flex items-center justify-center">
-                    {examDetail?.audio_url ? (
-                        <audio controls src={examDetail.audio_url} className="w-full max-w-2xl h-10" />
-                    ) : (
-                        <span className="text-gray-400 text-sm italic">No audio available for this exam</span>
-                    )}
-                </div>
+                                    return (
+                                        <button
+                                            key={p}
+                                            onClick={() => setActivePart(p)}
+                                            className={cn(
+                                                "px-3 py-1.5 rounded-md text-sm font-medium transition-all relative",
+                                                activePart === p
+                                                    ? "bg-slate-800 text-white shadow-sm"
+                                                    : "text-slate-600 hover:bg-slate-100"
+                                            )}
+                                        >
+                                            Part {p}
+                                            {isComplete && (
+                                                <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-500 rounded-full" />
+                                            )}
+                                        </button>
+                                    );
+                                })}
+                            </nav>
+                        )}
 
-                <Button variant="ghost" size="icon">
-                    <Settings size={20} className="text-gray-600" />
-                </Button>
-            </div>
-
-            <main className="flex-grow container mx-auto pt-6 flex gap-6 px-4">
-                {/* 3. Left Content (Questions) */}
-                <div className="flex-grow w-3/4 pb-20">
-                    {/* Part Tabs */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                        {[1, 2, 3, 4, 5, 6, 7].map(p => (
-                            <button
-                                key={p}
-                                onClick={() => setActivePart(p)}
-                                className={cn(
-                                    "px-4 py-1.5 rounded-full text-sm font-bold transition-all",
-                                    activePart === p
-                                        ? "bg-blue-100 text-blue-700 ring-2 ring-blue-500 ring-offset-1"
-                                        : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-100"
+                        {/* Questions Container */}
+                        <div className="bg-white rounded-xl border border-slate-200/80 shadow-sm">
+                            <div className="p-6 space-y-6">
+                                {parts[activePart]?.length > 0 ? (
+                                    parts[activePart]?.map((item, idx) => {
+                                        const isGroup = 'questions' in item;
+                                        if (isGroup) return <GroupRender key={`g-${idx}`} group={item as ExamQuestionGroup} answers={answers} onAnswer={handleSelectAnswer} />;
+                                        return <QuestionRender key={`q-${(item as ExamQuestion).question_id}`} question={item as ExamQuestion} answers={answers} onAnswer={handleSelectAnswer} />;
+                                    })
+                                ) : (
+                                    <div className="py-16 text-center text-slate-400">
+                                        {isSinglePartExam ? "Chưa có câu hỏi" : `Không có câu hỏi trong Part ${activePart}`}
+                                    </div>
                                 )}
-                            >
-                                Part {p}
-                            </button>
-                        ))}
-                    </div>
+                            </div>
 
-                    {/* Active Part Content */}
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-100 min-h-[500px] p-6">
-
-                        <div className="space-y-8">
-                            {parts[activePart]?.length > 0 ? (
-                                parts[activePart]?.map((item, idx) => {
-                                    const isGroup = 'questions' in item;
-                                    if (isGroup) return <GroupRender key={`g-${idx}`} group={item as ExamQuestionGroup} answers={answers} onAnswer={handleSelectAnswer} />;
-                                    return <QuestionRender key={`q-${(item as ExamQuestion).question_id}`} question={item as ExamQuestion} answers={answers} onAnswer={handleSelectAnswer} />;
-                                })
-                            ) : (
-                                <div className="text-center py-20 text-gray-500 italic">No questions available in Part {activePart}.</div>
+                            {/* Part navigation footer */}
+                            {!isSinglePartExam && availableParts.length > 1 && (
+                                <div className="px-6 py-4 border-t border-slate-100 flex justify-between items-center">
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        disabled={activePart <= availableParts[0]}
+                                        onClick={() => {
+                                            const idx = availableParts.indexOf(activePart);
+                                            if (idx > 0) setActivePart(availableParts[idx - 1]);
+                                        }}
+                                        className="gap-1 text-slate-600"
+                                    >
+                                        <ChevronLeft size={16} />
+                                        Part trước
+                                    </Button>
+                                    <span className="text-xs text-slate-400">
+                                        {activePart} / {availableParts.length}
+                                    </span>
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        disabled={activePart >= availableParts[availableParts.length - 1]}
+                                        onClick={() => {
+                                            const idx = availableParts.indexOf(activePart);
+                                            if (idx < availableParts.length - 1) setActivePart(availableParts[idx + 1]);
+                                        }}
+                                        className="gap-1 text-slate-600"
+                                    >
+                                        Part sau
+                                        <ChevronRight size={16} />
+                                    </Button>
+                                </div>
                             )}
                         </div>
+                    </main>
 
-                        <div className="mt-12 flex justify-between pt-6 border-t">
-                            <Button variant="outline" disabled={activePart <= 1} onClick={() => setActivePart(p => p - 1)}>
-                                ← Previous Part
-                            </Button>
-                            <Button variant="default" disabled={activePart >= 7} onClick={() => setActivePart(p => p + 1)}>
-                                Next Part →
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-
-                {/* 4. Right Sidebar (Sticky) */}
-                <div className="w-1/4 min-w-[300px] hidden lg:block">
-                    <div className={cn("space-y-4 sticky transition-all", isFocusMode ? "top-36" : "top-36")}>
-                        <Card className="border-0 shadow-md">
-                            <CardContent className="p-5">
-                                <div className="mb-2 text-sm text-gray-600 font-medium">Thời gian còn lại:</div>
-                                <div className="text-3xl font-bold text-gray-900 mb-6 font-mono tracking-tight">
-                                    {formatTime(timeLeft)}
+                    {/* Sidebar */}
+                    <aside className="w-64 flex-shrink-0 hidden lg:block">
+                        <div className="sticky top-20 space-y-4">
+                            {/* Progress Card */}
+                            <div className="bg-white rounded-xl border border-slate-200/80 p-4">
+                                <div className="flex items-center justify-between mb-3">
+                                    <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">Tiến độ</span>
+                                    <span className="text-sm font-semibold text-slate-800">{answeredCount}/{totalQuestions}</span>
                                 </div>
-
-                                <Button
-                                    className="w-full text-lg font-bold h-12 bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-50"
-                                    onClick={submitExam}
-                                >
-                                    NỘP BÀI
-                                </Button>
-
-                                <div className="mt-4 text-center">
-                                    <button className="text-sm text-red-500 font-medium hover:underline">
-                                        Khôi phục/lưu bài làm ›
-                                    </button>
+                                <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                    <div
+                                        className="h-full bg-emerald-500 rounded-full transition-all duration-300"
+                                        style={{ width: `${progressPercent}%` }}
+                                    />
                                 </div>
-                            </CardContent>
-                        </Card>
+                                <p className="text-xs text-slate-400 mt-2">{progressPercent}% hoàn thành</p>
+                            </div>
 
-                        {/* Navigation Grid */}
-                        <Card className="border-0 shadow-md max-h-[calc(100vh-400px)] overflow-y-auto">
-                            <CardContent className="p-4 space-y-6">
-                                {[1, 2, 3, 4, 5, 6, 7].map(partNum => {
+                            {/* Question Grid */}
+                            <div className="bg-white rounded-xl border border-slate-200/80 p-4 max-h-[60vh] overflow-y-auto">
+                                {availableParts.map(partNum => {
                                     const questionsInPart = parts[partNum]?.flatMap(item => 'questions' in item ? item.questions : [item]) || [];
                                     if (questionsInPart.length === 0) return null;
 
                                     return (
-                                        <div key={partNum}>
-                                            <div className="font-bold text-sm text-gray-800 mb-2">Part {partNum}</div>
-                                            <div className="grid grid-cols-5 gap-2">
+                                        <div key={partNum} className="mb-4 last:mb-0">
+                                            {!isSinglePartExam && (
+                                                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                                                    Part {partNum}
+                                                </div>
+                                            )}
+                                            <div className="grid grid-cols-5 gap-1.5">
                                                 {questionsInPart.map(q => (
                                                     <button
                                                         key={q.question_id}
                                                         onClick={() => setActivePart(partNum)}
                                                         className={cn(
-                                                            "w-9 h-9 text-xs font-semibold rounded border flex items-center justify-center transition-all",
+                                                            "w-8 h-8 text-xs font-medium rounded-md transition-all",
                                                             answers[q.question_id]
-                                                                ? "bg-blue-600 text-white border-blue-600 shadow-sm"
-                                                                : "bg-white text-gray-700 border-gray-200 hover:border-blue-400 hover:text-blue-600"
+                                                                ? "bg-emerald-500 text-white"
+                                                                : activePart === partNum
+                                                                    ? "bg-slate-200 text-slate-700"
+                                                                    : "bg-slate-100 text-slate-500 hover:bg-slate-200"
                                                         )}
                                                     >
                                                         {q.question_number}
@@ -268,51 +328,43 @@ export function ExamTakingPage() {
                                         </div>
                                     );
                                 })}
-                            </CardContent>
-                        </Card>
-                    </div>
+                            </div>
+                        </div>
+                    </aside>
                 </div>
-            </main>
+            </div>
         </div>
     );
 
-    if (isFocusMode) {
-        return Content;
-    }
-
-    return (
-        <AppLayout>
-            {Content}
-        </AppLayout>
-    );
+    if (isFocusMode) return Content;
+    return <AppLayout>{Content}</AppLayout>;
 }
 
 function GroupRender({ group, answers, onAnswer }: { group: ExamQuestionGroup, answers: Record<number, string>, onAnswer: (q: number, v: string) => void }) {
     return (
-        <div className="mb-8">
-            {/* Group-level context (for Part 3, 4, 6, 7) */}
-            <div className="bg-gray-50 p-4 rounded-lg mb-4 border border-gray-100">
-                {group.image_url && (
-                    <div className="mb-4 bg-black/5 rounded-lg overflow-hidden flex justify-center">
-                        <img src={group.image_url} alt="Question Context" className="max-w-full max-h-[400px] object-contain" />
-                    </div>
-                )}
-                {group.audio_url && (
-                    <div className="mb-4">
-                        <audio controls src={group.audio_url} className="w-full h-10" />
-                    </div>
-                )}
-                {/* Display content_text (dialogue for Part 3-4, passage for Part 6-7) */}
-                {/* Transcript is NEVER shown during exam - only in results */}
-                {group.content_text && (
-                    <div className="prose prose-sm max-w-none text-gray-800 whitespace-pre-line mb-4 border-l-4 border-blue-400 pl-4 py-1">
-                        {group.content_text}
-                    </div>
-                )}
-            </div>
-
-            {/* Individual questions within the group */}
-            <div className="space-y-6 pl-2">
+        <div className="space-y-5">
+            {/* Context block */}
+            {(group.image_url || group.audio_url || group.content_text) && (
+                <div className="bg-slate-50 rounded-lg p-4 border border-slate-100">
+                    {group.image_url && (
+                        <img
+                            src={group.image_url}
+                            alt=""
+                            className="max-w-full max-h-80 mx-auto rounded-md mb-3"
+                        />
+                    )}
+                    {group.audio_url && (
+                        <audio controls src={group.audio_url} className="w-full h-9 mb-3" />
+                    )}
+                    {group.content_text && (
+                        <div className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+                            {group.content_text}
+                        </div>
+                    )}
+                </div>
+            )}
+            {/* Questions */}
+            <div className="space-y-4 pl-1">
                 {group.questions.map(q => (
                     <QuestionRender key={q.question_id} question={q} answers={answers} onAnswer={onAnswer} isGrouped partNumber={group.part_number} />
                 ))}
@@ -325,67 +377,74 @@ function QuestionRender({ question, answers, onAnswer, isGrouped = false, partNu
     const options = question.options || [];
     const isWriting = question.question_type && ['Write Sentence from Picture', 'Respond to Email', 'Opinion Essay', 'Write Sentence'].some(t => question.question_type?.includes(t));
     const isSpeaking = question.question_type && ['Read Aloud', 'Describe Picture', 'Response to Questions', 'Express Opinion'].some(t => question.question_type?.includes(t));
-
-    // Fallback for types not strictly matching strings but having no options (likely writing/speaking)
     const isInput = (isWriting || isSpeaking) || (options.length === 0 && question.question_type);
-
-    // For Part 7 grouped questions, skip individual images since they're shown at group level
     const shouldShowImages = !(isGrouped && partNumber === 7);
+    const isAnswered = !!answers[question.question_id];
 
     return (
-        <div className={cn("mb-6", !isGrouped && "p-5 border rounded-xl bg-gray-50/50")}>
-            <div className="flex gap-4 mb-3">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-sm shadow-sm">
+        <div className={cn(
+            "group",
+            !isGrouped && "p-4 rounded-lg border transition-colors",
+            !isGrouped && isAnswered ? "border-emerald-200 bg-emerald-50/30" : !isGrouped && "border-slate-100 bg-slate-50/30 hover:border-slate-200"
+        )}>
+            <div className="flex gap-3 mb-3">
+                <span className={cn(
+                    "flex-shrink-0 w-7 h-7 rounded-full text-xs font-semibold flex items-center justify-center",
+                    isAnswered ? "bg-emerald-500 text-white" : "bg-slate-200 text-slate-600"
+                )}>
                     {question.question_number}
+                </span>
+                <div className="flex-1 pt-0.5">
+                    {question.question_type && (
+                        <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wide">
+                            {question.question_type}
+                        </span>
+                    )}
+                    {question.question_text && (
+                        <p className="text-sm text-slate-700 leading-relaxed mt-0.5 whitespace-pre-wrap">
+                            {question.question_text}
+                        </p>
+                    )}
                 </div>
-                {/* Display question_text (context) for all parts */}
-                {/* For Part 1-2: Direct question or instruction */}
-                {/* For Part 3-4: Individual question text (e.g., "What does the man suggest?") */}
-                {/* For Part 5: The sentence with blank (e.g., "The manager _____ the report.") */}
-                {/* For Part 6-7: Individual question text */}
-                {/* Transcript is NEVER shown during exam - only in results */}
-                {question.question_text && (
-                    <div className="flex-grow pt-1 text-gray-800 font-medium text-base">
-                        {question.question_type && (
-                            <span className="font-bold text-gray-500 text-xs uppercase block mb-1">{question.question_type}</span>
-                        )}
-                        <div className="whitespace-pre-wrap">{question.question_text}</div>
-                    </div>
-                )}
-            </div>
-            {/* Media for Question Level (images/audio for individual questions) */}
-            <div className="ml-12 mb-4 space-y-3">
-                {shouldShowImages && question.image_urls && question.image_urls.map((url, i) => (
-                    <div key={i} className="rounded-lg overflow-hidden border border-gray-200">
-                        <img src={url} alt={`Question ${question.question_number} Image ${i + 1}`} className="max-w-full h-auto max-h-[300px]" />
-                    </div>
-                ))}
-                {question.audio_urls && question.audio_urls.map((url, i) => (
-                    <div key={i}>
-                        <audio controls src={url} className="w-full" />
-                    </div>
-                ))}
             </div>
 
-            <div className="ml-12 space-y-3">
-                {/* Multiple Choice */}
+            {/* Media */}
+            {shouldShowImages && question.image_urls?.length > 0 && (
+                <div className="ml-10 mb-3 space-y-2">
+                    {question.image_urls.map((url, i) => (
+                        <img key={i} src={url} alt="" className="max-w-full max-h-60 rounded-md border border-slate-200" />
+                    ))}
+                </div>
+            )}
+            {question.audio_urls?.length > 0 && (
+                <div className="ml-10 mb-3">
+                    {question.audio_urls.map((url, i) => (
+                        <audio key={i} controls src={url} className="w-full h-9" />
+                    ))}
+                </div>
+            )}
+
+            {/* Options */}
+            <div className="ml-10 space-y-1.5">
                 {options.length > 0 && options.map((opt) => (
                     <label
                         key={opt}
                         className={cn(
-                            "flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all hover:bg-gray-50",
+                            "flex items-center gap-2.5 p-2.5 rounded-md cursor-pointer transition-all text-sm",
                             answers[question.question_id] === opt
-                                ? "border-blue-500 bg-blue-50/50 ring-1 ring-blue-500"
-                                : "border-gray-200"
+                                ? "bg-emerald-50 border border-emerald-300 text-emerald-800"
+                                : "bg-white border border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50"
                         )}
                     >
                         <div className={cn(
-                            "w-5 h-5 rounded-full border flex items-center justify-center flex-shrink-0",
+                            "w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors",
                             answers[question.question_id] === opt
-                                ? "border-blue-600 bg-blue-600 text-white"
-                                : "border-gray-400"
+                                ? "border-emerald-500 bg-emerald-500"
+                                : "border-slate-300"
                         )}>
-                            {answers[question.question_id] === opt && <div className="w-2 h-2 bg-white rounded-full" />}
+                            {answers[question.question_id] === opt && (
+                                <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                            )}
                         </div>
                         <input
                             type="radio"
@@ -393,23 +452,19 @@ function QuestionRender({ question, answers, onAnswer, isGrouped = false, partNu
                             value={opt}
                             checked={answers[question.question_id] === opt}
                             onChange={() => onAnswer(question.question_id, opt)}
-                            className="hidden"
+                            className="sr-only"
                         />
-                        <span className="text-gray-700 text-sm">{opt}</span>
+                        <span>{opt}</span>
                     </label>
                 ))}
 
-                {/* Text Input for Writing/Speaking Notes */}
                 {isInput && (
-                    <div>
-                        <Textarea
-                            placeholder={isSpeaking ? "Ghi chú câu trả lời của bạn..." : "Nhập câu trả lời của bạn..."}
-                            value={answers[question.question_id] || ''}
-                            onChange={(e) => onAnswer(question.question_id, e.target.value)}
-                            className="min-h-[150px] font-mono text-base bg-white"
-                        />
-                        {isSpeaking && <p className="text-xs text-gray-500 mt-2 italic">* Đối với bài thi Speaking, vui lòng ghi chú dàn ý hoặc tự ghi âm (hệ thống hiện tại hỗ trợ ghi chú).</p>}
-                    </div>
+                    <Textarea
+                        placeholder={isSpeaking ? "Ghi chú câu trả lời..." : "Nhập câu trả lời..."}
+                        value={answers[question.question_id] || ''}
+                        onChange={(e) => onAnswer(question.question_id, e.target.value)}
+                        className="min-h-[120px] text-sm bg-white border-slate-200 focus:border-slate-400"
+                    />
                 )}
             </div>
         </div>
