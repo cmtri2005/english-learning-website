@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 11 - STUDY4",
+  "testUrl": "https://study4.com/tests/5919/start/",
+  "parts": [
+    {
+      "partId": "14695",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14696",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14697",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224717",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image69.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224718",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image45.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224719",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image64.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224720",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image67.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224721",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image63.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224722",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: Jenny Cooper, Manager, Hotel MarinaTo: Marcus FarleySubject: Your staySent: March 6, 4:21 PM.Dear Mr. Farley,I hope you enjoyed your recent stay at Hotel Marina. It was a pleasure having you! If you have any advice you would like to give us about our facilities and services, please let me know.Thank you,Jenny CooperDirections: Respond to the e-mail as if you are Marcus Farley. In your e-mail, make THREE suggestions about how the hotel could be improved.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Jenny Cooper, Manager, Hotel Marina",
+        "to": "Marcus Farley",
+        "subject": "Your stay",
+        "sent": "March 6, 4:21 PM.",
+        "content": "Dear Mr. Farley,I hope you enjoyed your recent stay at Hotel Marina. It was a pleasure having you! If you have any advice you would like to give us about our facilities and services, please let me know.Thank you,Jenny CooperDirections: Respond to the e-mail as if you are Marcus Farley. In your e-mail, make THREE suggestions about how the hotel could be improved."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224723",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: C. Torina, Customer Service RepresentativeTo: J. Samuel, Director of ShippingSubject: Delivery delaySent: June 25, 11:07 A.M.I heard from one of our customers, Jenny Smith, that she still hasn't received the wedding invitation cards she ordered. We promised to make this delivery by June 15. She seems to be quite upset. Can you look into this, please? Directions: Respond to the e-mail as if you are J. Samuel. In your e-mail, describe TWO steps you will take to handle the situation and make ONE request.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "C. Torina, Customer Service Representative",
+        "to": "J. Samuel, Director of Shipping",
+        "subject": "Delivery delay",
+        "sent": "June 25, 11:07 A.M.",
+        "content": "I heard from one of our customers, Jenny Smith, that she still hasn't received the wedding invitation cards she ordered. We promised to make this delivery by June 15. She seems to be quite upset. Can you look into this, please? Directions: Respond to the e-mail as if you are J. Samuel. In your e-mail, describe TWO steps you will take to handle the situation and make ONE request."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224724",
+      "questionType": "Unknown",
+      "context": "Writing essaysDo you think it is a good idea for teenagers to have jobs while they are still students? Support your opinion by using specific reasons and details.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

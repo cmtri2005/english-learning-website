@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 13 - STUDY4",
+  "testUrl": "https://study4.com/tests/5921/start/",
+  "parts": [
+    {
+      "partId": "14701",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14702",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14703",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224733",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image10.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224734",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image55.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224735",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image46.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224736",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image44.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224737",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image36.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224738",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: Oscar WolfeTo: Jack’s Online HardwareSubject: Malfunctioning drillSent: June 12, 10:14 A.M.The power drill I bought from you on the Internet last month is not working well anymore. It turns on, but it doesn’t drill as efficiently as it used to. I have to push very hard to make it cut into the wood. It’s just not functioning like it should. Help me please!Oscar WolfeDirections: Respond to the e-mail as if you are a customer service worker at Jack's Online Hardware. In your e-mail, give TWO instructions to handle the problem and make ONE suggestion about maintaining this tool.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Oscar Wolfe",
+        "to": "Jack’s Online Hardware",
+        "subject": "Malfunctioning drill",
+        "sent": "June 12, 10:14 A.M.",
+        "content": "The power drill I bought from you on the Internet last month is not working well anymore. It turns on, but it doesn't drill as efficiently as it used to. I have to push very hard to make it cut into the wood. It's just not functioning like it should. Help me please!Oscar WolfeDirections: Respond to the e-mail as if you are a customer service worker at Jack's Online Hardware. In your e-mail, give TWO instructions to handle the problem and make ONE suggestion about maintaining this tool."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224739",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: James Parker, Office ManagerTo: All employeesSubject: Moving officesSent: August 16, 2:35 P.M.We are going to be moving our current office to another section of this building from Monday to Wednesday next week. I would like all staff members to be involved in this process. Please tell me on which of these days you can participate.Thank you,JamesDirections: Respond to the email as if you are an employee of James Parker. In your email, suggest ONE time that you would like to participate and ask TWO questions about the move.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "James Parker, Office Manager",
+        "to": "All employees",
+        "subject": "Moving offices",
+        "sent": "August 16, 2:35 P.M.",
+        "content": "We are going to be moving our current office to another section of this building from Monday to Wednesday next week. I would like all staff members to be involved in this process. Please tell me on which of these days you can participate.Thank you,JamesDirections: Respond to the email as if you are an employee of James Parker. In your email, suggest ONE time that you would like to participate and ask TWO questions about the move."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224740",
+      "questionType": "Unknown",
+      "context": "Writing essaysThese days, people think companies ought to do something extra for their employees. What should a company do to ensure the loyalty of its employees? Give reasons and examples to support your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

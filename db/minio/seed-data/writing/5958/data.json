@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 19 - STUDY4",
+  "testUrl": "https://study4.com/tests/5958/start/",
+  "parts": [
+    {
+      "partId": "14886",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14887",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14888",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "225007",
+      "questionType": "Unknown",
+      "context": "pick up/apple",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image66.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "225008",
+      "questionType": "Unknown",
+      "context": "many/watch",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image60.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "225009",
+      "questionType": "Unknown",
+      "context": "chart/and",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image195.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "225010",
+      "questionType": "Unknown",
+      "context": "play/since",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image32.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "225011",
+      "questionType": "Unknown",
+      "context": "after/pay",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image63.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "225012",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.FROM: Jason Vornas, Best Vacation RentalsTO: Pearl SeineSUBJECT: Vacation rental inquirySENT: March 4, 10:01 A.M.Thank you for expressing interest in our vacation rental houses. If you provide details about what you’re looking for, we can suggest rental houses that would fit your needs. We’re happy to answer any questions.Directions: Respond to the e-mail as if you are looking for a vacation rental house. In your e-mail, give TWO pieces of information and ask ONE question.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Jason Vornas, Best Vacation Rentals",
+        "to": "Pearl Seine",
+        "subject": "Vacation rental inquiry",
+        "sent": "March 4, 10:01 A.M.",
+        "content": "Thank you for expressing interest in our vacation rental houses. If you provide details about what you’re looking for, we can suggest rental houses that would fit your needs. We’re happy to answer any questions.Directions: Respond to the e-mail as if you are looking for a vacation rental house. In your e-mail, give TWO pieces of information and ask ONE question."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "225013",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.FROM: Piero CaggiaTO: artlessons@ikedasartstudio.comSUBJECT: Art lessonsSENT: August 17, 10:30 A.M.Hello,I saw your advertisement about art lessons on the Ikeda’s Art Studio Web site. I am interested in lessons for my child. Could you tell me about your qualifications and more about the lessons you provide? Let me know if you have any questions.Thanks,Piero CaggiaDirections: Respond to the e-mail as if you are the art instructor. In your e-mail, give TWO pieces of information and ask ONE question.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Piero Caggia",
+        "to": "artlessons@ikedasartstudio.com",
+        "subject": "Art lessons",
+        "sent": "August 17, 10:30 A.M.",
+        "content": "Hello,I saw your advertisement about art lessons on the Ikeda’s Art Studio Web site. I am interested in lessons for my child. Could you tell me about your qualifications and more about the lessons you provide? Let me know if you have any questions.Thanks,Piero CaggiaDirections: Respond to the e-mail as if you are the art instructor. In your e-mail, give TWO pieces of information and ask ONE question."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "225014",
+      "questionType": "Unknown",
+      "context": "When considering a change of career, do you think it is important to get advice from other people?Why or why not? Support your opinion with reasons and examples.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

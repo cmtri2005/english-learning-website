@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 24 - STUDY4",
+  "testUrl": "https://study4.com/tests/5963/start/",
+  "parts": [
+    {
+      "partId": "14901",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14902",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14903",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "225047",
+      "questionType": "Unknown",
+      "context": "worker / tool",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image234.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "225048",
+      "questionType": "Unknown",
+      "context": "work / careful",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image100.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "225049",
+      "questionType": "Unknown",
+      "context": "check / machine",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image232.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "225050",
+      "questionType": "Unknown",
+      "context": "as / talk",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image99.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "225051",
+      "questionType": "Unknown",
+      "context": "chair / since",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image86.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "225052",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.From: Hopkins BookstoreTo: Customer Mailing ListSubject: Customer rewards programDear Customer,Hopkins Bookstore is launching a Customer Rewards Program next month. Shoppers will earn rewards points on every purchase, and they will be able to use these points to receive free merchandise. Please let us know if you have any questions about this program.Hopkins BookstoreDirections: Respond to the e-mail. In your e-mail, give ONE piece of information and ask TWO questions.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Hopkins Bookstore",
+        "to": "Customer Mailing List",
+        "subject": "Customer rewards program",
+        "sent": "",
+        "content": "Dear Customer,Hopkins Bookstore is launching a Customer Rewards Program next month. Shoppers will earn rewards points on every purchase, and they will be able to use these points to receive free merchandise. Please let us know if you have any questions about this program.Hopkins BookstoreDirections: Respond to the e-mail. In your e-mail, give ONE piece of information and ask TWO questions."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "225053",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.From: Lucas Brent, ManagerTo: Customer Service DepartmentSubject: Common customer complaintsHi everybody,I’m planning to train some new customer service employees. I want them to get a sense of the issues they’re most likely to hear about. What is the most common customer complaint you’ve heard, and how do you typically respond?Thanks,LucasCustomer Service Department ManagerDirections: Respond to the e-mail as if you are a customer service employee. In your e-mail, describe ONE complaint and give TWO pieces of information.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Lucas Brent, Manager",
+        "to": "Customer Service Department",
+        "subject": "Common customer complaints",
+        "sent": "",
+        "content": "Hi everybody,I'm planning to train some new customer service employees. I want them to get a sense of the issues they're most likely to hear about. What is the most common customer complaint you've heard, and how do you typically respond?Thanks,LucasCustomer Service Department ManagerDirections: Respond to the e-mail as if you are a customer service employee. In your e-mail, describe ONE complaint and give TWO pieces of information."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "225054",
+      "questionType": "Unknown",
+      "context": "Do you prefer working for a newly established company or a well-established company? Give reasons and examples to support your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

@@ -12,6 +12,7 @@ import ForgotPassword from '@/pages/Auth/components/ForgotPassword';
 import ResetPassword from '@/pages/Auth/components/ResetPassword';
 import Logout from '@/pages/Auth/components/Logout';
 import Courses from '@/pages/Courses';
+import Practice from '@/pages/Practice';
 import Blog from '@/pages/Blog';
 import { BlogDetail } from '@/pages/Blog/components/BlogDetail';
 import { BlogEditor } from '@/pages/Blog/components/BlogEditor';
@@ -50,6 +51,10 @@ export const routes: RouteObject[] = [
   {
     path: '/courses',
     element: <Courses />,
+  },
+  {
+    path: '/practice',
+    element: <Practice />,
   },
   {
     path: '/blog',

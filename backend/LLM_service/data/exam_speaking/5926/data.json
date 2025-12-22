@@ -1,0 +1,75 @@
+{
+  "testName": "TOEIC SW Speaking Test 18 - STUDY4",
+  "testUrl": "https://study4.com/tests/5926/start/",
+  "questions": [
+    {
+      "questionNumber": "1",
+      "questionId": "224787",
+      "questionType": "Read Aloud",
+      "context": "Read a text aloudThank you for visiting our new online store! We offer a variety of eco-friendly products, from reusable shopping bags to energy-saving light bulbs. All our items are tested for quality and durability. If you need any help choosing the right product for your needs, please contact our customer support team by phone or email.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "2",
+      "questionId": "224788",
+      "questionType": "Read Aloud",
+      "context": "Read a text aloudLadies and gentlemen, it is my great pleasure to introduce our keynote speaker, Dr. Maria Sanchez. She is an expert in renewable energy and has worked with international organizations to promote sustainable solutions. Her recent research on solar technology has received global recognition. Please give a warm welcome to Dr. Sanchez as she shares her insights on the future of clean energy.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "3",
+      "questionId": "224789",
+      "questionType": "Describe Picture",
+      "context": "Describe a picture",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image200.png"
+      ]
+    },
+    {
+      "questionNumber": "4",
+      "questionId": "224790",
+      "questionType": "Describe Picture",
+      "context": "Describe a picture",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image189.png"
+      ]
+    },
+    {
+      "questionNumber": "5",
+      "questionId": "224791",
+      "questionType": "Unknown",
+      "context": "Imagine that a friend will be moving to your neighborhood. You are having a telephone conversation about where you live.Question 5: How many grocery stores are in your neighborhood, and can you walk to them?Question 6: What’s the best time of day to go to the grocery store, and why?Question 7: Do you usually buy all your groceries from the same store? Why or why not?",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    },
+    {
+      "questionNumber": "6",
+      "questionId": "224792",
+      "questionType": "Unknown",
+      "context": "Question 8: What’s the first event on the tour?Question 9: I’d love to go to a Reading, but I heard he’s not giving one on this tour? Is that right? Question 10: When and where will Alan Sherwick be signing books on Wednesday, April 6?",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image28.png"
+      ]
+    },
+    {
+      "questionNumber": "7",
+      "questionId": "224793",
+      "questionType": "Express Opinion",
+      "context": " Do you agree or disagree with the following statement? People should not be allowed to use mobile phones while they are driving. Use specific reasons or examples to support your answer.",
+      "answerStatus": "Viết ghi chú / dàn ý",
+      "audioUrls": [],
+      "imageUrls": []
+    }
+  ]
+}
