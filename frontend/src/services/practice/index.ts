@@ -145,6 +145,22 @@ export interface HealthStatus {
   data_loaded: boolean;
 }
 
+export interface YouTubeVideo {
+  video_id: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+  channel: string;
+  url: string;
+  embed_url: string;
+  search_query?: string;
+}
+
+export interface YouTubeRecommendationsResponse {
+  videos: YouTubeVideo[];
+  queries_used: string[];
+}
+
 // ==================== API Client ====================
 
 class PracticeApiClient {
@@ -277,6 +293,24 @@ class PracticeApiClient {
 
   getPronunciationAudioUrl(word: string): string {
     return `${this.baseUrl}/pronunciation/${encodeURIComponent(word)}/audio`;
+  }
+
+  // YouTube Recommendations
+  async getYouTubeRecommendations(
+    feedback: string,
+    weaknesses: string[],
+    skillType: 'speaking' | 'writing',
+    maxVideos: number = 3
+  ): Promise<YouTubeRecommendationsResponse> {
+    return this.request<YouTubeRecommendationsResponse>('/youtube/recommendations', {
+      method: 'POST',
+      body: JSON.stringify({
+        feedback,
+        weaknesses,
+        skill_type: skillType,
+        max_videos: maxVideos,
+      }),
+    });
   }
 }
 

@@ -3,6 +3,7 @@ import { Button } from '@/shared/components/ui/button';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { Progress } from '@/shared/components/ui/progress';
 import { useWriting } from '../hooks';
+import { VideoRecommendations } from './VideoRecommendations';
 
 type WritingMode = 'exam' | 'custom' | 'generated';
 
@@ -244,11 +245,18 @@ export function WritingPractice({ mode: writingMode }: WritingPracticeProps) {
             <h3 className="text-sm font-medium">Gợi ý cải thiện</h3>
             <ul className="text-sm space-y-2 text-muted-foreground">
               {evaluation.suggestions.map((s, i) => (
-                <li key={i}>{s}</li>
+                <li key={i}>• {s}</li>
               ))}
             </ul>
           </div>
         )}
+
+        {/* Video Recommendations - Ngay dưới Gợi ý cải thiện */}
+        <VideoRecommendations
+          feedback={evaluation.feedback}
+          weaknesses={evaluation.suggestions || []}
+          skillType="writing"
+        />
 
         {/* Improved Version */}
         {evaluation.improved_version && (

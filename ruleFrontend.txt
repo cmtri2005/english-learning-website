@@ -1,0 +1,4 @@
+page:
+    components: giao diệndiện
+    hooks: logic 
+    index.tsx: router điều phốiphối
