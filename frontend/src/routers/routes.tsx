@@ -11,7 +11,6 @@ import VerifyOtp from '@/pages/Auth/components/VerifyOtp';
 import ForgotPassword from '@/pages/Auth/components/ForgotPassword';
 import ResetPassword from '@/pages/Auth/components/ResetPassword';
 import Logout from '@/pages/Auth/components/Logout';
-import Courses from '@/pages/Courses';
 import Practice from '@/pages/Practice';
 import Blog from '@/pages/Blog';
 import { BlogDetail } from '@/pages/Blog/components/BlogDetail';
@@ -22,12 +21,13 @@ import Unauthorized from '@/pages/Auth/components/Unauthorized';
 import Dashboard from '@/pages/Dashboard';
 import Profile from '@/pages/Profile';
 import Settings from '@/pages/Profile/Settings';
-import Forum from '@/pages/Forum';
 
 // Admin pages (require admin/teacher role)
 import AdminDashboard from '@/pages/AdminConsole';
 import AdminUsers from '@/pages/AdminConsole/Users';
 import AdminModeration from '@/pages/AdminConsole/Moderation';
+import AdminExamList from '@/pages/AdminConsole/Exams';
+import CreateExam from '@/pages/AdminConsole/Exams/CreateExam';
 import { ExamListPage } from "@/pages/Exams/index";
 import { ExamDetailPage } from "@/pages/Exams/ExamDetail";
 import { ExamTakingPage } from "@/pages/Exams/ExamTaking";
@@ -45,10 +45,7 @@ export const routes: RouteObject[] = [
   { path: '/login', element: <Login /> },
   { path: '/register', element: <Register /> },
   { path: '/verify-otp', element: <VerifyOtp /> },
-  {
-    path: '/courses',
-    element: <Courses />,
-  },
+
   {
     path: '/practice',
     element: <Practice />,
@@ -95,14 +92,6 @@ export const routes: RouteObject[] = [
     element: (
       <ProtectedRoute>
         <Logout />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: '/forum',
-    element: (
-      <ProtectedRoute>
-        <Forum />
       </ProtectedRoute>
     ),
   },
@@ -167,6 +156,22 @@ export const routes: RouteObject[] = [
     element: (
       <ProtectedRoute requireRoles={['admin']}>
         <AdminUsers />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/admin/exams',
+    element: (
+      <ProtectedRoute requireRoles={['admin']}>
+        <AdminExamList />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/admin/exams/create',
+    element: (
+      <ProtectedRoute requireRoles={['admin']}>
+        <CreateExam />
       </ProtectedRoute>
     ),
   },
