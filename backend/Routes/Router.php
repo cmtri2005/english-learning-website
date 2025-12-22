@@ -47,7 +47,9 @@ class Router
     public function dispatch()
     {
         foreach ($this->routes as $route) {
-            if ($route['method'] === $this->requestMethod && $route['path'] === $this->requestUri) {
+            $params = $this->matchRoute($route['path'], $this->requestUri);
+            
+            if ($route['method'] === $this->requestMethod && $params !== false) {
                 $handler = $route['handler'];
 
                 try {
@@ -68,7 +70,12 @@ class Router
                             throw new \Exception("Method not found: $className::$methodName");
                         }
                         
-                        $controller->$methodName();
+                        // Gọi method với params nếu có
+                        if (!empty($params)) {
+                            call_user_func_array([$controller, $methodName], array_values($params));
+                        } else {
+                            $controller->$methodName();
+                        }
                         return;
                     } elseif (is_string($handler) && strpos($handler, '@') !== false) {
                         // 'Controller@method'
@@ -86,11 +93,19 @@ class Router
                             throw new \Exception("Method not found: $className::$methodName");
                         }
                         
-                        $controller->$methodName();
+                        if (!empty($params)) {
+                            call_user_func_array([$controller, $methodName], array_values($params));
+                        } else {
+                            $controller->$methodName();
+                        }
                         return;
                     } elseif (is_callable($handler)) {
                         // Closure
-                        call_user_func($handler);
+                        if (!empty($params)) {
+                            call_user_func_array($handler, array_values($params));
+                        } else {
+                            call_user_func($handler);
+                        }
                         return;
                     }
                 } catch (\Throwable $e) {
@@ -113,6 +128,39 @@ class Router
         // No route found - return 404
         RestApi::setHeaders();
         RestApi::apiError('Endpoint không tồn tại', 404);
+    }
+
+    /**
+     * Match route pattern with URI and extract params
+     * @return array|false - Returns params array if match, false if no match
+     */
+    private function matchRoute($pattern, $uri)
+    {
+        // Exact match
+        if ($pattern === $uri) {
+            return [];
+        }
+
+        // Convert :param patterns to regex
+        $patternParts = explode('/', trim($pattern, '/'));
+        $uriParts = explode('/', trim($uri, '/'));
+
+        if (count($patternParts) !== count($uriParts)) {
+            return false;
+        }
+
+        $params = [];
+        for ($i = 0; $i < count($patternParts); $i++) {
+            if (strpos($patternParts[$i], ':') === 0) {
+                // This is a parameter
+                $paramName = substr($patternParts[$i], 1);
+                $params[$paramName] = $uriParts[$i];
+            } elseif ($patternParts[$i] !== $uriParts[$i]) {
+                return false;
+            }
+        }
+
+        return $params;
     }
 }
 
