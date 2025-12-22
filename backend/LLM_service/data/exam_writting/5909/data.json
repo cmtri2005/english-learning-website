@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 1 - STUDY4",
+  "testUrl": "https://study4.com/tests/5909/start/",
+  "parts": [
+    {
+      "partId": "14665",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14666",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14667",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224637",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image17.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224638",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image3.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224639",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image19.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224640",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image41.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224641",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image24.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224642",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: update@dailyjobseeker.comTo: Anna BillingsSubject: Daily Jobseeker updateSent: March 14, 20—Dear Daily Jobseeker subscriber,Here is the most recent job opening:Marleyhome Inc. is looking for an experienced accountant to fill a vacancy in its Accounting Department. The company needs someone with an accounting degree and at least three years of experience. Contact Ralph Kramer, r_kramer@marleyhome.com. Directions: Respond to the e-mail as if you are interested in applying for the position. Make ONE statement about your professional background and TWO requests for information about the job.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "update@dailyjobseeker.com",
+        "to": "Anna Billings",
+        "subject": "Daily Jobseeker update",
+        "sent": "March 14, 20—",
+        "content": "Dear Daily Jobseeker subscriber,Here is the most recent job opening:Marleyhome Inc. is looking for an experienced accountant to fill a vacancy in its Accounting Department. The company needs someone with an accounting degree and at least three years of experience. Contact Ralph Kramer, r_kramer@marleyhome.com. Directions: Respond to the e-mail as if you are interested in applying for the position. Make ONE statement about your professional background and TWO requests for information about the job."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224643",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: Elisa Hays, Front Desk Supervisor To: Front desk agents, Hotel Mediterraneo Subject: Reservation systemSent: December 1, 20—It has come to my attention that several of you have experienced problems with the reservation system recently. In order to address these problems, we need to compile a complete list of the issues that each of you have encountered. Please send me this list at your earliest convenience. Sincerely,Elisa HaysFront Desk Supervisor Directions: Respond to the e-mail as if you are a front desk agent at Hotel Mediterraneo. In your e-mail, describe THREE problems with the reservation system.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Elisa Hays, Front Desk Supervisor",
+        "to": "Front desk agents, Hotel Mediterraneo",
+        "subject": "Reservation system",
+        "sent": "December 1, 20—",
+        "content": "It has come to my attention that several of you have experienced problems with the reservation system recently. In order to address these problems, we need to compile a complete list of the issues that each of you have encountered. Please send me this list at your earliest convenience. Sincerely,Elisa HaysFront Desk Supervisor Directions: Respond to the e-mail as if you are a front desk agent at Hotel Mediterraneo. In your e-mail, describe THREE problems with the reservation system."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224644",
+      "questionType": "Opinion Essay",
+      "context": "Many people enjoy spending time playing and watching sports. Why do you think sports are important to people? Give specific reasons and examples to support your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}
