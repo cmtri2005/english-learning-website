@@ -193,9 +193,9 @@ CREATE TABLE IF NOT EXISTS `blogs` (
   `category_id` INT,
   `title` VARCHAR(255) NOT NULL,
   `slug` VARCHAR(255) NOT NULL,
-  `content` TEXT NOT NULL,
   `excerpt` TEXT,
-  `featured_image` VARCHAR(255),
+  -- `content` VARCHAR(1024) NOT NULL,  
+  -- `featured_image` VARCHAR(1024) NOT NULL,
   `status` ENUM('draft', 'published', 'archived') DEFAULT 'draft',
   `meta_title` VARCHAR(255),
   `meta_description` TEXT,
@@ -292,5 +292,39 @@ CREATE TABLE IF NOT EXISTS `exam_attempt_answers` (
   `is_correct` BOOLEAN DEFAULT FALSE,
   FOREIGN KEY (`attempt_id`) REFERENCES `exam_attempts`(`attempt_id`) ON DELETE CASCADE,
   FOREIGN KEY (`question_id`) REFERENCES `exam_questions`(`question_id`) ON DELETE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+-- Comments table
+CREATE TABLE IF NOT EXISTS `comments` (
+  `comment_id` INT PRIMARY KEY AUTO_INCREMENT,
+  `blog_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `content` TEXT NOT NULL,
+  `old_content` TEXT,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (`blog_id`) REFERENCES `blogs`(`blog_id`) ON DELETE CASCADE,
+  FOREIGN KEY (`user_id`) REFERENCES `accounts`(`user_id`) ON DELETE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+
+-- Reactions table
+CREATE TABLE IF NOT EXISTS `reactions` (
+  `reaction_id` INT PRIMARY KEY AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `blog_id` INT NULL,
+  `comment_id` INT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (`user_id`) REFERENCES `accounts`(`user_id`) ON DELETE CASCADE,
+  FOREIGN KEY (`blog_id`) REFERENCES `blogs`(`blog_id`) ON DELETE CASCADE,
+  FOREIGN KEY (`comment_id`) REFERENCES `comments`(`comment_id`) ON DELETE CASCADE,
+  CHECK (
+    (`blog_id` IS NOT NULL AND `comment_id` IS NULL)
+    OR
+    (`blog_id` IS NULL AND `comment_id` IS NOT NULL)
+  ),
+  UNIQUE KEY `uq_user_blog` (`user_id`, `blog_id`),
+  UNIQUE KEY `uq_user_comment` (`user_id`, `comment_id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 

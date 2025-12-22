@@ -74,6 +74,31 @@ class ApiClient {
   }
 
   /**
+   * Kiểm tra token có hợp lệ không (chưa hết hạn)
+   */
+  isTokenValid(): boolean {
+    if (!this.token) return false;
+
+    try {
+      const payload = JSON.parse(atob(this.token.split('.')[1]));
+      const exp = payload.exp * 1000; // Convert to milliseconds
+      const now = Date.now();
+
+      // Token expired
+      if (exp <= now) {
+        this.clearAuth();
+        return false;
+      }
+
+      return true;
+    } catch {
+      // Invalid token format
+      this.clearAuth();
+      return false;
+    }
+  }
+
+  /**
    * Kiểm tra token có sắp hết hạn không (< 2 phút)
    */
   private isTokenExpiringSoon(): boolean {
@@ -158,15 +183,27 @@ class ApiClient {
 
   private async request<T>(
     endpoint: string,
-    options: RequestInit = {}
+    options: RequestInit = {},
+    isRetry = false
   ): Promise<ApiResponse<T>> {
+    // Kiểm tra token validity trước khi request
+    if (this.token && !this.isTokenValid()) {
+      this.clearAuth();
+      throw new Error('Token expired');
+    }
+
     // Tự động refresh token trước khi request nếu cần
     await this.ensureValidToken();
 
     const headers: HeadersInit = {
-      'Content-Type': 'application/json',
       ...options.headers,
     };
+
+    // Only set Content-Type for non-FormData requests
+    // FormData will automatically set the correct Content-Type with boundary
+    if (!(options.body instanceof FormData)) {
+      headers['Content-Type'] = 'application/json';
+    }
 
     if (this.token) {
       headers['Authorization'] = `Bearer ${this.token}`;
@@ -180,31 +217,25 @@ class ApiClient {
 
     let data = await response.json();
 
-    // Nếu 401, thử refresh và retry (chỉ thử 1 lần)
-    if (response.status === 401 && !options.headers?.hasOwnProperty('X-Retry')) {
+    // Nếu 401, thử refresh và retry (chỉ thử 1 lần, không dùng custom header để tránh CORS)
+    if (response.status === 401 && !isRetry) {
       const refreshed = await this.performTokenRefresh();
 
       if (refreshed) {
-        // Retry request with new token
-        headers['Authorization'] = `Bearer ${this.token}`;
-        // Add retry flag to prevent infinite loops
-        const retryOptions = {
-          ...options,
-          headers: {
-            ...options.headers,
-            'X-Retry': 'true'
-          }
-        };
-        response = await fetch(`${this.baseUrl}${endpoint}`, {
-          ...retryOptions,
-          headers,
-          credentials: 'include',
-        });
-        data = await response.json();
+        // Retry once with new token, using same logic (no extra custom headers)
+        return this.request<T>(endpoint, options, true);
+      } else {
+        // Refresh failed, clear auth
+        this.clearAuth();
+        throw new Error('Authentication failed. Please login again.');
       }
     }
 
     if (!response.ok) {
+      // If still 401 after retry, clear auth
+      if (response.status === 401) {
+        this.clearAuth();
+      }
       throw new Error(data.message || 'Request failed');
     }
 
