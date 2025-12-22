@@ -1,0 +1,102 @@
+[
+  {
+    "category": "Education",
+    "type": "agree/disagree",
+    "prompt": "Schools should focus more on practical skills than academic knowledge. To what extent do you agree or disagree?"
+  },
+  {
+    "category": "Education",
+    "type": "problem/solution",
+    "prompt": "Many students lack motivation to study. What are the causes, and what solutions can schools and families offer?"
+  },
+  {
+    "category": "Technology",
+    "type": "advantages/disadvantages",
+    "prompt": "What are the advantages and disadvantages of children using smartphones daily?"
+  },
+  {
+    "category": "Technology",
+    "type": "two-part",
+    "prompt": "Online learning is becoming more popular. Is it as effective as in-person learning, and what changes are needed to improve it?"
+  },
+  {
+    "category": "Environment",
+    "type": "opinion",
+    "prompt": "Governments should increase taxes on polluting industries. Do you agree or disagree?"
+  },
+  {
+    "category": "Environment",
+    "type": "discuss both views",
+    "prompt": "Some people think individuals are responsible for protecting the environment; others think governments and corporations are. Discuss both views and give your opinion."
+  },
+  {
+    "category": "Health",
+    "type": "causes/solutions",
+    "prompt": "Why are lifestyle diseases increasing in many countries, and what can be done to reduce them?"
+  },
+  {
+    "category": "Health",
+    "type": "advantages/disadvantages",
+    "prompt": "Should governments ban the advertising of unhealthy food to children? Discuss the advantages and disadvantages."
+  },
+  {
+    "category": "Work",
+    "type": "opinion",
+    "prompt": "Working from home should be the default option whenever possible. To what extent do you agree or disagree?"
+  },
+  {
+    "category": "Work",
+    "type": "discuss both views",
+    "prompt": "Some people prefer a stable job; others prefer taking risks in their careers. Discuss both views and give your opinion."
+  },
+  {
+    "category": "Government",
+    "type": "priorities",
+    "prompt": "Should governments spend more on public transport than on building new roads? Give reasons and examples."
+  },
+  {
+    "category": "Government",
+    "type": "two-part",
+    "prompt": "Some countries make university education free. Is this a good policy, and who should pay the cost?"
+  },
+  {
+    "category": "Crime & law",
+    "type": "problem/solution",
+    "prompt": "Youth crime is a serious issue in some cities. What are the causes, and what solutions are most effective?"
+  },
+  {
+    "category": "Crime & law",
+    "type": "opinion",
+    "prompt": "Prison should focus on rehabilitation rather than punishment. Do you agree or disagree?"
+  },
+  {
+    "category": "Media",
+    "type": "discuss both views",
+    "prompt": "Some people think social media improves communication; others think it harms relationships. Discuss both views and give your opinion."
+  },
+  {
+    "category": "Media",
+    "type": "opinion",
+    "prompt": "News organizations should prioritize accuracy over speed, even if they lose audience. To what extent do you agree or disagree?"
+  },
+  {
+    "category": "Culture & globalization",
+    "type": "advantages/disadvantages",
+    "prompt": "Globalization is making cultures more similar. What are the advantages and disadvantages of this trend?"
+  },
+  {
+    "category": "Culture",
+    "type": "two-part",
+    "prompt": "Should governments fund arts and culture, or should these be financed mainly by private sources? Give your opinion and reasons."
+  },
+  {
+    "category": "Urban/transport",
+    "type": "problem/solution",
+    "prompt": "Traffic congestion is worsening in many cities. What are the main causes, and what solutions are most realistic?"
+  },
+  {
+    "category": "Science & innovation",
+    "type": "opinion",
+    "prompt": "Scientific research should prioritize solving immediate social problems rather than exploring unknown areas. Do you agree or disagree?"
+  }
+]

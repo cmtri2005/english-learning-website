@@ -7,6 +7,7 @@ MINIO_PASSWORD="${MINIO_PASSWORD:-minioadmin123}"
 BUCKET="${BUCKET:-my-bucket}"
 SEED_DIR="${SEED_DIR:-/seed}"
 PUBLIC_DOWNLOAD="${PUBLIC_DOWNLOAD:-false}"
+PROCESS_DICTIONARY="${PROCESS_DICTIONARY:-false}"
 
 if [ ! -d "$SEED_DIR" ]; then
   echo "❌ SEED_DIR not found: $SEED_DIR"
@@ -24,7 +25,7 @@ while [ $i -le 30 ]; do
   sleep 2
 done
 
-# thử lại lần cuối nếu vẫn fail
+# Final retry if still failing
 mc alias set local "$MINIO_ENDPOINT" "$MINIO_USER" "$MINIO_PASSWORD"
 
 echo "✅ Create bucket: $BUCKET (if not exists)"
@@ -36,7 +37,25 @@ if [ "$PUBLIC_DOWNLOAD" = "true" ]; then
 fi
 
 echo "📦 Upload seed data: $SEED_DIR -> local/$BUCKET"
-mc mirror --overwrite "$SEED_DIR" "local/$BUCKET"
+# Mirror all files except dictionary source (will be processed separately)
+mc mirror --overwrite --exclude "SPDict-Anh-Viet-Anh.dictd/*" "$SEED_DIR" "local/$BUCKET"
+
+# Process dictionary data if enabled
+if [ "$PROCESS_DICTIONARY" = "true" ]; then
+  DICT_DIR="$SEED_DIR/SPDict-Anh-Viet-Anh.dictd"
+  if [ -d "$DICT_DIR" ]; then
+    echo "📚 Processing dictionary data..."
+    export MINIO_ENDPOINT="$MINIO_ENDPOINT"
+    export MINIO_ACCESS_KEY="$MINIO_USER"
+    export MINIO_SECRET_KEY="$MINIO_PASSWORD"
+    export MINIO_BUCKET="$BUCKET"
+    export DICT_DIR="$DICT_DIR"
+    python /ingest_dictionary.py || echo "⚠️ Dictionary processing failed (non-critical)"
+  else
+    echo "⚠️ Dictionary directory not found, skipping..."
+  fi
+fi
 
 echo "✅ Done. Listing:"
-mc ls -r "local/$BUCKET" || true
+mc ls -r "local/$BUCKET" | head -50 || true
+echo "... (showing first 50 items)"

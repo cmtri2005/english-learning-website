@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 20 - STUDY4",
+  "testUrl": "https://study4.com/tests/5959/start/",
+  "parts": [
+    {
+      "partId": "14889",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14890",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14891",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "225015",
+      "questionType": "Unknown",
+      "context": "type/quickly",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image140.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "225016",
+      "questionType": "Unknown",
+      "context": "work/garden",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image171.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "225017",
+      "questionType": "Unknown",
+      "context": "next/paper",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image18.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "225018",
+      "questionType": "Unknown",
+      "context": "buy/after",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image190.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "225019",
+      "questionType": "Unknown",
+      "context": "bike/since",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image139.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "225020",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.FROM: EZ Travel, Inc.TO: Karl IonescoSUBJECT: Feedback follow-upSENT: July 20, 1:16 P.M.Dear Mr. Ionesco,A few days ago, you completed our survey and indicated dissatisfaction with our flight- and hotel-booking services. Please provide details about the problems you experienced so that we can improve our travel services.Thank you.KarinEZ Travel, Inc.Directions: Respond to the e-mail. In your e-mail, give THREE details.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "EZ Travel, Inc.",
+        "to": "Karl Ionesco",
+        "subject": "Feedback follow-up",
+        "sent": "July 20, 1:16 P.M.",
+        "content": "Dear Mr. Ionesco,A few days ago, you completed our survey and indicated dissatisfaction with our flight- and hotel-booking services. Please provide details about the problems you experienced so that we can improve our travel services.Thank you.KarinEZ Travel, Inc.Directions: Respond to the e-mail. In your e-mail, give THREE details."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "225021",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.FROM: Daniel ZimmermanTO: Susan KahnSUBJECT: WorkshopsSENT: January 18, 3:47 P.M.Dear Ms. Kahn,A friend recommended your workshops. I think my colleagues could benefit from more professional development opportunities. Could you tell me about the various workshops you offer?Thanks,DanielDirections: Respond to the e-mail. In your e-mail, give TWO pieces of information and ask ONE question.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Daniel Zimmerman",
+        "to": "Susan Kahn",
+        "subject": "Workshops",
+        "sent": "January 18, 3:47 P.M.",
+        "content": "Dear Ms. Kahn,A friend recommended your workshops. I think my colleagues could benefit from more professional development opportunities. Could you tell me about the various workshops you offer?Thanks,DanielDirections: Respond to the e-mail. In your e-mail, give TWO pieces of information and ask ONE question."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "225022",
+      "questionType": "Unknown",
+      "context": "Some people believe that it is better to work on a team with the same coworkers for a long period of time. Others believe it is better to regularly change work teams. Which do you agree with? Why?Give reasons and examples to support your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

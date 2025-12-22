@@ -71,6 +71,7 @@ services:
       apache2-foreground
       "
 
+  # Shared MinIO Object Storage
   minioalt:
     image: minio/minio:latest
     container_name: minioalt
@@ -87,12 +88,21 @@ services:
     volumes:
       - minio_alt_data:/data
     command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
+  # MinIO Data Seeder (uploads seed data including LLM data)
   minio_seed:
     build:
       context: ./db/minio
+    container_name: minio_seed
     depends_on:
-      - minioalt
+      minioalt:
+        condition: service_started
     environment:
       MINIO_ENDPOINT: http://minioalt:9000
       MINIO_USER: minioadmin
@@ -100,9 +110,48 @@ services:
       BUCKET: my-bucket
       PUBLIC_DOWNLOAD: "true"
       SEED_DIR: /seed
+      # Enable dictionary processing (set to true to process pronunciation data)
+      PROCESS_DICTIONARY: ${PROCESS_DICTIONARY:-true}
     volumes:
       - ./db/minio/seed-data:/seed:ro
     restart: "no"
+
+  # LLM API Service (Speaking & Writing Practice with AI Evaluation)
+  llm-api:
+    build:
+      context: ./backend/LLM_service
+    container_name: llm_api
+    restart: unless-stopped
+    ports:
+      - "8002:8002"
+    depends_on:
+      minioalt:
+        condition: service_started
+      minio_seed:
+        condition: service_completed_successfully
+    environment:
+      # MinIO Configuration (shared with other services)
+      MINIO_ENDPOINT: minioalt:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin123
+      MINIO_BUCKET: my-bucket
+      # Groq API Configuration (for LLM & Whisper)
+      GROQ_API_KEYS: ${GROQ_API_KEYS:-}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_BASE_URL: ${GROQ_BASE_URL:-https://api.groq.com/openai/v1}
+      LLM_MODEL: ${LLM_MODEL:-llama-3.1-8b-instant}
+      WHISPER_MODEL: ${WHISPER_MODEL:-whisper-large-v3-turbo}
+      # Development: Use polling for file watching (Windows/WSL2 compatibility)
+      WATCHFILES_FORCE_POLLING: "true"
+    volumes:
+      - ./backend/LLM_service/api:/app/api
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
 volumes:
   mysql_data:
   minio_alt_data:
