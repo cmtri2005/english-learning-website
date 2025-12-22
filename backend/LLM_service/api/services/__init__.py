@@ -55,3 +55,10 @@ def init_all_services():
     print("All services initialized successfully!")
     return True
 # Test hot reload
+
+from .youtube_service import (
+    get_recommended_videos,
+    extract_weaknesses_from_speaking,
+    extract_weaknesses_from_writing,
+    search_youtube_videos
+)

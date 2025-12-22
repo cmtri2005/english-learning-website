@@ -13,7 +13,8 @@ from api.models import (
     WritingTopicRequest, WritingTopicResponse,
     WritingEvaluateRequest, WritingEvaluateResponse,
     CustomTopicRequest, CustomTopicResponse,
-    TopicListResponse, HealthResponse
+    TopicListResponse, HealthResponse,
+    YouTubeRecommendationsRequest, YouTubeRecommendationsResponse, YouTubeVideo
 )
 
 # Import modularized services
@@ -23,7 +24,9 @@ from api.services import (
     evaluate_speaking, evaluate_writing, get_pronunciation,
     get_all_topics, generate_pronunciation_audio, speaking_data,
     transcribe_audio, evaluate_speaking_full, evaluate_speaking_from_transcript,
-    get_pronunciation_tips, get_related_words, search_words
+    get_pronunciation_tips, get_related_words, search_words,
+    get_recommended_videos, extract_weaknesses_from_speaking, extract_weaknesses_from_writing,
+    search_youtube_videos
 )
 
 @asynccontextmanager
@@ -296,3 +299,45 @@ async def generate_custom_topic(request: CustomTopicRequest):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8002)
+
+# ========== YOUTUBE ==========
+@app.post("/youtube/recommendations", response_model=YouTubeRecommendationsResponse, tags=["YouTube"])
+async def get_youtube_recommendations(request: YouTubeRecommendationsRequest):
+    """
+    Get YouTube video recommendations based on evaluation feedback.
+    
+    Returns 2-3 relevant English learning videos for Vietnamese learners
+    based on the weak areas identified in the evaluation.
+    """
+    videos = get_recommended_videos(
+        feedback=request.feedback,
+        weaknesses=request.weaknesses,
+        skill_type=request.skill_type,
+        max_videos=request.max_videos
+    )
+    
+    # Get queries used for the search
+    queries_used = list(set(v.get("search_query", "") for v in videos if v.get("search_query")))
+    
+    return YouTubeRecommendationsResponse(
+        videos=[YouTubeVideo(**v) for v in videos],
+        queries_used=queries_used
+    )
+
+@app.get("/youtube/search", tags=["YouTube"])
+async def search_youtube(q: str, max_results: int = 3):
+    """
+    Search YouTube for English learning videos.
+    
+    - **q**: Search query
+    - **max_results**: Maximum number of results (default: 3, max: 5)
+    """
+    from api.services import search_youtube_videos
+    
+    max_results = min(max_results, 5)
+    videos = search_youtube_videos(q, max_results)
+    
+    return {
+        "query": q,
+        "videos": videos
+    }

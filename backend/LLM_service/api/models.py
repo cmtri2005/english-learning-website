@@ -144,3 +144,24 @@ class HealthResponse(BaseModel):
     status: str
     minio_connected: bool
     data_loaded: bool
+
+# ========== YOUTUBE ==========
+class YouTubeVideo(BaseModel):
+    video_id: str
+    title: str
+    description: str
+    thumbnail: str
+    channel: str
+    url: str
+    embed_url: str
+    search_query: Optional[str] = None
+
+class YouTubeRecommendationsRequest(BaseModel):
+    feedback: str
+    weaknesses: List[str] = []
+    skill_type: str = "speaking"  # "speaking" or "writing"
+    max_videos: int = 3
+
+class YouTubeRecommendationsResponse(BaseModel):
+    videos: List[YouTubeVideo]
+    queries_used: List[str] = []

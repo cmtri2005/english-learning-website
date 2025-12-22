@@ -142,6 +142,8 @@ services:
       GROQ_BASE_URL: ${GROQ_BASE_URL:-https://api.groq.com/openai/v1}
       LLM_MODEL: ${LLM_MODEL:-llama-3.1-8b-instant}
       WHISPER_MODEL: ${WHISPER_MODEL:-whisper-large-v3-turbo}
+      # YouTube API Configuration
+      YOUTUBE_API_KEY: ${YOUTUBE_API_KEY:-}
       # Development: Use polling for file watching (Windows/WSL2 compatibility)
       WATCHFILES_FORCE_POLLING: "true"
     volumes:
