@@ -13,7 +13,7 @@
 
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import type { User, LoginRequest, RegisterRequest } from '@/services/http/api';
+import type { User, LoginRequest, RegisterRequest } from '@/services/api';
 
 interface AuthState {
   // State

@@ -7,33 +7,30 @@ use Exception;
 class Cookies
 {
     private $cookie_name = "session_token";
+    private $refresh_cookie_name = "refresh_token";
     private const COOKIE_EXPIRE = 60 * 60 * 24 * 7;
 
     public function setAuth($payload)
     {
-        $jwt = new JwtHandler($_ENV['JWT_SECRET']);
+        $jwt = new JwtHandler($_ENV['JWT_SECRET'] ?? '');
         $expired = time() + self::COOKIE_EXPIRE;
 
         $jwt->setExpirationTime($expired);
         $encryptPayload = $jwt->generateToken($payload);
+        $isProduction = ($_ENV['APP_ENV'] ?? 'development') === 'production';
         $cookieOptions = [
             'expires' => $expired,
             'path' => '/',
-            'domain' => '',
-            'secure' => false, // Set to true in production with HTTPS
-            'httponly' => true, // Prevent XSS
-            'samesite' => 'Lax' // CRSF protection
+            'domain' => '', 
+            'secure' => $isProduction, 
+            'httponly' => true, 
+            'samesite' => 'Lax' 
         ];
 
-        // create cookie
         setcookie(
             $this->cookie_name,
             $encryptPayload,
-            $cookieOptions['expires'],
-            $cookieOptions['path'],
-            $cookieOptions['domain'],
-            $cookieOptions['secure'],
-            $cookieOptions['httponly'],
+            $cookieOptions
         );
     }
 
@@ -45,11 +42,18 @@ class Cookies
     public function removeAuth()
     {
         unset($_COOKIE[$this->cookie_name]);
+        $isProduction = ($_ENV['APP_ENV'] ?? 'development') === 'production';
         setcookie(
             $this->cookie_name,
             '',
-            time() - 3600, // Set to a past time to expire the cookie
-            '/'
+            [
+                'expires' => time() - 3600,
+                'path' => '/',
+                'domain' => '',
+                'secure' => $isProduction,
+                'httponly' => true,
+                'samesite' => 'Lax'
+            ]
         );
     }
 
@@ -62,11 +66,20 @@ class Cookies
                 return null;
             }
 
-            $jwt = new JwtHandler($_ENV['JWT_SECRET']);
-            $decryptPayload = $jwt->decodeToken($token);
+            $jwt = new JwtHandler($_ENV['JWT_SECRET'] ?? '');
+            // Use validateToken to ensure token is valid (signature and expiration)
+            $payload = $jwt->validateToken($token);
 
-            return $decryptPayload['payload']['data'];
+            // Handle both cases: data wrapped in 'data' key or merged directly
+            if (isset($payload['data'])) {
+                return $payload['data'];
+            }
+
+            // If data is merged directly, remove JWT standard fields and return the rest
+            unset($payload['iat'], $payload['exp'], $payload['nbf']);
+            return $payload;
         } catch (\Throwable $th) {
+            error_log('decodeAuth error: ' . $th->getMessage());
             $this->removeAuth();
             return null;
         }
@@ -122,7 +135,7 @@ class Cookies
                 'expires' => $cookieExpire,
                 'path' => '/',
                 'domain' => '',
-                'secure' => false, // Set to true in production with HTTPS
+                'secure' => ($_ENV['APP_ENV'] ?? 'development') === 'production',
                 'httponly' => true, // Prevent XSS
                 'samesite' => 'Lax' // CSRF protection
             ];
@@ -191,5 +204,48 @@ class Cookies
     public function isTokenExpiringSoon()
     {
         return $this->getTokenRemainingTime() < 3600;
+    }
+
+    public function setRefreshToken($token)
+    {
+        $expired = time() + self::COOKIE_EXPIRE;
+        $isProduction = ($_ENV['APP_ENV'] ?? 'development') === 'production';
+        $cookieOptions = [
+            'expires' => $expired,
+            'path' => '/',
+            'domain' => '',
+            'secure' => $isProduction,
+            'httponly' => true,
+            'samesite' => 'Lax'
+        ];
+
+        setcookie(
+            $this->refresh_cookie_name,
+            $token,
+            $cookieOptions
+        );
+    }
+
+    public function getRefreshToken()
+    {
+        return isset($_COOKIE[$this->refresh_cookie_name]) ? $_COOKIE[$this->refresh_cookie_name] : null;
+    }
+
+    public function removeRefreshToken()
+    {
+        unset($_COOKIE[$this->refresh_cookie_name]);
+        $isProduction = ($_ENV['APP_ENV'] ?? 'development') === 'production';
+        setcookie(
+            $this->refresh_cookie_name,
+            '',
+            [
+                'expires' => time() - 3600,
+                'path' => '/',
+                'domain' => '',
+                'secure' => $isProduction,
+                'httponly' => true,
+                'samesite' => 'Lax'
+            ]
+        );
     }
 }

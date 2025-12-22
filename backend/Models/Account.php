@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Core\Hash;
 use App\Core\Model;
 use App\Core\UserRole;
+use App\Core\Helper;
 use Exception;
 
 class Account extends Model
@@ -21,6 +22,8 @@ class Account extends Model
     public $phone;
     public $address;
     public $role;
+    public $auth_provider;
+    public $google_uid;
     public $points;
     public $ranking;
     public $verify_email_token;
@@ -56,9 +59,19 @@ class Account extends Model
         return $admin;
     }
 
+    public static function findByEmail($email)
+    {
+        return self::findOneBy('email', $email);
+    }
+
     public static function findByResetToken($token)
     {
         return self::findOneBy('reset_password_token', $token);
+    }
+
+    public static function findByGoogleUid($googleUid)
+    {
+        return self::findOneBy('google_uid', $googleUid);
     }
 
     public function updateResetPasswordToken($token, $expiry)
@@ -67,7 +80,7 @@ class Account extends Model
                 SET reset_password_token = :token, reset_password_expires_at = :expiry
                 WHERE " . static::$primaryKey . " = :user_id";
 
-        $DB = PDO();
+        $DB = Helper::PDO();
         $stmt = $DB->prepare($sql);
         $stmt->bindParam(':token', $token);
         $stmt->bindParam(':expiry', $expiry);
@@ -81,7 +94,7 @@ class Account extends Model
         $sql = "UPDATE " . static::$table . "
                 SET password = :password
                 WHERE " . static::$primaryKey . " = :user_id";
-        $DB = PDO();
+        $DB = Helper::PDO();
         $stmt = $DB->prepare($sql);
         $stmt->bindParam(':password', $hashedPassword);
         $stmt->bindParam(':user_id', $this->{static::$primaryKey});
@@ -93,7 +106,31 @@ class Account extends Model
         $sql = "UPDATE " . static::$table . "
                 SET reset_password_token = NULL, reset_password_expires_at = NULL
                 WHERE " . static::$primaryKey . " = :user_id";
-        $DB = PDO();
+        $DB = Helper::PDO();
+        $stmt = $DB->prepare($sql);
+        $stmt->bindParam(':user_id', $this->{static::$primaryKey});
+        return $stmt->execute();
+    }
+
+    public function updateVerifyEmailToken($token, $expiry)
+    {
+        $sql = "UPDATE " . static::$table . "
+                SET verify_email_token = :token, verify_token_expires_at = :expiry
+                WHERE " . static::$primaryKey . " = :user_id";
+        $DB = Helper::PDO();
+        $stmt = $DB->prepare($sql);
+        $stmt->bindParam(':token', $token);
+        $stmt->bindParam(':expiry', $expiry);
+        $stmt->bindParam(':user_id', $this->{static::$primaryKey});
+        return $stmt->execute();
+    }
+
+    public function clearVerifyEmailToken()
+    {
+        $sql = "UPDATE " . static::$table . "
+                SET verify_email_token = NULL, verify_token_expires_at = NULL
+                WHERE " . static::$primaryKey . " = :user_id";
+        $DB = Helper::PDO();
         $stmt = $DB->prepare($sql);
         $stmt->bindParam(':user_id', $this->{static::$primaryKey});
         return $stmt->execute();
@@ -109,7 +146,5 @@ class Account extends Model
         ];
         return $ranks[$rank];
     }
-
-
 }
 

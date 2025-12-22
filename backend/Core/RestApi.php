@@ -1,22 +1,52 @@
 <?php
 
+namespace App\Core;
 class RestApi
 {
     static function setHeaders($isUpload = false)
     {
-        if (!$isUpload) {
-            header("Content-Type: application/json");
-            header("Access-Control-Allow-Origin: *");
-            header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-            header("Access-Control-Allow-Headers: Content-Type");
+        // Lấy origin từ request
+        $origin = $_SERVER['HTTP_ORIGIN'] ?? null;
+        $allowedOrigins = [
+            'http://localhost:5173', // Vite dev server
+            'http://localhost:3000', // React dev server
+            'http://127.0.0.1:5173',
+            'http://127.0.0.1:3000',
+        ];
+
+        $corsOrigin = '*'; // Mặc định cho phép tất cả
+        // 1. Nếu origin nằm trong whitelist -> dùng origin đó.
+        if ($origin && in_array($origin, $allowedOrigins)) {
+            $corsOrigin = $origin;
+        } elseif ($origin) {
+            // Cho phép origin từ request nếu trong development
+            $corsOrigin = $origin;
         }
 
-        // set upload file
-        header("Content-Type: multipart/form-data");
-        header("Aceept: application/json");
-        header("Access-Control-Allow-Origin: *");
-        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-        header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, X-Requested-With");
+        // Xử lý preflight request (OPTIONS)
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            header("Access-Control-Allow-Origin: " . $corsOrigin);
+            header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, OPTIONS");
+            header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+            header("Access-Control-Allow-Credentials: true");
+            header("Access-Control-Max-Age: 3600");
+            http_response_code(200);
+            exit();
+        }
+
+        // CORS headers cho mọi requests
+        header("Access-Control-Allow-Origin: " . $corsOrigin);
+        header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, OPTIONS");
+        header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+        header("Access-Control-Allow-Credentials: true");
+
+        if (!$isUpload) {
+            header("Content-Type: application/json; charset=UTF-8");
+        } else {
+            // set upload file
+            header("Content-Type: multipart/form-data");
+            header("Accept: application/json");
+        }
     }
 
     static function getBody()
@@ -27,9 +57,12 @@ class RestApi
 
     static function response($data, $status = 200)
     {
-        http_response_code(
-            $status
-        );
+        // Xóa output buffer để đảm bảo chỉ có JSON được gửi
+        if (ob_get_level() > 0) {
+            ob_clean();
+        }
+        
+        http_response_code($status);
         echo json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         exit();
     }
@@ -52,5 +85,24 @@ class RestApi
         ];
 
         self::response($data, $status);
+    }
+
+    static function apiResponse($data = null, $message = 'Success', $success = true, $status = 200)
+    {
+        $response = [
+            'success' => $success,
+            'message' => $message,
+        ];
+
+        if ($data !== null) {
+            $response['data'] = $data;
+        }
+
+        self::response($response, $status);
+    }
+
+    static function apiError($message, $status = 400)
+    {
+        self::apiResponse(null, $message, false, $status);
     }
 }

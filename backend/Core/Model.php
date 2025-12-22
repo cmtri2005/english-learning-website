@@ -2,34 +2,40 @@
 
 namespace App\Core;
 
-use Database;
-
 use PDO;
+use App\Helper\Database;
 
 abstract class Model implements Model_Interface
 {
+    protected static function db(): PDO
+    {
+        return Database::getInstance(); //Singleton database connection
+    }
+
     protected static $table;
     protected static $primaryKey = 'id';
 
     public function save()
     {
+        // 1. Get primary key và convert object -> array.
         $primaryKey = static::$primaryKey;
         $data = $this->toArray();
 
+        // 2. Loại bỏ null value
         $data = array_filter($data, function ($value) {
             return $value !== null;
         });
 
+        // 3. Xác định INSERT hay UPDATE
         $isUpdate = isset($this->$primaryKey) && !empty($this->$primaryKey);
 
         if ($isUpdate) {
-            // Update exist record
+            // Update
             $id = $this->$primaryKey;
-            // Remove primary key from update data
-            unset($data[$primaryKey]);
 
+            unset($data[$primaryKey]);
             if (empty($data)) {
-                return true; // No data to update
+                return true; 
             }
 
             $setClause = [];
@@ -39,7 +45,7 @@ abstract class Model implements Model_Interface
             $setClause = implode(',', $setClause);
 
             $query = "UPDATE " . static::$table . " SET {$setClause} WHERE " . $primaryKey . " = :id";
-            $stmt = PDO()->prepare($query);
+            $stmt = self::db()->prepare($query);
 
             $stmt->bindParam(':id', $id);
             foreach ($data as $key => $value) {
@@ -48,9 +54,7 @@ abstract class Model implements Model_Interface
 
             return $stmt->execute();
         } else {
-            // Insert new record
-
-            // Remove primary key if it's empty/null for auto-increment
+            // Insert 
             if (isset($data[$primaryKey]) && empty($data[$primaryKey])) {
                 unset($data[$primaryKey]);
             }
@@ -63,14 +67,14 @@ abstract class Model implements Model_Interface
             $placeholders = ':' . implode(', :', array_keys($data));
 
             $query = "INSERT INTO " . static::$table . " ({$columns}) VALUES ({$placeholders})";
-            $stmt = PDO()->prepare($query);
+            $stmt = self::db()->prepare($query);
 
             foreach ($data as $key => $value) {
                 $stmt->bindValue(":{$key}", $value);
             }
             if ($stmt->execute()) {
                 // Set the primary key value for the current instance
-                $insertId = PDO()->lastInsertId();
+                $insertId = self::db()->lastInsertId();
                 if ($insertId) {
                     $this->$primaryKey = $insertId;
                 }
@@ -80,13 +84,8 @@ abstract class Model implements Model_Interface
             return false;
         }
     }
-    /**
-     * Find all records
-     * 
-     * @param string $orderBy Column to order by
-     * @param string $direction Order direction (ASC or DESC)
-     * @return array Array of model instances
-     */
+
+    // Get all records
     public static function all($orderBy = null, $direction = 'ASC')
     {
         $query = "SELECT * FROM " . static::$table;
@@ -95,21 +94,16 @@ abstract class Model implements Model_Interface
             $query .= " ORDER BY {$orderBy} {$direction}";
         }
 
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, static::class);
     }
 
-    /**
-     * Find a record by its primary key
-     * 
-     * @param mixed $id The primary key value
-     * @return static|null The model instance or null if not found
-     */
+    // Find record by primary key
     public static function find($id)
     {
         $query = "SELECT * FROM " . static::$table . " WHERE " . static::$primaryKey . " = :id LIMIT 1";
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, static::class);
@@ -117,45 +111,28 @@ abstract class Model implements Model_Interface
         return $result ?: null;
     }
 
-    /**
-     * Find records by a specific field value
-     * 
-     * @param string $field The field name
-     * @param mixed $value The field value
-     * @return array Array of model instances
-     */
+    // Find records by field
     public static function findBy($field, $value)
     {
         $query = "SELECT * FROM " . static::$table . " WHERE {$field} = :value";
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         $stmt->bindParam(':value', $value);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, static::class);
     }
 
-    /**
-     * Find first record by a specific field value
-     * 
-     * @param string $field The field name
-     * @param mixed $value The field value
-     * @return static|null The model instance or null if not found
-     */
+    // Find record by field
     public static function findOneBy($field, $value)
     {
         $query = "SELECT * FROM " . static::$table . " WHERE {$field} = :value LIMIT 1";
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         $stmt->bindParam(':value', $value);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, static::class);
         $result = $stmt->fetch();
         return $result ?: null;
     }
-    /**
-     * Find records by multiple field values
-     *
-     * @param array $conditions Array of conditions in the format ['field' => 'value', 'field2' => 'value2']
-     * @return static|null The model instance or null if not found
-     */
+
     public static function findOneWhere(array $conditions)
     {
         $table = static::$table;
@@ -170,7 +147,7 @@ abstract class Model implements Model_Interface
         $whereSql = implode(' AND ', $whereClause);
         $query = "SELECT * FROM $table WHERE $whereSql LIMIT 1";
 
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         foreach ($params as $key => $value) {
             $stmt->bindValue($key, $value);
         }
@@ -184,39 +161,27 @@ abstract class Model implements Model_Interface
     }
 
 
-    /**
-     * Create a new record
-     * 
-     * @param array $data The data to insert
-     * @return static|false The created model instance or false on failure
-     */
     public static function create(array $data)
     {
         $columns = implode(', ', array_keys($data));
         $placeholders = ':' . implode(', :', array_keys($data));
 
         $query = "INSERT INTO " . static::$table . " ({$columns}) VALUES ({$placeholders})";
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
 
         foreach ($data as $key => $value) {
             $stmt->bindValue(":{$key}", $value);
         }
 
         if ($stmt->execute()) {
-            $id = PDO()->lastInsertId();
+            $id = self::db()->lastInsertId();
             return static::find($id);
         }
 
         return false;
     }
 
-    /**
-     * Update a record
-     * 
-     * @param mixed $id The primary key value
-     * @param array $data The data to update
-     * @return bool True on success, false on failure
-     */
+
     public static function update($id, array $data)
     {
         $setClause = [];
@@ -225,9 +190,9 @@ abstract class Model implements Model_Interface
         }
         $setClause = implode(', ', $setClause);
 
-        
+
         $query = "UPDATE " . static::$table . " SET {$setClause} WHERE " . static::$primaryKey . " = :id";
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
 
         $stmt->bindParam(':id', $id);
         foreach ($data as $key => $value) {
@@ -238,31 +203,60 @@ abstract class Model implements Model_Interface
     }
 
     /**
-     * Delete a record
-     * 
-     * @param mixed $id The primary key value
-     * @return bool True on success, false on failure
+     * Insert multiple records at once
+     * @param array $data Array of associative arrays
+     * @return bool
      */
+    public static function insertBatch(array $data)
+    {
+        if (empty($data)) {
+            return false;
+        }
+
+        // Ensure all items have same keys
+        $firstItem = reset($data);
+        $columns = array_keys($firstItem);
+        $columnNames = implode(', ', $columns);
+
+        $values = [];
+        $params = [];
+        
+        foreach ($data as $index => $item) {
+            $placeholders = [];
+            foreach ($columns as $col) {
+                $paramName = ":{$col}_{$index}";
+                $placeholders[] = $paramName;
+                $params[$paramName] = $item[$col] ?? null;
+            }
+            $values[] = '(' . implode(', ', $placeholders) . ')';
+        }
+
+        $valuesStr = implode(', ', $values);
+        $query = "INSERT INTO " . static::$table . " ({$columnNames}) VALUES {$valuesStr}";
+
+        $stmt = self::db()->prepare($query);
+        
+        foreach ($params as $name => $value) {
+            $stmt->bindValue($name, $value);
+        }
+
+        return $stmt->execute();
+    }
+
+
     public static function delete($id)
     {
         $query = "DELETE FROM " . static::$table . " WHERE " . static::$primaryKey . " = :id";
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
 
-    /**
-     * Execute a custom query
-     * 
-     * @param string $query The SQL query
-     * @param array $params The query parameters
-     * @return array The query results
-     */
     public static function query($query, $params = [], $fetchMode = PDO::FETCH_CLASS)
     {
         try {
 
-            $stmt = PDO()->prepare($query);
+            $stmt = self::db()->prepare($query);
 
             foreach ($params as $key => $value) {
                 $stmt->bindValue(is_numeric($key) ? $key + 1 : ":{$key}", $value);
@@ -281,13 +275,6 @@ abstract class Model implements Model_Interface
         }
     }
 
-    /**
-     * Tìm kiếm theo nhiều điều kiện
-     * 
-     * @param array $conditions Mảng điều kiện dạng ['field' => 'value', 'field2' => 'value2']
-     * @param string $operator Toán tử logic giữa các điều kiện (AND/OR)
-     * @return array Mảng các đối tượng model
-     */
     public static function findWhere(array $conditions, $operator = 'AND')
     {
         if (empty($conditions)) {
@@ -309,7 +296,7 @@ abstract class Model implements Model_Interface
 
         $query .= implode(" {$operator} ", $whereConditions);
 
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         foreach ($params as $key => $value) {
             $stmt->bindValue(":{$key}", $value);
         }
@@ -318,13 +305,7 @@ abstract class Model implements Model_Interface
         return $stmt->fetchAll(PDO::FETCH_CLASS, static::class);
     }
 
-    /**
-     * Tìm kiếm nâng cao với các toán tử so sánh
-     * 
-     * @param array $conditions Mảng điều kiện dạng [['field', 'operator', 'value'], ['field2', 'operator2', 'value2']]
-     * @param string $operator Toán tử logic giữa các điều kiện (AND/OR)
-     * @return array Mảng các đối tượng model
-     */
+
     public static function findWhereAdvanced(array $conditions, $operator = 'AND')
     {
         if (empty($conditions)) {
@@ -354,7 +335,7 @@ abstract class Model implements Model_Interface
 
         $query .= implode(" {$operator} ", $whereConditions);
 
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         foreach ($params as $key => $value) {
             $stmt->bindValue(":{$key}", $value);
         }
@@ -363,15 +344,7 @@ abstract class Model implements Model_Interface
         return $stmt->fetchAll(PDO::FETCH_CLASS, static::class);
     }
 
-    /**
-     * Phân trang dữ liệu
-     * 
-     * @param int $page Số trang hiện tại (bắt đầu từ 1)
-     * @param int $perPage Số bản ghi mỗi trang
-     * @param string $orderBy Cột để sắp xếp
-     * @param string $direction Hướng sắp xếp (ASC/DESC)
-     * @return array Mảng chứa 'data' (dữ liệu trang hiện tại), 'total' (tổng số bản ghi), 'last_page' (trang cuối cùng)
-     */
+
     public static function paginate($page = 1, $perPage = 10, $orderBy = null, $direction = 'ASC')
     {
         // Đảm bảo page và perPage là số nguyên dương
@@ -380,7 +353,7 @@ abstract class Model implements Model_Interface
 
         // Đếm tổng số bản ghi
         $countQuery = "SELECT COUNT(*) FROM " . static::$table;
-        $countStmt = PDO()->prepare($countQuery);
+        $countStmt = self::db()->prepare($countQuery);
         $countStmt->execute();
         $total = (int) $countStmt->fetchColumn();
 
@@ -397,7 +370,7 @@ abstract class Model implements Model_Interface
 
         $query .= " LIMIT :limit OFFSET :offset";
 
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
         $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
@@ -415,17 +388,6 @@ abstract class Model implements Model_Interface
         ];
     }
 
-    /**
-     * Phân trang với điều kiện tìm kiếm
-     * 
-     * @param array $conditions Mảng điều kiện dạng ['field' => 'value', 'field2' => 'value2']
-     * @param int $page Số trang hiện tại (bắt đầu từ 1)
-     * @param int $perPage Số bản ghi mỗi trang
-     * @param string $operator Toán tử logic giữa các điều kiện (AND/OR)
-     * @param string $orderBy Cột để sắp xếp
-     * @param string $direction Hướng sắp xếp (ASC/DESC)
-     * @return array Mảng chứa 'data', 'total', 'last_page', etc.
-     */
     public static function paginateWhere(array $conditions, $page = 1, $perPage = 10, $operator = 'AND', $orderBy = null, $direction = 'ASC')
     {
         // Đảm bảo page và perPage là số nguyên dương
@@ -458,7 +420,7 @@ abstract class Model implements Model_Interface
 
         // Đếm tổng số bản ghi thỏa mãn điều kiện
         $countQuery = "SELECT COUNT(*) FROM " . static::$table . $whereClause;
-        $countStmt = PDO()->prepare($countQuery);
+        $countStmt = self::db()->prepare($countQuery);
 
         foreach ($params as $key => $value) {
             $countStmt->bindValue(":{$key}", $value);
@@ -480,7 +442,7 @@ abstract class Model implements Model_Interface
 
         $query .= " LIMIT :limit OFFSET :offset";
 
-        $stmt = PDO()->prepare($query);
+        $stmt = self::db()->prepare($query);
 
         foreach ($params as $key => $value) {
             $stmt->bindValue(":{$key}", $value);

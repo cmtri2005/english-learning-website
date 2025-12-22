@@ -11,9 +11,13 @@ import {
   Clock,
 } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/shared/hooks/useAuth";
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview");
+  const { user } = useAuth();
+  const displayName = user?.name || user?.email || "Student";
+  console.log(user?.name);
 
   const userStats = [
     {
@@ -97,7 +101,7 @@ export default function Dashboard() {
           <div className="flex justify-between items-start mb-8">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold mb-2">
-                Welcome back, Alex! 👋
+                Welcome back, {displayName}! 👋
               </h1>
               <p className="text-muted-foreground">
                 Keep up your learning streak and master English

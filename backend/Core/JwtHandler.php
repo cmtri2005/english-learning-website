@@ -12,7 +12,10 @@ class JwtHandler
 
     public function __construct($secretKey = null, $algorithm = 'HS256', $expirationTime = 3600)
     {
-        $this->secretKey = $secretKey ?: 'your-secret-key-here-change-this-in-production';
+        if (empty($secretKey)) {
+            throw new Exception('JWT_SECRET environment variable is required. Please set it in your .env file.');
+        }
+        $this->secretKey = $secretKey;
         $this->algorithm = $algorithm;
         $this->expirationTime = $expirationTime;
     }
@@ -96,7 +99,7 @@ class JwtHandler
         $now = time();
 
         $payload = [
-            'iat' => $now, //issued at
+            'iat' => $now,
             'exp' => $now + $this->expirationTime,
             'nbf' => $now
         ];

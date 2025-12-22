@@ -5,5 +5,5 @@ namespace App\Core;
 class UserRole
 {
     const ADMIN = 'admin';
-    const STUDENT = 'student';
+    const STUDENT = 'user';
 }
