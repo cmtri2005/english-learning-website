@@ -22,6 +22,8 @@ class Account extends Model
     public $phone;
     public $address;
     public $role;
+    public $auth_provider;
+    public $google_uid;
     public $points;
     public $ranking;
     public $verify_email_token;
@@ -65,6 +67,11 @@ class Account extends Model
     public static function findByResetToken($token)
     {
         return self::findOneBy('reset_password_token', $token);
+    }
+
+    public static function findByGoogleUid($googleUid)
+    {
+        return self::findOneBy('google_uid', $googleUid);
     }
 
     public function updateResetPasswordToken($token, $expiry)

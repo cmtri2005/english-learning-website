@@ -42,11 +42,18 @@ class Cookies
     public function removeAuth()
     {
         unset($_COOKIE[$this->cookie_name]);
+        $isProduction = ($_ENV['APP_ENV'] ?? 'development') === 'production';
         setcookie(
             $this->cookie_name,
             '',
-            time() - 3600,
-            '/'
+            [
+                'expires' => time() - 3600,
+                'path' => '/',
+                'domain' => '',
+                'secure' => $isProduction,
+                'httponly' => true,
+                'samesite' => 'Lax'
+            ]
         );
     }
 
@@ -128,7 +135,7 @@ class Cookies
                 'expires' => $cookieExpire,
                 'path' => '/',
                 'domain' => '',
-                'secure' => false, // Set to true in production with HTTPS
+                'secure' => ($_ENV['APP_ENV'] ?? 'development') === 'production',
                 'httponly' => true, // Prevent XSS
                 'samesite' => 'Lax' // CSRF protection
             ];
@@ -227,11 +234,18 @@ class Cookies
     public function removeRefreshToken()
     {
         unset($_COOKIE[$this->refresh_cookie_name]);
+        $isProduction = ($_ENV['APP_ENV'] ?? 'development') === 'production';
         setcookie(
             $this->refresh_cookie_name,
             '',
-            time() - 3600,
-            '/'
+            [
+                'expires' => time() - 3600,
+                'path' => '/',
+                'domain' => '',
+                'secure' => $isProduction,
+                'httponly' => true,
+                'samesite' => 'Lax'
+            ]
         );
     }
 }

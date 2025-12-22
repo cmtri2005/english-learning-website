@@ -7,10 +7,12 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `user_id` INT PRIMARY KEY AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `email` VARCHAR(150) NOT NULL UNIQUE,
-  `password` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(255) NULL,
   `phone` VARCHAR(15),
   `address` TEXT,
   `role` ENUM('user', 'admin') DEFAULT 'user',
+  `auth_provider` ENUM('local', 'google') DEFAULT 'local',
+  `google_uid` VARCHAR(128) NULL,
   `points` SMALLINT DEFAULT 0,
   `ranking` ENUM('bronze', 'silver', 'gold', 'diamond') DEFAULT 'bronze',
   `verify_email_token` VARCHAR(255),
@@ -20,7 +22,8 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `reset_password_expires_at` TIMESTAMP NULL,
   `avatar` VARCHAR(255),
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX `idx_google_uid` (`google_uid`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 -- Course types table
@@ -220,9 +223,6 @@ CREATE TABLE IF NOT EXISTS `blog_post_tags` (
   FOREIGN KEY (`tag_id`) REFERENCES `blog_tags`(`tag_id`) ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
-
-
-
 -- Comments table
 CREATE TABLE IF NOT EXISTS `comments` (
   `comment_id` INT PRIMARY KEY AUTO_INCREMENT,
@@ -257,4 +257,75 @@ CREATE TABLE IF NOT EXISTS `reactions` (
   UNIQUE KEY `uq_user_comment` (`user_id`, `comment_id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
+
+-- Exams table
+CREATE TABLE IF NOT EXISTS `exams` (
+  `exam_id` INT PRIMARY KEY AUTO_INCREMENT,
+  `title` VARCHAR(255) NOT NULL,
+  `description` TEXT,
+  `duration_minutes` INT DEFAULT 60,
+  `total_questions` INT DEFAULT 0,
+  `type` VARCHAR(20) DEFAULT 'readlis', -- readlis, speaking, writting
+  `year` INT,
+  `audio_url` VARCHAR(255),
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+-- Exam Question Groups table
+CREATE TABLE IF NOT EXISTS `exam_question_groups` (
+  `group_id` INT PRIMARY KEY AUTO_INCREMENT,
+  `exam_id` INT NOT NULL,
+  `part_number` INT NOT NULL COMMENT '1 to 7',
+  `content_text` TEXT COMMENT 'For Reading passages',
+  `image_url` VARCHAR(255) COMMENT 'For Part 1, 7',
+  `audio_url` VARCHAR(255) COMMENT 'For Part 1-4',
+  `transcript` TEXT COMMENT 'For Listening parts',
+  FOREIGN KEY (`exam_id`) REFERENCES `exams`(`exam_id`) ON DELETE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+-- Exam Questions table
+CREATE TABLE IF NOT EXISTS `exam_questions` (
+  `question_id` INT PRIMARY KEY AUTO_INCREMENT,
+  `exam_id` INT NOT NULL,
+  `group_id` INT,
+  `part_number` INT NOT NULL COMMENT '1 to 7',
+  `question_number` INT NOT NULL,
+  `question_text` TEXT,
+  `options` JSON DEFAULT NULL,
+  `correct_answer` VARCHAR(10) DEFAULT NULL,
+  `explanation` TEXT,
+  `question_type` VARCHAR(50) DEFAULT NULL,
+  `image_urls` JSON DEFAULT NULL,
+  `audio_urls` JSON DEFAULT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`exam_id`) REFERENCES `exams`(`exam_id`) ON DELETE CASCADE,
+  FOREIGN KEY (`group_id`) REFERENCES `exam_question_groups`(`group_id`) ON DELETE SET NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+-- Exam Attempts table
+CREATE TABLE IF NOT EXISTS `exam_attempts` (
+  `attempt_id` INT PRIMARY KEY AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `exam_id` INT NOT NULL,
+  `start_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `end_time` TIMESTAMP NULL,
+  `score_listening` INT DEFAULT 0,
+  `score_reading` INT DEFAULT 0,
+  `total_score` INT DEFAULT 0,
+  `status` ENUM('in_progress', 'completed') DEFAULT 'in_progress',
+  FOREIGN KEY (`user_id`) REFERENCES `accounts`(`user_id`) ON DELETE CASCADE,
+  FOREIGN KEY (`exam_id`) REFERENCES `exams`(`exam_id`) ON DELETE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+-- Exam Attempt Answers table
+CREATE TABLE IF NOT EXISTS `exam_attempt_answers` (
+  `answer_id` INT PRIMARY KEY AUTO_INCREMENT,
+  `attempt_id` INT NOT NULL,
+  `question_id` INT NOT NULL,
+  `selected_option` VARCHAR(10),
+  `is_correct` BOOLEAN DEFAULT FALSE,
+  FOREIGN KEY (`attempt_id`) REFERENCES `exam_attempts`(`attempt_id`) ON DELETE CASCADE,
+  FOREIGN KEY (`question_id`) REFERENCES `exam_questions`(`question_id`) ON DELETE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 

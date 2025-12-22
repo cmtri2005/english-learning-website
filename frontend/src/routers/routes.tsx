@@ -31,6 +31,11 @@ import AdminCourses from '@/pages/AdminConsole/Courses';
 import AdminModeration from '@/pages/AdminConsole/Moderation';
 import AdminAnalytics from '@/pages/AdminConsole/Analytics';
 import AdminSettings from '@/pages/AdminConsole/Settings';
+import { ExamListPage } from "@/pages/Exams/index";
+import { ExamDetailPage } from "@/pages/Exams/ExamDetail";
+import { ExamTakingPage } from "@/pages/Exams/ExamTaking";
+import { ExamResultPage } from "@/pages/Exams/ExamResult";
+import { AdminImportExamPage } from "@/pages/AdminConsole/Exams/ImportExam";
 
 // ==================== Route Configuration ====================
 
@@ -121,6 +126,36 @@ export const routes: RouteObject[] = [
     ),
   },
 
+  // ===== Exam Routes =====
+  {
+    path: '/exams',
+    element: <ExamListPage />,
+  },
+  {
+    path: '/exams/:id',
+    element: (
+      <ProtectedRoute>
+        <ExamDetailPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/exams/:id/take',
+    element: (
+      <ProtectedRoute>
+        <ExamTakingPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/exams/result/:attemptId',
+    element: (
+      <ProtectedRoute>
+        <ExamResultPage />
+      </ProtectedRoute>
+    ),
+  },
+
   // ===== Admin Routes (Admin Only) =====
   {
     path: '/admin',
@@ -135,6 +170,14 @@ export const routes: RouteObject[] = [
     element: (
       <ProtectedRoute requireRoles={['admin']}>
         <AdminUsers />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/admin/exams/import',
+    element: (
+      <ProtectedRoute requireRoles={['admin']}>
+        <AdminImportExamPage />
       </ProtectedRoute>
     ),
   },

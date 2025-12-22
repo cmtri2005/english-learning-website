@@ -11,8 +11,9 @@ class AuthMiddleware
     public static function isLoggedIn(): bool
     {
         $cookies = new Cookies();
-        $isLoggedIn = $cookies->getAuth();
-        return isset($isLoggedIn);
+        // Use decodeAuth() to validate JWT signature and expiration, not just cookie existence
+        $userData = $cookies->decodeAuth();
+        return $userData !== null;
     }
 
     public static function requiredWebAuth(): void

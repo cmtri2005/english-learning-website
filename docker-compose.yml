@@ -61,6 +61,7 @@ services:
       - mysql
     volumes:
       - ./backend:/var/www/html
+      - ./data:/var/www/data
     working_dir: /var/www/html
     command: >
       sh -c "
