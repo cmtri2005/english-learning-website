@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 15 - STUDY4",
+  "testUrl": "https://study4.com/tests/5923/start/",
+  "parts": [
+    {
+      "partId": "14707",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14708",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14709",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224749",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image39.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224750",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image32.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224751",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image58.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224752",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image51.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224753",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image28.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224754",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: Bill Britten, Teachers’ Association ChairmanTo: TA MembersSubject: Summer Concert Participant RecruitmentSent: May 28, 3:45 PM.We're going to hold our annual summer concert festival from July 7 to 11. If you have any students interested in playing in our orchestra, please give us their names and the instruments they play so they can join in this wonderful event. Please reply by e-mail no later than June 6. Thanks in advance for your assistance.Directions: Respond to the e-mail as if you are a member of the Teachers’ Association. In your e-mail, ask TWO questions and give ONE piece of information about the event.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Bill Britten, Teachers’ Association Chairman",
+        "to": "TA Members",
+        "subject": "Summer Concert Participant Recruitment",
+        "sent": "May 28, 3:45 PM.",
+        "content": "We're going to hold our annual summer concert festival from July 7 to 11. If you have any students interested in playing in our orchestra, please give us their names and the instruments they play so they can join in this wonderful event. Please reply by e-mail no later than June 6. Thanks in advance for your assistance.Directions: Respond to the e-mail as if you are a member of the Teachers' Association. In your e-mail, ask TWO questions and give ONE piece of information about the event."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224755",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: P. SpataTo: A. MeansSubject: WelcomeSent: November 9, 4:08 P.M.Welcome!I'm happy to have you in our department. Please tell me if there is anything I can do to make your transition here more comfortable. And let me know if you have any questions about working in our office.Directions: Respond to the e-mail as if you are A. Means. In your e-mail, ask TWO questions about working in the new office and make ONE request.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "P. Spata",
+        "to": "A. Means",
+        "subject": "Welcome",
+        "sent": "November 9, 4:08 P.M.",
+        "content": "Welcome!I'm happy to have you in our department. Please tell me if there is anything I can do to make your transition here more comfortable. And let me know if you have any questions about working in our office.Directions: Respond to the e-mail as if you are A. Means. In your e-mail, ask TWO questions about working in the new office and make ONE request."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224756",
+      "questionType": "Unknown",
+      "context": "Writing essaysSome workers must work at night. What are the advantages and disadvantages of night-shift work? Give reasons and examples to support your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

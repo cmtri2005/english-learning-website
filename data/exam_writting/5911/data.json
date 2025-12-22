@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 3 - STUDY4",
+  "testUrl": "https://study4.com/tests/5911/start/",
+  "parts": [
+    {
+      "partId": "14671",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14672",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14673",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224653",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image66.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224654",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image68.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224655",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image26.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224656",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image73.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224657",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image31.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224658",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: Steven ApplebyTo: Martha SimonSubject: Small Business Magazine Sent: June 11, 20—Dear Ms. Simon:I work for Small Business Magazine. I am writing an article about small-business owners in your city, and I would like to interview you for the article. Would you be available to meet with me sometime next week?Thank you. Steven Appleby Directions: Respond to the e-mail as if you are Martha Simon. Say ONE time you are available and ask TWO questions.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Steven Appleby",
+        "to": "Martha Simon",
+        "subject": "Small Business Magazine",
+        "sent": "June 11, 20—",
+        "content": "Dear Ms. Simon:I work for Small Business Magazine. I am writing an article about small-business owners in your city, and I would like to interview you for the article. Would you be available to meet with me sometime next week?Thank you. Steven Appleby Directions: Respond to the e-mail as if you are Martha Simon. Say ONE time you are available and ask TWO questions."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224659",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: Samantha HawkinsTo: Hampton Human ResourcesSubject: Positions at HamptonSent: August 10, 20— Dear Sir or Madam, I am interested in applying for a position at Hampton Inc. I recently graduated from the university and am interested in any openings you may have in your Marketing Department. If you have any positions open, please let me know what they are and how I can apply.Thank you. Samantha Hawkins Directions: Respond to the e-mail as if you are a human resources officer at Hampton, Inc. In your e-mail, ask ONE question and give TWO pieces of information.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Samantha Hawkins",
+        "to": "Hampton Human Resources",
+        "subject": "Positions at Hampton",
+        "sent": "August 10, 20—",
+        "content": "Dear Sir or Madam, I am interested in applying for a position at Hampton Inc. I recently graduated from the university and am interested in any openings you may have in your Marketing Department. If you have any positions open, please let me know what they are and how I can apply.Thank you. Samantha Hawkins Directions: Respond to the e-mail as if you are a human resources officer at Hampton, Inc. In your e-mail, ask ONE question and give TWO pieces of information."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224660",
+      "questionType": "Unknown",
+      "context": "What are the advantages or disadvantages of living near work? Give reasons or examples to support your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 10 - STUDY4",
+  "testUrl": "https://study4.com/tests/5918/start/",
+  "parts": [
+    {
+      "partId": "14692",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14693",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14694",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224709",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image37.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224710",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image20.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224711",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image7.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224712",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image35.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224713",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image25.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224714",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: M. White, Manager, Digby's Fashion OutletTo: L. PartridgeSubject: Something wrong?Sent: December 13, 4:21 PM.Dear Ms. L. Partridge,I received your phone message this morning about there being some problems with the dress you bought from our store last month. Please tell me about these issues in more detail whenever it is convenient.Faithfully,M. WhiteDirections: Respond to the email as if you are L. Partridge. In your email, outline THREE problems with the dress.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "M. White, Manager, Digby's Fashion Outlet",
+        "to": "L. Partridge",
+        "subject": "Something wrong?",
+        "sent": "December 13, 4:21 PM.",
+        "content": "Dear Ms. L. Partridge,I received your phone message this morning about there being some problems with the dress you bought from our store last month. Please tell me about these issues in more detail whenever it is convenient.Faithfully,M. WhiteDirections: Respond to the email as if you are L. Partridge. In your email, outline THREE problems with the dress."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224715",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: D. Walker, Director, Peters ShippingTo: Z. Lee, Purchasing Manager, Norville SuppliesSubject: Our serviceSent: January 17, 4:12 PM.Dear Mr. Lee, I understand you tried to contact me this morning to discuss improvements you believe we could make to our services. If you'd still like to give me some feedback on how we could perform better, please respond to this email.Yours,D. WalkerDirections: Respond to the email as if you are Z. Lee. In your email, make TWO suggestions about how the company could improve its services.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "D. Walker, Director, Peters Shipping",
+        "to": "Z. Lee, Purchasing Manager, Norville Supplies",
+        "subject": "Our service",
+        "sent": "January 17, 4:12 PM.",
+        "content": "Dear Mr. Lee, I understand you tried to contact me this morning to discuss improvements you believe we could make to our services. If you'd still like to give me some feedback on how we could perform better, please respond to this email.Yours,D. WalkerDirections: Respond to the email as if you are Z. Lee. In your email, make TWO suggestions about how the company could improve its services."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224716",
+      "questionType": "Unknown",
+      "context": "Writing essaysManaging a team can be a very difficult job. In your opinion, what qualities make a good boss? Use reasons and examples to support your answer.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}
