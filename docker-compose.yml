@@ -57,6 +57,7 @@ services:
       - mysql
     volumes:
       - ./backend:/var/www/html
+      - ./data:/var/www/data
     working_dir: /var/www/html
     command: >
       bash -c "
@@ -64,6 +65,31 @@ services:
       a2enmod rewrite &&
       echo 'ServerName localhost' >> /etc/apache2/apache2.conf &&
       apache2-foreground
+      "
+
+  seed:
+    image: php:8.2-apache
+    container_name: seed_job
+    profiles: ["tools"]
+    environment:
+      DB_HOST: ${DB_HOST:-mysql}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-root123}
+      DB_NAME: ${DB_NAME:-app_db}
+    depends_on:
+      - mysql
+    volumes:
+      - ./backend:/var/www/html
+      - ./data:/var/www/data
+    working_dir: /var/www/html
+    command: >
+      bash -c "
+      echo 'Waiting for MySQL...' &&
+      sleep 10 && 
+      docker-php-ext-install pdo pdo_mysql &&
+      echo 'Running Import...' &&
+      php scripts/import_exams.php
       "
 
 volumes:

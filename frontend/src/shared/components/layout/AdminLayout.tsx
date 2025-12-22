@@ -11,6 +11,8 @@ import {
   LogOut,
   Menu,
   X,
+  ArrowLeft,
+  Home,
 } from "lucide-react";
 
 interface AdminLayoutProps {
@@ -23,7 +25,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
   const menuItems = [
     {
-      label: "Dashboard",
+      label: "Admin Dashboard",
       href: "/admin",
       icon: BarChart3,
     },
@@ -36,6 +38,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       label: "Course Management",
       href: "/admin/courses",
       icon: BookOpen,
+    },
+    {
+      label: "Exam Management",
+      href: "/admin/exams/import",
+      icon: BookOpen, // Or another icon like FileText
     },
     {
       label: "Content Moderation",
@@ -60,9 +67,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     <div className="flex h-screen bg-background">
       {/* Sidebar */}
       <aside
-        className={`${
-          sidebarOpen ? "w-64" : "w-20"
-        } border-r bg-background transition-all duration-300 flex flex-col fixed h-screen left-0 top-0 z-40 md:static`}
+        className={`${sidebarOpen ? "w-64" : "w-20"
+          } border-r bg-background transition-all duration-300 flex flex-col fixed h-screen left-0 top-0 z-40 md:static`}
       >
         {/* Logo Section */}
         <div className="p-4 border-b h-16 flex items-center justify-between">
@@ -95,9 +101,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 <Link key={item.href} to={item.href}>
                   <Button
                     variant={active ? "default" : "ghost"}
-                    className={`w-full justify-start gap-3 ${
-                      !sidebarOpen && "px-2"
-                    }`}
+                    className={`w-full justify-start gap-3 ${!sidebarOpen && "px-2"
+                      }`}
                     onClick={() => {
                       if (window.innerWidth < 768) setSidebarOpen(false);
                     }}
@@ -113,28 +118,33 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
         {/* Logout Section */}
         <div className="border-t p-4 space-y-2">
-          <Button
-            variant="ghost"
-            className="w-full justify-start gap-3"
-            onClick={() => {
-              window.location.href = "/";
-            }}
-          >
-            <LogOut size={18} className="flex-shrink-0" />
-            {sidebarOpen && <span>Exit Admin</span>}
-          </Button>
+          <Link to="/">
+            <Button
+              variant="ghost"
+              className="w-full justify-start gap-3"
+            >
+              <Home size={18} className="flex-shrink-0" />
+              {sidebarOpen && <span>Back to Home</span>}
+            </Button>
+          </Link>
         </div>
       </aside>
 
       {/* Main Content */}
       <div
-        className={`flex-1 flex flex-col ${
-          !sidebarOpen ? "md:ml-0" : "md:ml-0"
-        } ml-20 md:ml-0`}
+        className={`flex-1 flex flex-col ${!sidebarOpen ? "md:ml-0" : "md:ml-0"
+          } ml-20 md:ml-0`}
       >
         {/* Top Bar */}
         <header className="sticky top-0 z-30 h-16 border-b bg-background/95 backdrop-blur flex items-center justify-between px-6">
-          <h1 className="text-xl font-bold">Admin Dashboard</h1>
+          <div className="flex items-center gap-4">
+            {location.pathname !== '/admin' && (
+              <Button variant="ghost" size="sm" onClick={() => window.history.back()}>
+                <ArrowLeft size={20} />
+              </Button>
+            )}
+            <h1 className="text-xl font-bold">Admin Dashboard</h1>
+          </div>
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-semibold cursor-pointer">
               A

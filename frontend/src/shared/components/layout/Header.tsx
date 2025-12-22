@@ -20,9 +20,8 @@ export default function Header() {
   const navItems = [
     { label: "Home", href: "/" },
     { label: "Courses", href: "/courses" },
+    { label: "Exams", href: "/exams" },
     { label: "Blog", href: "/blog" },
-    { label: "Forum", href: "/forum" },
-    { label: "Dashboard", href: "/dashboard" },
   ];
 
   const isActive = (href: string) => location.pathname === href;
@@ -54,9 +53,9 @@ export default function Header() {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 font-bold text-2xl">
-          <img 
-            src="/logo_monolingo.png" 
-            alt="Monolingo Logo" 
+          <img
+            src="/logo_monolingo.png"
+            alt="Monolingo Logo"
             className="h-16 w-auto"
           />
           <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
@@ -76,6 +75,16 @@ export default function Header() {
               </Button>
             </Link>
           ))}
+          {isLoggedIn && user?.role === 'admin' && (
+            <Link to="/admin">
+              <Button
+                variant={isActive('/admin') ? "default" : "ghost"}
+                className="text-sm font-bold text-blue-600 hover:text-blue-700"
+              >
+                Admin Dashboard
+              </Button>
+            </Link>
+          )}
         </nav>
 
         {/* Desktop Right Section */}
@@ -122,6 +131,11 @@ export default function Header() {
                 </div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
+                  <Link to="/dashboard" className="cursor-pointer font-medium">
+                    Dashboard
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
                   <Link to="/profile" className="cursor-pointer">
                     Profile
                   </Link>
@@ -164,8 +178,8 @@ export default function Header() {
               >
                 Sign In
               </Button>
-              <Button 
-                size="sm" 
+              <Button
+                size="sm"
                 className="bg-primary hover:bg-primary/90"
                 onClick={() => navigate("/register")}
               >
@@ -277,7 +291,7 @@ export default function Header() {
                   >
                     Sign In
                   </Button>
-                  <Button 
+                  <Button
                     className="w-full bg-primary hover:bg-primary/90"
                     onClick={() => {
                       navigate("/register");

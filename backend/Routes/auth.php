@@ -28,5 +28,8 @@ $router->post('/api/auth/logout', AuthController::class . '@logout');
 // Token Refresh
 $router->post('/api/auth/refresh', AuthController::class . '@refresh');
 
+// Google Login (Firebase)
+$router->post('/api/auth/google', AuthController::class . '@googleLogin');
+
 // Current User
 $router->get('/api/auth/me', AuthController::class . '@me');

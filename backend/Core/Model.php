@@ -202,6 +202,47 @@ abstract class Model implements Model_Interface
         return $stmt->execute();
     }
 
+    /**
+     * Insert multiple records at once
+     * @param array $data Array of associative arrays
+     * @return bool
+     */
+    public static function insertBatch(array $data)
+    {
+        if (empty($data)) {
+            return false;
+        }
+
+        // Ensure all items have same keys
+        $firstItem = reset($data);
+        $columns = array_keys($firstItem);
+        $columnNames = implode(', ', $columns);
+
+        $values = [];
+        $params = [];
+        
+        foreach ($data as $index => $item) {
+            $placeholders = [];
+            foreach ($columns as $col) {
+                $paramName = ":{$col}_{$index}";
+                $placeholders[] = $paramName;
+                $params[$paramName] = $item[$col] ?? null;
+            }
+            $values[] = '(' . implode(', ', $placeholders) . ')';
+        }
+
+        $valuesStr = implode(', ', $values);
+        $query = "INSERT INTO " . static::$table . " ({$columnNames}) VALUES {$valuesStr}";
+
+        $stmt = self::db()->prepare($query);
+        
+        foreach ($params as $name => $value) {
+            $stmt->bindValue($name, $value);
+        }
+
+        return $stmt->execute();
+    }
+
 
     public static function delete($id)
     {
