@@ -37,7 +37,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     },
     {
       label: "Exam Management",
-      href: "/admin/exams/import",
+      href: "/admin/exams",
       icon: BookOpen,
     },
     {

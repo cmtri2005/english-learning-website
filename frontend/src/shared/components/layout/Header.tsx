@@ -66,16 +66,18 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-1">
-          {navItems.map((item) => (
-            <Link key={item.href} to={item.href}>
-              <Button
-                variant={isActive(item.href) ? "default" : "ghost"}
-                className="text-sm"
-              >
-                {item.label}
-              </Button>
-            </Link>
-          ))}
+          {navItems
+            .filter(item => !(item.href === '/dashboard' && user?.role === 'admin'))
+            .map((item) => (
+              <Link key={item.href} to={item.href}>
+                <Button
+                  variant={isActive(item.href) ? "default" : "ghost"}
+                  className="text-sm"
+                >
+                  {item.label}
+                </Button>
+              </Link>
+            ))}
           {isLoggedIn && user?.role === 'admin' && (
             <Link to="/admin">
               <Button
