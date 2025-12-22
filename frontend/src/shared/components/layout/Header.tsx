@@ -19,9 +19,9 @@ export default function Header() {
 
   const navItems = [
     { label: "Home", href: "/" },
-    { label: "Courses", href: "/courses" },
+    { label: "Exams", href: "/exams" },
+    { label: "Practice", href: "/practice" },
     { label: "Blog", href: "/blog" },
-    { label: "Forum", href: "/forum" },
     { label: "Dashboard", href: "/dashboard" },
   ];
 

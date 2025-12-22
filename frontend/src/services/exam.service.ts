@@ -6,6 +6,7 @@ export interface Exam {
     description: string;
     duration_minutes: number;
     total_questions: number;
+    type?: 'readlis' | 'speaking' | 'writting';
 }
 
 export interface ExamDetail extends Exam {
@@ -53,6 +54,27 @@ export interface ExamResult {
     groups: ExamQuestionGroup[];
 }
 
+export interface ExamAttemptSummary {
+    attempt_id: number;
+    exam_id: number;
+    exam_title: string;
+    exam_type: string;
+    total_score: number;
+    score_listening: number;
+    score_reading: number;
+    end_time: string;
+    status: string;
+}
+
+export interface MyAttemptsResponse {
+    attempts: ExamAttemptSummary[];
+    stats: {
+        total_attempts: number;
+        best_score: number;
+        avg_score: number;
+    };
+}
+
 export const examService = {
     getExams: async (): Promise<ApiResponse<Exam[]>> => {
         return api.examRequest<Exam[]>('/api/exams');
@@ -71,5 +93,9 @@ export const examService = {
 
     getExamResult: async (attemptId: number): Promise<ApiResponse<ExamResult>> => {
         return api.examRequest<ExamResult>(`/api/exams/result?attempt_id=${attemptId}`);
+    },
+
+    getMyAttempts: async (): Promise<ApiResponse<MyAttemptsResponse>> => {
+        return api.examRequest<MyAttemptsResponse>('/api/exams/my-attempts');
     }
 };

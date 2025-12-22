@@ -56,7 +56,7 @@ services:
       MINIO_BUCKET: my-bucket
       MINIO_PUBLIC_URL: http://localhost:9100
     ports:
-      - "8000:80"
+      - "8088:80"
     depends_on:
       - mysql
     volumes:
@@ -152,6 +152,27 @@ services:
       timeout: 10s
       retries: 3
       start_period: 15s
+
+  # Exam Data Seeder (imports exam JSON data into MySQL)
+  exam_seed:
+    build:
+      context: ./db/exam-seed
+    container_name: exam_seed
+    depends_on:
+      mysql:
+        condition: service_started
+      php-api:
+        condition: service_started
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-root123}
+      DB_NAME: ${DB_NAME:-app_db}
+    volumes:
+      - ./backend:/app
+      - ./data:/data
+    restart: "no"
 
 volumes:
   mysql_data:

@@ -332,6 +332,14 @@ class ApiClient {
   ): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, options);
   }
+
+  // Admin endpoints
+  async adminRequest<T>(
+    endpoint: string,
+    options: RequestInit = {}
+  ): Promise<ApiResponse<T>> {
+    return this.request<T>(endpoint, options);
+  }
 }
 
 export const api = new ApiClient(API_BASE_URL);

@@ -42,12 +42,13 @@ class ExamController
         $exams = Exam::all();
         // Return lightweight list
         $data = array_map(function ($exam) {
-            return [
+        return [
                 'exam_id' => $exam->exam_id,
                 'title' => $exam->title,
                 'description' => $exam->description,
                 'duration_minutes' => $exam->duration_minutes,
                 'total_questions' => $exam->total_questions,
+                'type' => $exam->type,
             ];
         }, $exams);
 
@@ -296,5 +297,74 @@ class ExamController
         $cookies = new Cookies();
         $userData = $cookies->decodeAuth();
         return $userData['user_id'] ?? null;
+    }
+
+    /**
+     * Get current user's exam attempts with stats
+     * GET /api/exams/my-attempts
+     */
+    public function myAttempts()
+    {
+        try {
+            RestApi::setHeaders();
+            $userId = $this->getUserId();
+            
+            if (!$userId) {
+                RestApi::apiError('Unauthorized', 401);
+                return;
+            }
+
+            // Fetch attempts with exam info using raw query for JOIN
+            $pdo = \App\Helper\Database::getInstance();
+            $stmt = $pdo->prepare("
+                SELECT 
+                    a.attempt_id,
+                    a.exam_id,
+                    e.title as exam_title,
+                    e.type as exam_type,
+                    a.total_score,
+                    a.score_listening,
+                    a.score_reading,
+                    a.end_time,
+                    a.status
+                FROM exam_attempts a
+                JOIN exams e ON a.exam_id = e.exam_id
+                WHERE a.user_id = :user_id AND a.status = 'completed'
+                ORDER BY a.end_time DESC
+            ");
+            $stmt->execute([':user_id' => $userId]);
+            $attempts = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+            // Calculate stats
+            $totalAttempts = count($attempts);
+            $bestScore = 0;
+            $avgScore = 0;
+            $totalScore = 0;
+
+            foreach ($attempts as $attempt) {
+                $score = (int)$attempt['total_score'];
+                $totalScore += $score;
+                if ($score > $bestScore) {
+                    $bestScore = $score;
+                }
+            }
+
+            if ($totalAttempts > 0) {
+                $avgScore = round($totalScore / $totalAttempts);
+            }
+
+            RestApi::apiResponse([
+                'attempts' => $attempts,
+                'stats' => [
+                    'total_attempts' => $totalAttempts,
+                    'best_score' => $bestScore,
+                    'avg_score' => $avgScore
+                ]
+            ], 'Exam attempts retrieved successfully', true, 200);
+
+        } catch (Exception $e) {
+            error_log('My attempts error: ' . $e->getMessage());
+            RestApi::apiError('Error fetching attempts', 500);
+        }
     }
 }

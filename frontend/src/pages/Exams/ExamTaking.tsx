@@ -253,7 +253,16 @@ export function ExamTakingPage() {
                                                 {questionsInPart.map(q => (
                                                     <button
                                                         key={q.question_id}
-                                                        onClick={() => setActivePart(partNum)}
+                                                        onClick={() => {
+                                                            setActivePart(partNum);
+                                                            // Scroll to question after state updates
+                                                            setTimeout(() => {
+                                                                const el = document.getElementById(`question-${q.question_id}`);
+                                                                if (el) {
+                                                                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                                                }
+                                                            }, 100);
+                                                        }}
                                                         className={cn(
                                                             "w-9 h-9 text-xs font-semibold rounded border flex items-center justify-center transition-all",
                                                             answers[q.question_id]
@@ -333,7 +342,7 @@ function QuestionRender({ question, answers, onAnswer, isGrouped = false, partNu
     const shouldShowImages = !(isGrouped && partNumber === 7);
 
     return (
-        <div className={cn("mb-6", !isGrouped && "p-5 border rounded-xl bg-gray-50/50")}>
+        <div id={`question-${question.question_id}`} className={cn("mb-6", !isGrouped && "p-5 border rounded-xl bg-gray-50/50")}>
             <div className="flex gap-4 mb-3">
                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-sm shadow-sm">
                     {question.question_number}

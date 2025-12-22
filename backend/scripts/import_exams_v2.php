@@ -30,7 +30,8 @@ function loadEnv($path) {
     }
 }
 
-$dataDir = dirname(__DIR__, 2) . '/data';
+// Support both Docker (/data) and local development paths
+$dataDir = is_dir('/data') ? '/data' : dirname(__DIR__, 2) . '/data';
 $types = [
     'exam_readlis' => 'readlis',
     'exam_speaking' => 'speaking',
@@ -71,7 +72,7 @@ function importExam($jsonPath, $type) {
 
     $exam = new Exam();
     $exam->title = $title;
-    $exam->description = $data['testUrl'] ?? '';
+    $exam->description = '';
     $exam->duration_minutes = match($type) {
         'readlis' => 120,
         'speaking' => 20,

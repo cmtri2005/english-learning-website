@@ -12,3 +12,6 @@ $router->post('/api/exams/submit', [ExamController::class, '@submit']);
 
 // Result
 $router->get('/api/exams/result', [ExamController::class, '@result']);
+
+// User's exam attempts (for Dashboard)
+$router->get('/api/exams/my-attempts', [ExamController::class, '@myAttempts']);

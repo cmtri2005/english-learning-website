@@ -1,5 +1,4 @@
 import { BlogCard } from './BlogCard';
-import { Button } from '@/shared/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import type { BlogPost, Pagination } from '@/services/blog';
 
@@ -14,24 +13,24 @@ interface BlogListProps {
 export function BlogList({ blogs, pagination, isLoading, error, onPageChange }: BlogListProps) {
     if (isLoading && blogs.length === 0) {
         return (
-            <div className="flex justify-center items-center py-20">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <div className="flex justify-center items-center py-24">
+                <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="text-center py-20">
-                <p className="text-destructive">{error}</p>
+            <div className="text-center py-24">
+                <p className="text-red-500">{error}</p>
             </div>
         );
     }
 
     if (blogs.length === 0) {
         return (
-            <div className="text-center py-20">
-                <p className="text-muted-foreground">Không có blog nào</p>
+            <div className="text-center py-24">
+                <p className="text-gray-500">Chưa có bài viết nào</p>
             </div>
         );
     }
@@ -39,7 +38,7 @@ export function BlogList({ blogs, pagination, isLoading, error, onPageChange }: 
     return (
         <div className="space-y-8">
             {/* Blog Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {blogs.map(blog => (
                     <BlogCard key={blog.id} blog={blog} />
                 ))}
@@ -47,58 +46,59 @@ export function BlogList({ blogs, pagination, isLoading, error, onPageChange }: 
 
             {/* Pagination */}
             {pagination && pagination.last_page > 1 && (
-                <div className="flex justify-center items-center gap-2">
-                    <Button
-                        variant="outline"
+                <div className="flex justify-center items-center gap-1">
+                    <button
+                        className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={pagination.current_page === 1 || isLoading}
                         onClick={() => onPageChange(pagination.current_page - 1)}
                     >
-                        Trước
-                    </Button>
+                        ← Trước
+                    </button>
 
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1 mx-2">
                         {Array.from({ length: pagination.last_page }, (_, i) => i + 1)
                             .filter(page => {
                                 const current = pagination.current_page;
                                 return page === 1 || page === pagination.last_page ||
-                                    (page >= current - 2 && page <= current + 2);
+                                    (page >= current - 1 && page <= current + 1);
                             })
                             .map((page, index, arr) => {
-                                // Add ellipsis
                                 const showEllipsisBefore = index > 0 && page - arr[index - 1] > 1;
-
                                 return (
                                     <span key={page} className="flex items-center">
-                                        {showEllipsisBefore && <span className="px-2">...</span>}
-                                        <Button
-                                            variant={page === pagination.current_page ? 'default' : 'outline'}
-                                            size="sm"
+                                        {showEllipsisBefore && <span className="px-2 text-gray-400">…</span>}
+                                        <button
+                                            className={`w-8 h-8 rounded text-sm ${page === pagination.current_page
+                                                    ? 'bg-gray-900 text-white'
+                                                    : 'text-gray-600 hover:bg-gray-100'
+                                                }`}
                                             onClick={() => onPageChange(page)}
                                             disabled={isLoading}
                                         >
                                             {page}
-                                        </Button>
+                                        </button>
                                     </span>
                                 );
                             })}
                     </div>
 
-                    <Button
-                        variant="outline"
+                    <button
+                        className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={pagination.current_page === pagination.last_page || isLoading}
                         onClick={() => onPageChange(pagination.current_page + 1)}
                     >
-                        Sau
-                    </Button>
+                        Sau →
+                    </button>
                 </div>
             )}
 
             {/* Page info */}
             {pagination && (
-                <p className="text-center text-sm text-muted-foreground">
-                    Hiển thị {blogs.length} / {pagination.total} bài viết
+                <p className="text-center text-sm text-gray-400">
+                    {blogs.length} / {pagination.total} bài viết
                 </p>
             )}
         </div>
     );
 }
+
