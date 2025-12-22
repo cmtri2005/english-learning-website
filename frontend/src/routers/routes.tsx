@@ -27,10 +27,7 @@ import Forum from '@/pages/Forum';
 // Admin pages (require admin/teacher role)
 import AdminDashboard from '@/pages/AdminConsole';
 import AdminUsers from '@/pages/AdminConsole/Users';
-import AdminCourses from '@/pages/AdminConsole/Courses';
 import AdminModeration from '@/pages/AdminConsole/Moderation';
-import AdminAnalytics from '@/pages/AdminConsole/Analytics';
-import AdminSettings from '@/pages/AdminConsole/Settings';
 import { ExamListPage } from "@/pages/Exams/index";
 import { ExamDetailPage } from "@/pages/Exams/ExamDetail";
 import { ExamTakingPage } from "@/pages/Exams/ExamTaking";
@@ -181,14 +178,7 @@ export const routes: RouteObject[] = [
       </ProtectedRoute>
     ),
   },
-  {
-    path: '/admin/courses',
-    element: (
-      <ProtectedRoute requireRoles={['admin']}>
-        <AdminCourses />
-      </ProtectedRoute>
-    ),
-  },
+
   {
     path: '/admin/moderation',
     element: (
@@ -197,22 +187,7 @@ export const routes: RouteObject[] = [
       </ProtectedRoute>
     ),
   },
-  {
-    path: '/admin/analytics',
-    element: (
-      <ProtectedRoute requireRoles={['admin']}>
-        <AdminAnalytics />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: '/admin/settings',
-    element: (
-      <ProtectedRoute requireRoles={['admin']}>
-        <AdminSettings />
-      </ProtectedRoute>
-    ),
-  },
+
 
   // ===== 404 Catch-All =====
   // {

@@ -23,6 +23,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const location = useLocation();
 
+
   const menuItems = [
     {
       label: "Admin Dashboard",
@@ -35,29 +36,14 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       icon: Users,
     },
     {
-      label: "Course Management",
-      href: "/admin/courses",
+      label: "Exam Management",
+      href: "/admin/exams/import",
       icon: BookOpen,
     },
     {
-      label: "Exam Management",
-      href: "/admin/exams/import",
-      icon: BookOpen, // Or another icon like FileText
-    },
-    {
-      label: "Content Moderation",
+      label: "Blog Moderation",
       href: "/admin/moderation",
       icon: MessageSquare,
-    },
-    {
-      label: "Analytics & Reports",
-      href: "/admin/analytics",
-      icon: BarChart2,
-    },
-    {
-      label: "Settings",
-      href: "/admin/settings",
-      icon: Settings,
     },
   ];
 

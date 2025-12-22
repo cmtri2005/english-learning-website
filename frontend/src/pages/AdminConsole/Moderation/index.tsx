@@ -19,7 +19,7 @@ export default function AdminModeration() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState<"All" | "draft" | "published" | "rejected">("All");
+  const [statusFilter, setStatusFilter] = useState<"All" | "draft" | "published" | "archived">("All");
   const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export default function AdminModeration() {
     switch (status) {
       case "draft": return "bg-yellow-100 text-yellow-700";
       case "published": return "bg-green-100 text-green-700";
-      case "rejected": return "bg-red-100 text-red-700";
+      case "archived": return "bg-red-100 text-red-700";
       default: return "bg-gray-100 text-gray-700";
     }
   };
@@ -140,7 +140,7 @@ export default function AdminModeration() {
             <option value="All">All Status</option>
             <option value="draft">Draft</option>
             <option value="published">Published</option>
-            <option value="rejected">Rejected</option>
+            <option value="archived">Rejected</option>
           </select>
         </div>
 
@@ -212,11 +212,11 @@ export default function AdminModeration() {
                     Publish
                   </Button>
                 )}
-                {selectedBlog.status !== 'rejected' && (
+                {selectedBlog.status !== 'archived' && (
                   <Button
                     variant="outline"
                     className="w-full gap-2 text-orange-600"
-                    onClick={() => handleUpdateStatus(selectedBlog.id, 'rejected')}
+                    onClick={() => handleUpdateStatus(selectedBlog.id, 'archived')}
                   >
                     <XCircle size={16} />
                     Reject

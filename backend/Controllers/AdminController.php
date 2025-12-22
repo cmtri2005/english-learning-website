@@ -203,10 +203,10 @@ class AdminController
 
         // Get all blogs with author info
         $stmt = $pdo->query("
-            SELECT b.id, b.title, b.slug, b.status, b.created_at, b.updated_at,
+            SELECT b.blog_id as id, b.title, b.slug, b.status, b.created_at, b.updated_at,
                    a.name as author_name, a.email as author_email
             FROM blogs b
-            LEFT JOIN accounts a ON b.author_id = a.user_id
+            LEFT JOIN accounts a ON b.user_id = a.user_id
             ORDER BY b.created_at DESC
         ");
         $blogs = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -242,12 +242,12 @@ class AdminController
         $body = RestApi::getBody();
         $status = $body['status'] ?? null;
 
-        if (!$status || !in_array($status, ['draft', 'published', 'rejected'])) {
+        if (!$status || !in_array($status, ['draft', 'published', 'archived'])) {
             RestApi::apiError('Invalid status', 400);
             return;
         }
 
-        $stmt = $pdo->prepare("UPDATE blogs SET status = :status, updated_at = NOW() WHERE id = :id");
+        $stmt = $pdo->prepare("UPDATE blogs SET status = :status, updated_at = NOW() WHERE blog_id = :id");
         $stmt->execute([':status' => $status, ':id' => $id]);
 
         RestApi::apiResponse(null, 'Blog updated successfully');
@@ -278,7 +278,7 @@ class AdminController
             return;
         }
 
-        $stmt = $pdo->prepare("DELETE FROM blogs WHERE id = :id");
+        $stmt = $pdo->prepare("DELETE FROM blogs WHERE blog_id = :id");
         $stmt->execute([':id' => $id]);
 
         RestApi::apiResponse(null, 'Blog deleted successfully');
