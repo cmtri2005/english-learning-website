@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 25 - STUDY4",
+  "testUrl": "https://study4.com/tests/5964/start/",
+  "parts": [
+    {
+      "partId": "14904",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14905",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14906",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "225055",
+      "questionType": "Unknown",
+      "context": "chair / since",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image86.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "225056",
+      "questionType": "Unknown",
+      "context": "meet / room",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image168.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "225057",
+      "questionType": "Unknown",
+      "context": "listen / careful",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image27.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "225058",
+      "questionType": "Unknown",
+      "context": "wait / until",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image113.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "225059",
+      "questionType": "Unknown",
+      "context": "as / talk",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image31.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "225060",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.From: K. LehmannTo: A. MitraSubject: Invitation to give a workshopDear Dr. Mitra,I enjoyed your workshop at the convention last week. I’d like to invite you to give a similar presentation to the employees at Gammite Enterprises. When would you be available? Also, please let me know what you will need for your presentation.Klaus LehmannManager, Gammite EnterprisesDirections: Respond to the e-mail. In your e-mail, give THREE pieces of information.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "K. Lehmann",
+        "to": "A. Mitra",
+        "subject": "Invitation to give a workshop",
+        "sent": "",
+        "content": "Dear Dr. Mitra,I enjoyed your workshop at the convention last week. I'd like to invite you to give a similar presentation to the employees at Gammite Enterprises. When would you be available? Also, please let me know what you will need for your presentation.Klaus LehmannManager, Gammite EnterprisesDirections: Respond to the e-mail. In your e-mail, give THREE pieces of information."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "225061",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.From: Premier LandscapingTo: Landerson Law OfficesSubject: Customer satisfactionYour office recently stopped using our company for your gardening and landscaping needs. Customer service is very important to us, so we would like to hear from you! Please tell us why you canceled your service and how you think we might better serve our customers in the future.Directions: Respond to the e-mail. In your e-mail, provide TWO reasons and make ONE suggestion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Premier Landscaping",
+        "to": "Landerson Law Offices",
+        "subject": "Customer satisfaction",
+        "sent": "",
+        "content": "Your office recently stopped using our company for your gardening and landscaping needs. Customer service is very important to us, so we would like to hear from you! Please tell us why you canceled your service and how you think we might better serve our customers in the future.Directions: Respond to the e-mail. In your e-mail, provide TWO reasons and make ONE suggestion."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "225062",
+      "questionType": "Unknown",
+      "context": "During a job interview, which is more important: creativity or adaptability? Give reasons and examples to support your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

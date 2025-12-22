@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 29 - STUDY4",
+  "testUrl": "https://study4.com/tests/5968/start/",
+  "parts": [
+    {
+      "partId": "14916",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14917",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14918",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "225087",
+      "questionType": "Unknown",
+      "context": "laptop / coffee shop",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image217.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "225088",
+      "questionType": "Unknown",
+      "context": "student / laboratory",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image19.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "225089",
+      "questionType": "Unknown",
+      "context": "fall / block",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image84.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "225090",
+      "questionType": "Unknown",
+      "context": "cashier / items",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image165.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "225091",
+      "questionType": "Unknown",
+      "context": "breakfast / toast",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image127.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "225092",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.From: LuisTo: MichelleSubject: Hotel adviceSent: February 10, 11:31 P.M.Hi, Michelle.How have you been? I hope you are fine.I am scheduled to go on a business trip next month, and I will stay at the SKY Hotel. I heard that you stayed there last time. How was the hotel?If you could give me some information on the hotel, I would really appreciate it.Regards, LuiDirections: Respond to the e-mail. In your e-mail, include THREE inconvenient details.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Luis",
+        "to": "Michelle",
+        "subject": "Hotel advice",
+        "sent": "February 10, 11:31 P.M.",
+        "content": "Hi, Michelle.How have you been? I hope you are fine.I am scheduled to go on a business trip next month, and I will stay at the SKY Hotel. I heard that you stayed there last time. How was the hotel?If you could give me some information on the hotel, I would really appreciate it.Regards, LuiDirections: Respond to the e-mail. In your e-mail, include THREE inconvenient details."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "225093",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.From: JeffTo: SKY InstituteSubject: Part-time jobSent: May 20, 09:31 Α.Μ.To whom it may concern:I saw your job opening on the AVD Web site, and I am interested in the part-time job.If you give me a chance, I'd like to do the part-time job at your institute to improve my work skills.However, I cannot find any information on your institute, so I'd appreciate it if you could send me some information regarding it.Thank you for your time and consideration in this matter. I look forward to your reply.Best Regards,JeffDirections: Respond to the e-mail. In your e-mail, give TWO pieces of information about the SKY Institute and ONE suggestion for applying for the part-time job.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Jeff",
+        "to": "SKY Institute",
+        "subject": "Part-time job",
+        "sent": "May 20, 09:31 Α.Μ.",
+        "content": "To whom it may concern:I saw your job opening on the AVD Web site, and I am interested in the part-time job.If you give me a chance, I'd like to do the part-time job at your institute to improve my work skills.However, I cannot find any information on your institute, so I'd appreciate it if you could send me some information regarding it.Thank you for your time and consideration in this matter. I look forward to your reply.Best Regards,JeffDirections: Respond to the e-mail. In your e-mail, give TWO pieces of information about the SKY Institute and ONE suggestion for applying for the part-time job."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "225094",
+      "questionType": "Unknown",
+      "context": "\"Praising is the best way to motivate employees.\"Do you agree or disagree with the statement above?",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

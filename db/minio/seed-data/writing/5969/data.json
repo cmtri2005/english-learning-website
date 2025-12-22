@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 30 - STUDY4",
+  "testUrl": "https://study4.com/tests/5969/start/",
+  "parts": [
+    {
+      "partId": "14919",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14920",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14921",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "225095",
+      "questionType": "Unknown",
+      "context": "on / assist",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image77.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "225096",
+      "questionType": "Unknown",
+      "context": "browse / crowded",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image146.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "225097",
+      "questionType": "Unknown",
+      "context": "check in / document",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image179.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "225098",
+      "questionType": "Unknown",
+      "context": "visitor / as",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image68.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "225099",
+      "questionType": "Unknown",
+      "context": "when / gallery",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/extra/image16.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "225100",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.From: Piero CaggiaTo: artlessons@ikedasartstudio.comSubject: Art lessonsHello,I saw your advertisement about art lessons on the Ikeda’s Art Studio website. I am interested in lessons for my son. Could you tell me about your qualifications and more about the lessons you provide?Thanks,Piero CaggiaDirections: Respond to the e-mail as if you are the art instructor. In your e-mail, give TWO pieces of information and ONE instruction.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Piero Caggia",
+        "to": "artlessons@ikedasartstudio.com",
+        "subject": "Art lessons",
+        "sent": "",
+        "content": "Hello,I saw your advertisement about art lessons on the Ikeda's Art Studio website. I am interested in lessons for my son. Could you tell me about your qualifications and more about the lessons you provide?Thanks,Piero CaggiaDirections: Respond to the e-mail as if you are the art instructor. In your e-mail, give TWO pieces of information and ONE instruction."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "225101",
+      "questionType": "Respond to Email",
+      "context": "Direction: Read the e-mail below.From: SAO Computer Customer ServiceTo: New customerSubject: Thank youWe would like to thank you for purchasing our computer.We hope that you are satisfied with our product. If you have experienced any problems so far, please contact us via e-mail at sao@sao.com. Thank you!Directions: Respond to the e-mail as if you are a customer of SAO Computer Company. In your e-mail, describe TWO problems that you have had with the computer and make ONE request for information.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "SAO Computer Customer Service",
+        "to": "New customer",
+        "subject": "Thank you",
+        "sent": "",
+        "content": "We would like to thank you for purchasing our computer.We hope that you are satisfied with our product. If you have experienced any problems so far, please contact us via e-mail at sao@sao.com. Thank you!Directions: Respond to the e-mail as if you are a customer of SAO Computer Company. In your e-mail, describe TWO problems that you have had with the computer and make ONE request for information."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "225102",
+      "questionType": "Unknown",
+      "context": "Do you prefer a teacher with a sense of humor or one who is more serious? Give reasons and examples to support your opinion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "testName": "TOEIC SW Writing Test 7 - STUDY4",
+  "testUrl": "https://study4.com/tests/5915/start/",
+  "parts": [
+    {
+      "partId": "14683",
+      "partTitle": "Questions 1-5"
+    },
+    {
+      "partId": "14684",
+      "partTitle": "Questions 6-7"
+    },
+    {
+      "partId": "14685",
+      "partTitle": "Question 8"
+    }
+  ],
+  "questions": [
+    {
+      "questionNumber": 1,
+      "questionId": "224685",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image47.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 2,
+      "questionId": "224686",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image57.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 3,
+      "questionId": "224687",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image34.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 4,
+      "questionId": "224688",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image16.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 5,
+      "questionId": "224689",
+      "questionType": "Write Sentence from Picture",
+      "context": "Write a sentence based on a picture",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [
+        "https://s4-media1.study4.com/media/toeic_sw_tests/writing/image21.png"
+      ],
+      "emailDetails": null
+    },
+    {
+      "questionNumber": 6,
+      "questionId": "224690",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: Marco Facinni, Marketing DirectorTo: Cherie Black, Marketing Representative Subject: Promotion opportunitySent: March 23, 5:21 PM Hello Mr. Black, I would like to offer you a promotion to the role of marketing supervisor. You are one of our best performing employees, and I’m sure you can handle this responsibility. This position offers an excellent benefits package. Please contact me soon to let me know your decision.Regards, Marco Facinni Directions: Respond to the email as if you're the marketing representative. In your email, describe TWO questions you have about the promotion.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Marco Facinni, Marketing Director",
+        "to": "Cherie Black, Marketing Representative",
+        "subject": "Promotion opportunity",
+        "sent": "March 23, 5:21 PM",
+        "content": "Hello Mr. Black, I would like to offer you a promotion to the role of marketing supervisor. You are one of our best performing employees, and I’m sure you can handle this responsibility. This position offers an excellent benefits package. Please contact me soon to let me know your decision.Regards, Marco Facinni Directions: Respond to the email as if you're the marketing representative. In your email, describe TWO questions you have about the promotion."
+      }
+    },
+    {
+      "questionNumber": 7,
+      "questionId": "224691",
+      "questionType": "Respond to Email",
+      "context": "Respond to an emailFrom: Jenny Bierre, Marketing Manager, HyperComTo: Mailing listSubject: Great Off-Peak Plan!!Sent: August 14, 12:22 P.M.Dear HyperCom customer,HyperCom is offering an amazing new cell phone plan. The Off-Peak Plan is just $15 a month. Users can receive unlimited calling time outside normal business hours. This deal can’t be beaten! Please contact us right away if you have any questions about this great offer.Yours faithfully,Jenny BierreMarketing Manager, HyperComDirections: Respond to the email as if you are a customer. In your email, make THREE questions.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": {
+        "from": "Jenny Bierre, Marketing Manager, HyperCom",
+        "to": "Mailing list",
+        "subject": "Great Off-Peak Plan!!",
+        "sent": "August 14, 12:22 P.M.",
+        "content": "Dear HyperCom customer,HyperCom is offering an amazing new cell phone plan. The Off-Peak Plan is just $15 a month. Users can receive unlimited calling time outside normal business hours. This deal can’t be beaten! Please contact us right away if you have any questions about this great offer.Yours faithfully,Jenny BierreMarketing Manager, HyperComDirections: Respond to the email as if you are a customer. In your email, make THREE questions."
+      }
+    },
+    {
+      "questionNumber": 8,
+      "questionId": "224692",
+      "questionType": "Unknown",
+      "context": "Writing essaysWhat do you think a candidate should do to prepare for a job interview? Use specific examples and details to support your answer.",
+      "userAnswer": "Thêm ghi chú / dàn ý",
+      "imageUrls": [],
+      "emailDetails": null
+    }
+  ]
+}
