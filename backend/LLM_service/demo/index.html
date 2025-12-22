@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice - English Learning</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .header h1 { font-size: 1.5rem; color: #333; }
+        .api-status { font-size: 0.85rem; padding: 4px 10px; border-radius: 4px; }
+        .api-status.connected { background: #d4edda; color: #155724; }
+        .api-status.disconnected { background: #f8d7da; color: #721c24; }
+        .tabs { display: flex; gap: 0; margin-bottom: 20px; border-bottom: 2px solid #ddd; }
+        .tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #666;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+        .tab:hover { color: #333; }
+        .tab.active { color: #2196F3; border-bottom-color: #2196F3; font-weight: 500; }
+        .panel { display: none; }
+        .panel.active { display: block; }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .card h3 { font-size: 1rem; margin-bottom: 12px; color: #333; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 0.9rem; color: #555; }
+        textarea, input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+        textarea { min-height: 120px; resize: vertical; }
+        textarea:focus, input:focus { outline: none; border-color: #2196F3; }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .btn-primary { background: #2196F3; color: white; }
+        .btn-primary:hover { background: #1976D2; }
+        .btn-primary:disabled { background: #ccc; cursor: not-allowed; }
+        .btn-secondary { background: #f5f5f5; color: #333; border: 1px solid #ddd; }
+        .btn-secondary:hover { background: #eee; }
+        .btn-record { background: #4CAF50; color: white; }
+        .btn-record:hover { background: #43A047; }
+        .btn-record.recording { background: #f44336; }
+        .btn-record.recording:hover { background: #d32f2f; }
+        .topic-box {
+            background: #f8f9fa;
+            border-left: 3px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 6px 6px 0;
+        }
+        .topic-box .test-name { font-size: 0.8rem; color: #666; margin-bottom: 5px; }
+        .topic-box .context { font-size: 1rem; color: #333; }
+        .record-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .recording-indicator { display: none; align-items: center; gap: 8px; color: #f44336; font-size: 0.9rem; }
+        .recording-indicator.show { display: flex; }
+        .pulse {
+            width: 10px;
+            height: 10px;
+            background: #f44336;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        audio { max-width: 100%; margin-top: 10px; }
+        .scores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .score-item { text-align: center; padding: 10px; background: #f8f9fa; border-radius: 6px; }
+        .score-item .value { font-size: 1.5rem; font-weight: 600; color: #333; }
+        .score-item .label { font-size: 0.75rem; color: #666; }
+        .score-item.overall { background: #e3f2fd; }
+        .score-item.overall .value { color: #1976D2; }
+        .score-item.off-topic { background: #ffebee; }
+        .score-item.off-topic .value { color: #c62828; }
+        .feedback-section { margin-top: 15px; }
+        .feedback-section h4 { font-size: 0.9rem; margin-bottom: 8px; color: #333; }
+        .error-item {
+            background: #fff5f5;
+            border-left: 3px solid #f44336;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.9rem;
+        }
+        .error-item .type { font-size: 0.75rem; color: #666; text-transform: uppercase; }
+        .warning-box {
+            background: #fff3e0;
+            border-left: 3px solid #ff9800;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 0 4px 4px 0;
+        }
+        .success-box {
+            background: #e8f5e9;
+            border-left: 3px solid #4CAF50;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 0 4px 4px 0;
+        }
+        .loading {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: #e3f2fd;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+        .loading.show { display: flex; }
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #2196F3;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .result { display: none; }
+        .result.show { display: block; }
+        .hidden { display: none !important; }
+        .mt-10 { margin-top: 10px; }
+        .mt-15 { margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Practice</h1>
+            <span id="apiStatus" class="api-status disconnected">Đang kiểm tra...</span>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" data-panel="speaking">Speaking</button>
+            <button class="tab" data-panel="writing">Writing</button>
+        </div>
+        
+        <div id="speaking" class="panel active">
+            <div class="card">
+                <button id="getSpeakingTopic" class="btn btn-primary">Lấy đề bài mới</button>
+            </div>
+            
+            <div id="speakingTopicCard" class="card hidden">
+                <h3>Đề bài</h3>
+                <div class="topic-box">
+                    <div class="test-name" id="speakingTestName"></div>
+                    <div class="context" id="speakingContext"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Ghi âm câu trả lời</label>
+                    <div class="record-controls">
+                        <button id="recordBtn" class="btn btn-record">Bắt đầu ghi</button>
+                        <div id="recordingIndicator" class="recording-indicator">
+                            <span class="pulse"></span>
+                            <span id="recordingTime">00:00</span>
+                        </div>
+                    </div>
+                    <audio id="audioPlayback" controls class="hidden mt-10"></audio>
+                </div>
+                
+                <div class="form-group">
+                    <label>Hoặc upload file audio</label>
+                    <input type="file" id="audioFile" accept="audio/*">
+                </div>
+                
+                <div class="form-group">
+                    <label>Hoặc nhập transcript</label>
+                    <textarea id="speakingTranscript" placeholder="Nhập câu trả lời của bạn..."></textarea>
+                </div>
+                
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button id="evaluateSpeakingAudio" class="btn btn-primary" disabled>Đánh giá audio</button>
+                    <button id="evaluateSpeakingText" class="btn btn-secondary">Đánh giá text</button>
+                </div>
+            </div>
+            
+            <div id="speakingLoading" class="loading">
+                <div class="spinner"></div>
+                <span id="speakingLoadingText">Đang xử lý...</span>
+            </div>
+            
+            <div id="speakingResult" class="result">
+                <div class="card">
+                    <h3>Kết quả đánh giá</h3>
+                    <div id="offTopicWarning" class="warning-box hidden"></div>
+                    <div id="transcriptBox" class="topic-box hidden">
+                        <div class="test-name">Transcript</div>
+                        <div class="context" id="transcriptText"></div>
+                    </div>
+                    <div id="speakingScores" class="scores-grid"></div>
+                    <div id="speakingFeedback" class="feedback-section"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="writing" class="panel">
+            <div class="card">
+                <button id="getWritingTopic" class="btn btn-primary">Lấy đề bài mới</button>
+            </div>
+            
+            <div id="writingTopicCard" class="card hidden">
+                <h3>Đề bài</h3>
+                <div class="topic-box">
+                    <div class="test-name" id="writingTestName"></div>
+                    <div class="context" id="writingContext"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Bài viết của bạn</label>
+                    <textarea id="writingEssay" placeholder="Viết bài của bạn ở đây..." style="min-height: 200px;"></textarea>
+                </div>
+                
+                <button id="evaluateWriting" class="btn btn-primary">Đánh giá bài viết</button>
+            </div>
+            
+            <div id="writingLoading" class="loading">
+                <div class="spinner"></div>
+                <span>Đang đánh giá...</span>
+            </div>
+            
+            <div id="writingResult" class="result">
+                <div class="card">
+                    <h3>Kết quả đánh giá</h3>
+                    <div id="writingScores" class="scores-grid"></div>
+                    <div id="writingFeedback" class="feedback-section"></div>
+                    <div id="improvedVersion" class="success-box hidden mt-15">
+                        <h4 style="margin-bottom: 8px;">Bài viết được cải thiện</h4>
+                        <p id="improvedText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

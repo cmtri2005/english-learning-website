@@ -1,0 +1,11 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.3
+minio==7.2.12
+openai==1.58.1
+python-multipart==0.0.19
+datasets==3.2.0
+huggingface-hub==0.27.0
+gtts==2.5.3
+pydub==0.25.1
+watchfiles==1.0.3
