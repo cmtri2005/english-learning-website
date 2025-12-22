@@ -187,4 +187,159 @@ class AdminExamController
             'explanation' => $qData['explanation'] ?? null
         ]);
     }
+
+    /**
+     * List all exams (admin only)
+     * GET /api/admin/exams
+     */
+    public function getExams()
+    {
+        try {
+            RestApi::setHeaders();
+            
+            $userId = RestApi::getCurrentUserId();
+            if (!$userId) {
+                RestApi::apiError('Unauthorized', 401);
+                return;
+            }
+
+            // Admin check would go here
+            
+            $search = $_GET['search'] ?? '';
+            $type = $_GET['type'] ?? '';
+            $page = (int)($_GET['page'] ?? 1);
+            $perPage = (int)($_GET['per_page'] ?? 20);
+            $offset = ($page - 1) * $perPage;
+
+            $pdo = \App\Helper\Database::getInstance();
+            
+            // Build query
+            $where = "1=1";
+            $params = [];
+            
+            if ($search) {
+                $where .= " AND (title LIKE :search OR description LIKE :search)";
+                $params[':search'] = "%{$search}%";
+            }
+            if ($type) {
+                $where .= " AND type = :type";
+                $params[':type'] = $type;
+            }
+            
+            // Count total
+            $countStmt = $pdo->prepare("SELECT COUNT(*) as total FROM exams WHERE {$where}");
+            $countStmt->execute($params);
+            $total = (int)$countStmt->fetch(\PDO::FETCH_ASSOC)['total'];
+            
+            // Fetch exams
+            $stmt = $pdo->prepare("
+                SELECT exam_id, title, description, type, duration_minutes, total_questions, year, created_at
+                FROM exams 
+                WHERE {$where}
+                ORDER BY created_at DESC
+                LIMIT {$perPage} OFFSET {$offset}
+            ");
+            $stmt->execute($params);
+            $exams = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+            RestApi::apiResponse([
+                'exams' => $exams,
+                'pagination' => [
+                    'current_page' => $page,
+                    'per_page' => $perPage,
+                    'total' => $total,
+                    'last_page' => ceil($total / $perPage)
+                ]
+            ], 'Success');
+
+        } catch (Exception $e) {
+            error_log('Get exams error: ' . $e->getMessage());
+            RestApi::apiError('Failed to get exams', 500);
+        }
+    }
+
+    /**
+     * Delete exam (admin only)
+     * DELETE /api/admin/exams/:id
+     */
+    public function deleteExam($id)
+    {
+        try {
+            RestApi::setHeaders();
+            
+            $userId = RestApi::getCurrentUserId();
+            if (!$userId) {
+                RestApi::apiError('Unauthorized', 401);
+                return;
+            }
+
+            $pdo = \App\Helper\Database::getInstance();
+            
+            // Check exam exists
+            $stmt = $pdo->prepare("SELECT exam_id FROM exams WHERE exam_id = :id");
+            $stmt->execute([':id' => $id]);
+            if (!$stmt->fetch()) {
+                RestApi::apiError('Exam not found', 404);
+                return;
+            }
+            
+            // Delete exam (cascades to questions, groups, attempts via FK)
+            $stmt = $pdo->prepare("DELETE FROM exams WHERE exam_id = :id");
+            $stmt->execute([':id' => $id]);
+
+            RestApi::apiResponse(null, 'Exam deleted successfully');
+
+        } catch (Exception $e) {
+            error_log('Delete exam error: ' . $e->getMessage());
+            RestApi::apiError('Failed to delete exam', 500);
+        }
+    }
+
+    /**
+     * Create exam manually (admin only)
+     * POST /api/admin/exams
+     */
+    public function createExam()
+    {
+        try {
+            RestApi::setHeaders();
+            
+            $userId = RestApi::getCurrentUserId();
+            if (!$userId) {
+                RestApi::apiError('Unauthorized', 401);
+                return;
+            }
+
+            $body = RestApi::getBody();
+            
+            // Validate required fields
+            if (empty($body['title'])) {
+                RestApi::apiError('Title is required', 400);
+                return;
+            }
+            
+            // Create exam
+            $exam = Exam::create([
+                'title' => $body['title'],
+                'description' => $body['description'] ?? '',
+                'type' => $body['type'] ?? 'readlis',
+                'duration_minutes' => $body['duration_minutes'] ?? 120,
+                'year' => $body['year'] ?? date('Y'),
+                'total_questions' => 0
+            ]);
+
+            if (!$exam) {
+                throw new Exception("Failed to create exam");
+            }
+
+            RestApi::apiResponse([
+                'exam_id' => $exam->exam_id,
+                'title' => $exam->title
+            ], 'Exam created successfully', true, 201);
+
+        } catch (Exception $e) {
+            error_log('Create exam error: ' . $e->getMessage());
+            RestApi::apiError('Failed to create exam', 500);
+        }
+    }
 }

@@ -4,7 +4,10 @@ use App\Controllers\AdminExamController;
 use App\Controllers\AdminController;
 
 // Admin Exam Routes
+$router->get('/api/admin/exams', [AdminExamController::class, '@getExams']);
+$router->post('/api/admin/exams', [AdminExamController::class, '@createExam']);
 $router->post('/api/admin/exams/import', [AdminExamController::class, '@import']);
+$router->delete('/api/admin/exams/:id', [AdminExamController::class, '@deleteExam']);
 
 // Admin User Routes
 $router->get('/api/admin/users', [AdminController::class, '@getUsers']);
