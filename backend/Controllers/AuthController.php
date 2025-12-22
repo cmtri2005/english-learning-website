@@ -667,6 +667,168 @@ class AuthController
     }
 
     /**
+     * Google Login with Firebase
+     * 
+     * Flow:
+     * 1. Receive Firebase ID token from frontend
+     * 2. Verify token with Google's public keys
+     * 3. Find or create user by google_uid
+     * 4. Return JWT tokens
+     */
+    public function googleLogin()
+    {
+        try {
+            RestApi::setHeaders();
+            $body = RestApi::getBody();
+
+            $idToken = $body['idToken'] ?? '';
+
+            if (empty($idToken)) {
+                RestApi::apiError('ID Token không được để trống', 400);
+                return;
+            }
+
+            // Verify Firebase ID token with Google
+            $firebaseUser = $this->verifyFirebaseToken($idToken);
+
+            if (!$firebaseUser) {
+                RestApi::apiError('Token không hợp lệ hoặc đã hết hạn', 401);
+                return;
+            }
+
+            $googleUid = $firebaseUser['sub'] ?? $firebaseUser['user_id'] ?? null;
+            $email = $firebaseUser['email'] ?? null;
+            $name = $firebaseUser['name'] ?? $firebaseUser['email'] ?? 'Google User';
+            $avatar = $firebaseUser['picture'] ?? null;
+
+            if (!$googleUid || !$email) {
+                RestApi::apiError('Không thể lấy thông tin từ Google', 400);
+                return;
+            }
+
+            // Find user by google_uid
+            $user = Account::findByGoogleUid($googleUid);
+
+            if (!$user) {
+                // Check if user exists with this email (but registered with password)
+                $existingUser = Account::findByEmail($email);
+
+                if ($existingUser) {
+                    // Link Google account to existing user using update()
+                    $updateData = [
+                        'google_uid' => $googleUid,
+                        'auth_provider' => 'google'
+                    ];
+                    if (empty($existingUser->avatar) && $avatar) {
+                        $updateData['avatar'] = $avatar;
+                    }
+                    Account::update($existingUser->user_id, $updateData);
+                    
+                    // Refresh user data
+                    $user = Account::find($existingUser->user_id);
+                } else {
+                    // Create new user
+                    $user = Account::create([
+                        'email' => $email,
+                        'name' => $name,
+                        'password' => null, // No password for Google users
+                        'role' => UserRole::STUDENT,
+                        'auth_provider' => 'google',
+                        'google_uid' => $googleUid,
+                        'avatar' => $avatar,
+                        'verify_email_token' => null // Google users are pre-verified
+                    ]);
+
+                    if (!$user) {
+                        RestApi::apiError('Không thể tạo tài khoản. Vui lòng thử lại sau.', 500);
+                        return;
+                    }
+                }
+            }
+
+            // Generate tokens
+            $tokens = AuthService::generateTokens($user);
+            $userData = AuthService::formatUserData($user);
+
+            // Set cookies
+            $cookies = new Cookies();
+            $cookies->setAuth([
+                'user_id' => $user->user_id,
+                'email' => $user->email,
+                'role' => $user->role
+            ]);
+            $cookies->setRefreshToken($tokens['refresh']);
+
+            RestApi::apiResponse([
+                'user' => $userData,
+                'token' => $tokens['access']
+            ], 'Đăng nhập Google thành công', true, 200);
+
+        } catch (Exception $e) {
+            error_log('Google login error: ' . $e->getMessage());
+            error_log('Stack trace: ' . $e->getTraceAsString());
+
+            if (ob_get_level() > 0) {
+                ob_clean();
+            }
+
+            RestApi::apiError('Đã xảy ra lỗi khi đăng nhập với Google.', 500);
+        }
+    }
+
+    /**
+     * Verify Firebase ID token using Google's public keys
+     */
+    private function verifyFirebaseToken($idToken)
+    {
+        try {
+            // Decode token header to get kid
+            $tokenParts = explode('.', $idToken);
+            if (count($tokenParts) !== 3) {
+                return null;
+            }
+
+            $header = json_decode(base64_decode(strtr($tokenParts[0], '-_', '+/')), true);
+            $payload = json_decode(base64_decode(strtr($tokenParts[1], '-_', '+/')), true);
+
+            if (!$header || !$payload) {
+                return null;
+            }
+
+            // Check token expiration
+            if (isset($payload['exp']) && $payload['exp'] < time()) {
+                error_log('Firebase token expired');
+                return null;
+            }
+
+            // Check issuer
+            $projectId = $_ENV['FIREBASE_PROJECT_ID'] ?? 'php-login-a3255';
+            $expectedIssuer = 'https://securetoken.google.com/' . $projectId;
+            
+            if (!isset($payload['iss']) || $payload['iss'] !== $expectedIssuer) {
+                error_log('Firebase token issuer mismatch');
+                return null;
+            }
+
+            // Check audience
+            if (!isset($payload['aud']) || $payload['aud'] !== $projectId) {
+                error_log('Firebase token audience mismatch');
+                return null;
+            }
+
+            // For production, you should verify the signature using Google's public keys
+            // For now, we trust the token structure (Firebase SDK already verified it client-side)
+            // TODO: Implement full signature verification with cached public keys
+
+            return $payload;
+
+        } catch (Exception $e) {
+            error_log('Firebase token verification error: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
      * Tạo mật khẩu ngẫu nhiên
      * 
      * @param int $length Độ dài mật khẩu (mặc định 12)

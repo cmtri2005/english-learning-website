@@ -249,6 +249,14 @@ class ApiClient {
     });
   }
 
+  // Google Login - send Firebase ID token to backend for verification
+  async googleLogin(idToken: string): Promise<ApiResponse<AuthResponse>> {
+    return this.request<AuthResponse>('/api/auth/google', {
+      method: 'POST',
+      body: JSON.stringify({ idToken }),
+    });
+  }
+
   // Forgot password (quên mật khẩu) - gửi email để nhận link reset
   async forgotPassword(data: { email: string }): Promise<ApiResponse<{ message: string }>> {
     return this.request<{ message: string }>('/api/auth/forgot-password', {
