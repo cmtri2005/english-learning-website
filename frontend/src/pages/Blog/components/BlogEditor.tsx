@@ -264,6 +264,14 @@ export function BlogEditor() {
                                         . Khi tải lên, file sẽ được đổi tên theo dạng <code className="bg-background px-1 rounded">bl.png</code> (ảnh đại diện) và <code className="bg-background px-1 rounded">bl_n.png</code> (ảnh nội dung).
                                     </p>
                                 </div>
+
+                                {/* Info about pending approval */}
+                                <div className="flex items-start gap-2 p-3 bg-blue-50 border border-blue-200 rounded-lg text-xs text-blue-700">
+                                    <Info className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                                    <p>
+                                        <strong>Lưu ý:</strong> Khi nhấn "Xuất bản", bài viết sẽ được gửi để <strong>duyệt bởi Admin</strong> trước khi được công khai. Bạn có thể theo dõi trạng thái tại trang "Blog của tôi".
+                                    </p>
+                                </div>
                             </CardContent>
                         </Card>
 

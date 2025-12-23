@@ -156,17 +156,6 @@ export default function Login() {
                     Create one
                   </Link>
                 </div>
-
-                {/* Only show demo credentials in development mode */}
-                {import.meta.env.DEV && (
-                  <div className="pt-4 border-t">
-                    <p className="text-xs text-center text-muted-foreground mb-2">Demo Accounts (Development Only):</p>
-                    <div className="space-y-1 text-xs text-muted-foreground">
-                      <p>Admin: admin@monolingo.com / password123</p>
-                      <p>Student: student@monolingo.com / password123</p>
-                    </div>
-                  </div>
-                )}
               </CardFooter>
             </form>
           </Card>

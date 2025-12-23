@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Core\RestApi;
+use App\Core\UserRole;
+use App\Models\Account;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\BlogTag;
@@ -163,6 +165,16 @@ class BlogController
             // Generate excerpt if not provided
             $excerpt = $body['excerpt'] ?? BlogService::generateExcerpt($body['content']);
 
+            // Determine status - non-admin users cannot publish directly
+            $requestedStatus = $body['status'] ?? 'draft';
+            $user = Account::find($userId);
+            $isAdmin = $user && $user->role === UserRole::ADMIN;
+            
+            // If user wants to publish but is not admin, set to pending
+            if ($requestedStatus === 'published' && !$isAdmin) {
+                $requestedStatus = 'pending';
+            }
+
             // Create blog
             $blog = Blog::create([
                 'user_id' => $userId,
@@ -170,7 +182,7 @@ class BlogController
                 'title' => $body['title'],
                 'slug' => $slug,
                 'excerpt' => $excerpt,
-                'status' => $body['status'] ?? 'draft',
+                'status' => $requestedStatus,
                 'meta_title' => $body['meta_title'] ?? $body['title'],
                 'meta_description' => $body['meta_description'] ?? $excerpt,
                 'view_count' => 0
@@ -262,7 +274,19 @@ class BlogController
             }
             if (isset($body['excerpt'])) $updateData['excerpt'] = $body['excerpt'];
             if (isset($body['category_id'])) $updateData['category_id'] = $body['category_id'];
-            if (isset($body['status'])) $updateData['status'] = $body['status'];
+            
+            // Handle status - non-admin users cannot publish directly
+            if (isset($body['status'])) {
+                $user = Account::find($userId);
+                $isAdmin = $user && $user->role === UserRole::ADMIN;
+                
+                // If user wants to publish but is not admin, set to pending
+                if ($body['status'] === 'published' && !$isAdmin) {
+                    $updateData['status'] = 'pending';
+                } else {
+                    $updateData['status'] = $body['status'];
+                }
+            }
             if (isset($body['meta_title'])) $updateData['meta_title'] = $body['meta_title'];
             if (isset($body['meta_description'])) $updateData['meta_description'] = $body['meta_description'];
 

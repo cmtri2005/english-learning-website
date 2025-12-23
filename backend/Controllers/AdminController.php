@@ -242,7 +242,7 @@ class AdminController
         $body = RestApi::getBody();
         $status = $body['status'] ?? null;
 
-        if (!$status || !in_array($status, ['draft', 'published', 'archived'])) {
+        if (!$status || !in_array($status, ['draft', 'pending', 'published', 'archived'])) {
             RestApi::apiError('Invalid status', 400);
             return;
         }

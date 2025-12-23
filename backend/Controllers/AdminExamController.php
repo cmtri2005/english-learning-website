@@ -113,14 +113,6 @@ class AdminExamController
 
                 // 2. Process Standalone Questions (or Study4 Questions)
                 foreach ($standaloneQuestions as $qData) {
-                    // Study4 might have images/audio at question level -> treat as standalone question
-                    // If Study4 question has 'image', passing it to 'question_text' might strictly not be enough if we want to show image.
-                    // But our ExamQuestion model doesn't have image_url column? 
-                    // Let's check init.sql or assume ExamQuestion is text-only?
-                    // Actually, usually Part 1 questions ARE grouped by image, or the question ITSELF has an image.
-                    // My Schema: `exam_question_groups` has `image_url`. `exam_questions` does NOT.
-                    // So if a Study4 question has an image, I should wrap it in a GROUP.
-                    
                     if ($isStudy4 && !empty($qData['image'])) {
                         // Create a synthetic group for this question
                          $group = ExamQuestionGroup::create([

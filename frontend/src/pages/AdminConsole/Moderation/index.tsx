@@ -19,7 +19,7 @@ export default function AdminModeration() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState<"All" | "draft" | "published" | "archived">("All");
+  const [statusFilter, setStatusFilter] = useState<"All" | "pending" | "draft" | "published" | "archived">("All");
   const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
 
   useEffect(() => {
@@ -90,6 +90,7 @@ export default function AdminModeration() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
+      case "pending": return "bg-blue-100 text-blue-700";
       case "draft": return "bg-yellow-100 text-yellow-700";
       case "published": return "bg-green-100 text-green-700";
       case "archived": return "bg-red-100 text-red-700";
@@ -138,6 +139,7 @@ export default function AdminModeration() {
             className="px-4 py-2 border rounded-lg bg-white"
           >
             <option value="All">All Status</option>
+            <option value="pending">Pending</option>
             <option value="draft">Draft</option>
             <option value="published">Published</option>
             <option value="archived">Rejected</option>
@@ -240,10 +242,16 @@ export default function AdminModeration() {
         </div>
 
         {/* Stats */}
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-4 gap-4">
           <div className="p-4 rounded-lg border bg-white">
             <p className="text-sm text-gray-500">Total Blogs</p>
             <p className="text-2xl font-semibold">{blogs.length}</p>
+          </div>
+          <div className="p-4 rounded-lg border bg-white">
+            <p className="text-sm text-gray-500">Pending</p>
+            <p className="text-2xl font-semibold text-blue-600">
+              {blogs.filter((b) => b.status === "pending").length}
+            </p>
           </div>
           <div className="p-4 rounded-lg border bg-white">
             <p className="text-sm text-gray-500">Published</p>

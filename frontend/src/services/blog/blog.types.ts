@@ -26,7 +26,7 @@ export interface BlogPost {
     title: string;
     slug: string;
     excerpt: string;
-    status: 'draft' | 'published' | 'archived';
+    status: 'draft' | 'pending' | 'published' | 'archived';
     view_count: number;
     meta_title?: string;
     meta_description?: string;
@@ -75,7 +75,7 @@ export interface CreateBlogRequest {
     content?: string;
     excerpt?: string;
     category_id?: number;
-    status?: 'draft' | 'published';
+    status?: 'draft' | 'pending' | 'published';
     tags?: number[];
     meta_title?: string;
     meta_description?: string;
@@ -86,7 +86,7 @@ export interface UpdateBlogRequest {
     content?: string;
     excerpt?: string;
     category_id?: number;
-    status?: 'draft' | 'published' | 'archived';
+    status?: 'draft' | 'pending' | 'published' | 'archived';
     tags?: number[];
     meta_title?: string;
     meta_description?: string;

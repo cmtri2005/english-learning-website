@@ -94,7 +94,7 @@ class BlogService
         }
 
         // Status validation
-        if (isset($data['status']) && !in_array($data['status'], ['draft', 'published', 'archived'])) {
+        if (isset($data['status']) && !in_array($data['status'], ['draft', 'pending', 'published', 'archived'])) {
             $errors['status'] = 'Trạng thái không hợp lệ';
         }
 

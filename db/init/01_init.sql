@@ -196,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `blogs` (
   `excerpt` TEXT,
   -- `content` VARCHAR(1024) NOT NULL,  
   -- `featured_image` VARCHAR(1024) NOT NULL,
-  `status` ENUM('draft', 'published', 'archived') DEFAULT 'draft',
+  `status` ENUM('draft', 'pending', 'published', 'archived') DEFAULT 'draft',
   `meta_title` VARCHAR(255),
   `meta_description` TEXT,
   `view_count` INT DEFAULT 0,

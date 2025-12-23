@@ -70,14 +70,6 @@ class ExamController
         $questions = ExamQuestion::findWhere(['exam_id' => $id]);
 
         // Organize data
-        // We need to structure it by Parts or just flat list?
-        // Frontend likely needs flattened list of questions, but with context of Groups.
-        // Let's attach groups to questions or vice versa.
-        // Better: Return structure that helps frontend render.
-        // { exam: ..., parts: { 1: { groups: [ { ..., questions: [] } ] } } }
-
-        // Simpler for now: map group information to questions if needed, but Groups are fundamental for Parts 1-4, 6-7.
-
         $groupsById = [];
         foreach ($groups as $g) {
             $groupsById[$g->group_id] = $g;
@@ -280,8 +272,6 @@ class ExamController
 
     private function getUserId()
     {
-        // Copy logic from AuthController::me() or similar helper
-        // Simplified:
         $jwt = new JwtHandler($_ENV['JWT_SECRET'] ?? '');
         $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
         if (strpos($authHeader, 'Bearer ') === 0) {
@@ -292,8 +282,6 @@ class ExamController
             } catch (\Throwable $th) {
             }
         }
-
-        // Cookie fallback
         $cookies = new Cookies();
         $userData = $cookies->decodeAuth();
         return $userData['user_id'] ?? null;
