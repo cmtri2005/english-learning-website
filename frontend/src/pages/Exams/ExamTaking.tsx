@@ -6,10 +6,18 @@ import { Card, CardContent } from "@/shared/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/shared/components/ui/radio-group";
 import { Label } from "@/shared/components/ui/label";
 import { cn } from "@/shared/lib/utils";
-import { LogOut, Settings, Volume2, Info, Maximize2, Minimize2 } from "lucide-react";
+import { LogOut, Settings, Volume2, Info, Maximize2, Minimize2, AlertTriangle, CheckCircle2, XCircle, Loader2 } from "lucide-react";
 import { Switch } from "@/shared/components/ui/switch";
 import { Textarea } from "@/shared/components/ui/textarea";
 import { AppLayout } from "@/shared/components/layout";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from "@/shared/components/ui/dialog";
 
 // Helper to format time
 const formatTime = (seconds: number) => {
@@ -29,6 +37,11 @@ export function ExamTakingPage() {
     const [answers, setAnswers] = useState<Record<number, string>>({}); // question_id -> option
     const [activePart, setActivePart] = useState(1);
     const [isFocusMode, setIsFocusMode] = useState(false);
+
+    // Submit confirmation dialog state
+    const [showSubmitDialog, setShowSubmitDialog] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
 
     // Processed Data
     const [parts, setParts] = useState<Record<number, (ExamQuestionGroup | ExamQuestion)[]>>({});
@@ -80,7 +93,7 @@ export function ExamTakingPage() {
             setTimeLeft(t => {
                 if (t <= 1) {
                     clearInterval(interval);
-                    submitExam();
+                    autoSubmitOnTimeout();
                     return 0;
                 }
                 return t - 1;
@@ -93,22 +106,52 @@ export function ExamTakingPage() {
         setAnswers(prev => ({ ...prev, [questionId]: value }));
     };
 
-    const submitExam = async () => {
+    // Open the submit confirmation dialog
+    const openSubmitDialog = () => {
+        setSubmitError(null);
+        setShowSubmitDialog(true);
+    };
+
+    // Actually submit the exam
+    const confirmSubmit = async () => {
         if (!id) return;
-        if (!window.confirm('Bạn có chắc chắn muốn nộp bài?')) return;
+        setIsSubmitting(true);
+        setSubmitError(null);
 
         try {
             const res = await examService.submitExam(parseInt(id), answers);
             if (res.success && res.data) {
+                setShowSubmitDialog(false);
                 navigate(`/exams/result/${res.data.attempt_id}`);
             } else {
-                alert('Submission failed');
+                setSubmitError('Không thể nộp bài. Vui lòng thử lại.');
             }
         } catch (e) {
             console.error(e);
-            alert('Error submitting');
+            setSubmitError('Có lỗi xảy ra khi nộp bài. Vui lòng thử lại.');
+        } finally {
+            setIsSubmitting(false);
         }
     };
+
+    // Auto-submit when time runs out (skip dialog)
+    const autoSubmitOnTimeout = async () => {
+        if (!id) return;
+        try {
+            const res = await examService.submitExam(parseInt(id), answers);
+            if (res.success && res.data) {
+                navigate(`/exams/result/${res.data.attempt_id}`);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    // Calculate answered questions count
+    const totalQuestions = Object.values(parts).flatMap(items =>
+        items.flatMap(item => 'questions' in item ? item.questions : [item])
+    ).length;
+    const answeredCount = Object.keys(answers).length;
 
     if (loading) return <div className="p-8 flex justify-center text-lg">Đang tải đề thi...</div>;
     if (!examDetail) return <div className="p-8 text-red-500">Không thể tải đề thi</div>;
@@ -226,7 +269,7 @@ export function ExamTakingPage() {
 
                                 <Button
                                     className="w-full text-lg font-bold h-12 bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-50"
-                                    onClick={submitExam}
+                                    onClick={openSubmitDialog}
                                 >
                                     NỘP BÀI
                                 </Button>
@@ -285,13 +328,102 @@ export function ExamTakingPage() {
         </div>
     );
 
+    // Submit Confirmation Dialog
+    const SubmitDialog = (
+        <Dialog open={showSubmitDialog} onOpenChange={setShowSubmitDialog}>
+            <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                    <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-blue-100">
+                        <AlertTriangle className="h-7 w-7 text-blue-600" />
+                    </div>
+                    <DialogTitle className="text-center text-xl">
+                        Xác nhận nộp bài
+                    </DialogTitle>
+                    <DialogDescription className="text-center pt-2">
+                        Bạn có chắc chắn muốn nộp bài không?
+                    </DialogDescription>
+                </DialogHeader>
+
+                {/* Progress Info */}
+                <div className="bg-gray-50 rounded-lg p-4 my-2">
+                    <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm text-gray-600">Câu đã trả lời:</span>
+                        <span className="font-bold text-lg">
+                            <span className={answeredCount === totalQuestions ? "text-green-600" : "text-orange-500"}>
+                                {answeredCount}
+                            </span>
+                            <span className="text-gray-400"> / {totalQuestions}</span>
+                        </span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div
+                            className={cn(
+                                "h-2 rounded-full transition-all",
+                                answeredCount === totalQuestions ? "bg-green-500" : "bg-orange-400"
+                            )}
+                            style={{ width: `${totalQuestions > 0 ? (answeredCount / totalQuestions) * 100 : 0}%` }}
+                        />
+                    </div>
+                    {answeredCount < totalQuestions && (
+                        <p className="text-xs text-orange-600 mt-2 flex items-center gap-1">
+                            <AlertTriangle className="h-3 w-3" />
+                            Bạn còn {totalQuestions - answeredCount} câu chưa trả lời
+                        </p>
+                    )}
+                </div>
+
+                {/* Error Message */}
+                {submitError && (
+                    <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                        <XCircle className="h-4 w-4 flex-shrink-0" />
+                        {submitError}
+                    </div>
+                )}
+
+                <DialogFooter className="gap-2 sm:gap-2">
+                    <Button
+                        variant="outline"
+                        onClick={() => setShowSubmitDialog(false)}
+                        disabled={isSubmitting}
+                        className="flex-1"
+                    >
+                        Tiếp tục làm bài
+                    </Button>
+                    <Button
+                        onClick={confirmSubmit}
+                        disabled={isSubmitting}
+                        className="flex-1 bg-blue-600 hover:bg-blue-700"
+                    >
+                        {isSubmitting ? (
+                            <>
+                                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                                Đang nộp...
+                            </>
+                        ) : (
+                            <>
+                                <CheckCircle2 className="h-4 w-4 mr-2" />
+                                Nộp bài
+                            </>
+                        )}
+                    </Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
+    );
+
     if (isFocusMode) {
-        return Content;
+        return (
+            <>
+                {Content}
+                {SubmitDialog}
+            </>
+        );
     }
 
     return (
         <AppLayout>
             {Content}
+            {SubmitDialog}
         </AppLayout>
     );
 }
