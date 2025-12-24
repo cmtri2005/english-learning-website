@@ -223,35 +223,35 @@ export function BlogEditor() {
                     <div className="space-y-6">
                         {/* Publish Card */}
                         <Card>
-                            <CardHeader>
-                                <CardTitle>Xuất bản</CardTitle>
+                            <CardHeader className="p-4 pb-2">
+                                <CardTitle className="text-base font-semibold">Xuất bản</CardTitle>
                             </CardHeader>
-                            <CardContent className="space-y-4">
-                                <div className="flex gap-2">
+                            <CardContent className="p-4 pt-2 space-y-4">
+                                <div className="grid grid-cols-2 gap-2">
                                     <Button
-                                        className="flex-1"
+                                        className="w-full flex items-center justify-center gap-2"
                                         variant="outline"
                                         onClick={() => submitWithImages('draft')}
                                         disabled={isLoading}
                                     >
                                         {isLoading ? (
-                                            <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                                            <Loader2 className="h-4 w-4 animate-spin" />
                                         ) : (
-                                            <Save className="h-4 w-4 mr-2" />
+                                            <Save className="h-4 w-4 flex-shrink-0" />
                                         )}
-                                        Lưu nháp
+                                        <span>Lưu nháp</span>
                                     </Button>
                                     <Button
-                                        className="flex-1"
+                                        className="w-full flex items-center justify-center gap-2"
                                         onClick={() => submitWithImages('published')}
                                         disabled={isLoading}
                                     >
                                         {isLoading ? (
-                                            <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                                            <Loader2 className="h-4 w-4 animate-spin" />
                                         ) : (
-                                            <Eye className="h-4 w-4 mr-2" />
+                                            <Eye className="h-4 w-4 flex-shrink-0" />
                                         )}
-                                        Xuất bản
+                                        <span>Xuất bản</span>
                                     </Button>
                                 </div>
 
@@ -277,10 +277,10 @@ export function BlogEditor() {
 
                         {/* Category */}
                         <Card>
-                            <CardHeader>
-                                <CardTitle>Danh mục</CardTitle>
+                            <CardHeader className="p-4 pb-2">
+                                <CardTitle className="text-base font-semibold">Danh mục</CardTitle>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="p-4 pt-2">
                                 <Select value={categoryId} onValueChange={setCategoryId}>
                                     <SelectTrigger>
                                         <SelectValue placeholder="Chọn danh mục" />
@@ -298,10 +298,10 @@ export function BlogEditor() {
 
                         {/* Tags */}
                         <Card>
-                            <CardHeader>
-                                <CardTitle>Tags</CardTitle>
+                            <CardHeader className="p-4 pb-2">
+                                <CardTitle className="text-base font-semibold">Tags</CardTitle>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="p-4 pt-2">
                                 <div className="flex flex-wrap gap-2">
                                     {allTags.map(tag => (
                                         <Badge
